@@ -1,0 +1,10 @@
+.button {
+	padding: 12px 22px;
+	text-transform: initial;
+	box-shadow: none;
+
+	&--focus-visible,
+	&-focusVisible {
+		box-shadow: 0 0 2px 1px rgba(red, .2);
+	}
+}

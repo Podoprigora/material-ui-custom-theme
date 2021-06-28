@@ -2,6 +2,7 @@ const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (_, config) => {
     const { mode = 'development' } = config;
@@ -15,10 +16,15 @@ module.exports = (_, config) => {
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: '[name]-[contenthash].js',
-            chunkFilename: '[name]-[contenthash].js'
+            chunkFilename: '[name]-[contenthash].js',
+            assetModuleFilename: 'images/[hash][ext][query]'
         },
         plugins: [
             ...(!isDev ? new CleanWebpackPlugin() : []),
+            new MiniCssExtractPlugin({
+                filename: '[name].css',
+                chunkFilename: '[name].css'
+            }),
             new HtmlWebpackPlugin({
                 template: './public/index.html'
             })
@@ -71,6 +77,39 @@ module.exports = (_, config) => {
                             }
                         }
                     ]
+                },
+                {
+                    test: /\.(css|scss)$/,
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'resolve-url-loader'
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(jpe?g|png)$/i,
+                    type: 'asset/resource'
                 }
             ]
         }
