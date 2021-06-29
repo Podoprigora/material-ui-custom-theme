@@ -1,8 +1,37 @@
 .MuiButton {
 	&-root {
-		padding: 12px 22px;
+		font-family: $font-family-secondary;
+		font-size: $font-size-medium;
+		font-weight: 500;
+		letter-spacing: .4px;
+		line-height: inherit;
 		text-transform: initial;
+		padding: 1.2rem 2rem;
+		border-radius: 1rem;
+	}
+
+	&-contained {
 		box-shadow: none;
+
+		&:hover {
+			box-shadow: inherit;
+		}
+	}
+
+	&-containedPrimary {
+		background-color: $color-primary;
+
+		&:hover {
+			background-color: rgba($color-primary, .8);
+		}
+	}
+
+	&-containedSecondary {
+		background-color: $color-secondary;
+
+		&:hover {
+			background-color: rgba($color-secondary, .8);
+		}
 	}
 
 	&-focusVisible {

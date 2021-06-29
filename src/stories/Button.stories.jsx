@@ -12,7 +12,7 @@ export const Default = (args) => {
 };
 
 Default.args = {
-    color: 'primary',
+    color: 'secondary',
     variant: 'contained',
     children: 'Test Button'
 };
