@@ -11,7 +11,7 @@ module.exports = (_, config) => {
     return {
         mode,
         entry: {
-            app: ['./src/index.js']
+            app: ['./src/index.tsx']
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
@@ -30,7 +30,7 @@ module.exports = (_, config) => {
             })
         ],
         resolve: {
-            extensions: ['.js', '.jsx', '.json']
+            extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
         },
         optimization: {
             runtimeChunk: 'single',
@@ -63,13 +63,17 @@ module.exports = (_, config) => {
         module: {
             rules: [
                 {
-                    test: /.(jsx?)$/i,
+                    test: /.(js|ts)x?$/i,
                     exclude: /node_modules/,
                     use: [
                         {
                             loader: 'babel-loader',
                             options: {
-                                presets: ['@babel/preset-env', '@babel/preset-react'],
+                                presets: [
+                                    '@babel/preset-env',
+                                    '@babel/preset-react',
+                                    '@babel/preset-typescript'
+                                ],
                                 plugins: [
                                     '@babel/plugin-transform-runtime',
                                     '@babel/plugin-syntax-dynamic-import'

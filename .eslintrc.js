@@ -4,15 +4,24 @@ module.exports = {
         es2021: true,
         node: true
     },
-    extends: ['airbnb', 'airbnb/hooks', 'plugin:prettier/recommended'],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module',
         ecmaFeatures: {
             jsx: true
         },
-        ecmaVersion: 12,
-        sourceType: 'module'
+        project: './tsconfig.json'
     },
-    plugins: ['react'],
+    extends: [
+        'airbnb-typescript',
+        'plugin:prettier/recommended',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+        'prettier/react'
+    ],
+    plugins: ['@typescript-eslint', 'react'],
     rules: {
         camelcase: 0,
         'no-console': 0,
