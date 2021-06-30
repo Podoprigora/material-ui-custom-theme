@@ -1,7 +1,14 @@
 const path = require('path');
 
+const TsConfigPathPlugin = require('tsconfig-paths-webpack-plugin');
+
 module.exports = {
     webpackFinal: async (config) => {
+        config.resolve = {
+            ...config.resolve,
+            plugins: [new TsConfigPathPlugin()]
+        };
+
         const cssRule = config.module.rules.find(({ test }) => /css/gi.test(test));
 
         if (cssRule) {

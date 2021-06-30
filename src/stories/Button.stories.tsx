@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, ButtonProps } from '../mui-custom/Button';
+import { Button, ButtonProps } from '@mui-custom/Button';
 
 export default {
     component: Button,
