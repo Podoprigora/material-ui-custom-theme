@@ -1,40 +1,80 @@
 .MuiButton {
 	&-root {
-		font-family: $font-family-secondary;
-		font-size: $font-size-medium;
-		font-weight: 500;
-		letter-spacing: .4px;
-		line-height: inherit;
+		font-family: $font-family;
+		font-size: $btn-font-size;
+		font-weight: $btn-font-weight;
+		line-height: $btn-line-height;
 		text-transform: initial;
-		padding: 1.2rem 2rem;
-		border-radius: 1rem;
+		padding: $btn-padding-y $btn-padding-x;
+		border-radius: $btn-border-radius;
+		transition: $btn-transition;
 	}
 
 	&-contained {
+		background-color: $btn-bg-color;
+		color: $btn-color;
 		box-shadow: none;
 
 		&:hover {
 			box-shadow: inherit;
+			background-color: rgba($btn-bg-color, $btn-hover-opacity);
+		}
+
+		&Primary {
+			background-color: $color-primary;
+
+			&:hover {
+				background-color: rgba($color-primary, $btn-hover-opacity);
+			}
+		}
+
+		&Secondary {
+			background-color: $color-secondary;
+
+			&:hover {
+				background-color: rgba($color-secondary, $btn-hover-opacity);
+			}
 		}
 	}
 
-	&-containedPrimary {
-		background-color: $color-primary;
+	&-outlined {
+		$selector: &;
+
+		color: $btn-bg-color;
+		border-width: $btn-border-width;
+		padding: calc(#{$btn-padding-y} - #{$btn-border-width}) calc(#{$btn-padding-x} - #{$btn-border-width});
+		border-color: rgba($btn-bg-color, $btn-outlined-border-opacity);
 
 		&:hover {
-			background-color: rgba($color-primary, .8);
+			@extend #{$selector};
+			background-color: rgba($btn-bg-color, $btn-outlined-hover-opacity);
+		}
+
+		&Primary {
+			$selector: &;
+			color: $color-primary;
+			border-width: $btn-border-width;
+			border-color: rgba($color-primary, $btn-outlined-border-opacity);
+
+			&:hover {
+				@extend #{$selector};
+				background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+			}
+		}
+
+		&Secondary {
+			$selector: &;
+			color: $color-secondary;
+			border-color: rgba($color-secondary, $btn-outlined-border-opacity);
+
+			&:hover {
+				@extend #{$selector};
+				background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+			}
 		}
 	}
 
-	&-containedSecondary {
-		background-color: $color-secondary;
-
-		&:hover {
-			background-color: rgba($color-secondary, .8);
-		}
-	}
-
-	&-focusVisible {
-		box-shadow: 0 0 2px 1px rgba(red, .2);
+	&-focusVisible.Mui-focusVisible {
+		box-shadow: $btn-focus-visible-box-shadow;
 	}
 }

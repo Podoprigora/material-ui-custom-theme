@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StylesProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '../src/mui-custom/ThemeProvider';
 
 import '../src/scss/styles.scss';
 
@@ -17,9 +17,9 @@ export const parameters = {
 export const decorators = [
     (Story) => {
         return (
-            <StylesProvider injectFirst>
+            <ThemeProvider>
                 <Story />
-            </StylesProvider>
+            </ThemeProvider>
         );
     }
 ];
