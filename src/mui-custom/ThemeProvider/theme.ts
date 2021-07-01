@@ -1,13 +1,15 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core';
 
-export const theme = createMuiTheme({
-    props: {
+export const theme = createTheme({
+    components: {
         MuiButton: {
-            disableElevation: true,
-            disableRipple: true,
-            disableFocusRipple: true,
-            focusRipple: false,
-            focusVisibleClassName: 'MuiButton-focusVisible'
+            defaultProps: {
+                disableElevation: true,
+                disableRipple: true,
+                disableFocusRipple: true,
+                focusRipple: false,
+                focusVisibleClassName: 'MuiButton-focusVisible'
+            }
         }
     }
 });

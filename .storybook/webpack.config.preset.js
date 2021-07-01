@@ -6,6 +6,12 @@ module.exports = {
     webpackFinal: async (config) => {
         config.resolve = {
             ...config.resolve,
+            alias: {
+                ...config.resolve.alias,
+                // To fix the issue: https://github.com/mui-org/material-ui/issues/24282
+                '@emotion/core': path.resolve('./node_modules/@emotion/react'),
+                'emotion-theming': path.resolve('./node_modules/@emotion/react')
+            },
             plugins: [new TsConfigPathPlugin()]
         };
 
