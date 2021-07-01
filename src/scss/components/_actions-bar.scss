@@ -4,4 +4,9 @@
 	grid-gap: $spacing-scale-6;
 	align-items: center;
 	justify-content: start;
+
+	&--direction-column {
+		grid-template-columns: none;
+		justify-items: start;
+	}
 }

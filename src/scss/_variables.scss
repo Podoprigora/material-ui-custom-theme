@@ -21,8 +21,8 @@ $color-secondary-dark: #ad57a0;
 $color-secondary-text: #fff;
 
 // Body
-$body-bg-color: $gray-lighten-5 !default;
-$body-color: $gray-darken-4 !default;
+$body-bg-color: $gray-lighten-5;
+$body-color: $gray-darken-4;
 
 // Border radius
 $border-radius-sm: .4rem;
@@ -107,8 +107,8 @@ $box-shadow-lg: 0 .4rem 1.6rem -.1rem rgba(0, 0, 0, 0.25);
 $box-shadow: $box-shadow-md;
 
 // MuiButton
-$btn-color: $white;
-$btn-bg-color: $gray-darken-3;
+$btn-color: $gray-darken-4;
+$btn-bg-color: $gray-lighten-3;
 $btn-hover-bg-color: $white;
 $btn-small-font-size: $font-size-small;
 $btn-medium-font-size: $font-size-xmedium;
@@ -117,13 +117,25 @@ $btn-font-size: $btn-medium-font-size;
 $btn-font-weight: 400;
 $btn-text-transform: none;
 $btn-line-height: 1.2;
-$btn-padding-y: $spacing-scale-7;
-$btn-padding-x: $spacing-scale-12;
+$btn-large-padding-y: 0;
+$btn-large-padding-x: $spacing-scale-12;
+$btn-large-min-height: 4.8rem;
+$btn-medium-padding-y: 0;
+$btn-medium-padding-x: $spacing-scale-10;
+$btn-medium-min-height: 4rem;
+$btn-small-padding-y: 0;
+$btn-small-padding-x: $spacing-scale-8;
+$btn-small-min-height: 3rem;
 $btn-border-width: 2px;
 $btn-border-radius: $border-radius-lg;
-$btn-outlined-hover-opacity: .06;
+$btn-outlined-hover-opacity: .065;
 $btn-outlined-border-opacity: .55;
 $btn-disabled-opacity: .4;
-$btn-hover-opacity: .85;
+$btn-hover-opacity: .65;
 $btn-focus-visible-box-shadow: 0 0px 0px .4rem rgba($color-primary, .3);
 $btn-transition: all .15s ease;
+
+// Icon
+$icon-large-font-size: 2.4rem;
+$icon-medium-font-size: 2.2rem;
+$icon-small-font-size: 1.8rem;

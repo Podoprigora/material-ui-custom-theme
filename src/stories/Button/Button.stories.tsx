@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { ArrowDropDown, KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
 
 import { Button, ButtonProps } from './TemplateButton';
 
@@ -21,28 +23,137 @@ Default.args = {
 export const Examples = () => {
     return (
         <>
+            {/* Contained */}
+
             <div className="actions-bar u-margin-b-10">
-                <Button color="primary" variant="contained">
-                    Save product
-                </Button>
-                <Button color="secondary" variant="contained">
-                    Save product
-                </Button>
                 <Button variant="contained">Save product</Button>
-            </div>
-            <div className="actions-bar u-margin-b-10">
-                <Button variant="outlined" color="primary">
+                <Button variant="contained" color="secondary">
                     Save product
                 </Button>
+                <Button variant="contained" color="inherit">
+                    Save product
+                </Button>
+            </div>
+
+            {/* Contained disabled */}
+
+            <div className="actions-bar u-margin-b-10">
+                <Button variant="contained" disabled>
+                    Save product
+                </Button>
+                <Button variant="contained" color="secondary" disabled>
+                    Save product
+                </Button>
+                <Button variant="contained" color="inherit" disabled>
+                    Save product
+                </Button>
+            </div>
+
+            {/* Outlined */}
+
+            <div className="actions-bar u-margin-b-10">
+                <Button variant="outlined">Save product</Button>
                 <Button variant="outlined" color="secondary">
                     Save product
                 </Button>
-                <Button variant="outlined">Save product</Button>
+                <Button variant="outlined" color="inherit">
+                    Save product
+                </Button>
             </div>
+            {/* Outlined disabled */}
             <div className="actions-bar u-margin-b-10">
-                <Button color="primary">Save product</Button>
-                <Button color="secondary">Save product</Button>
-                <Button>Save product</Button>
+                <Button variant="outlined" disabled>
+                    Save product
+                </Button>
+                <Button variant="outlined" color="secondary" disabled>
+                    Save product
+                </Button>
+                <Button variant="outlined" color="inherit" disabled>
+                    Save product
+                </Button>
+            </div>
+
+            {/* Text */}
+
+            <div className="actions-bar u-margin-b-10">
+                <Button variant="text">Save product</Button>
+                <Button variant="text" color="secondary">
+                    Save product
+                </Button>
+                <Button variant="text" color="inherit">
+                    Save product
+                </Button>
+            </div>
+
+            {/* Text disabled */}
+
+            <div className="actions-bar u-margin-b-10">
+                <Button variant="text" disabled>
+                    Save product
+                </Button>
+                <Button variant="text" color="secondary" disabled>
+                    Save product
+                </Button>
+                <Button variant="text" color="inherit" disabled>
+                    Save product
+                </Button>
+            </div>
+
+            {/* Sizes */}
+
+            <div className="actions-bar actions-bar--direction-column u-margin-b-10">
+                <Button variant="contained" color="secondary" size="large">
+                    Save product
+                </Button>
+                <Button variant="contained" color="secondary" size="medium">
+                    Save product
+                </Button>
+                <Button variant="contained" color="secondary" size="small">
+                    Save product
+                </Button>
+            </div>
+            <div className="actions-bar actions-bar--direction-column u-margin-b-10">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    startIcon={<ShoppingCart />}
+                    endIcon={<KeyboardArrowRight />}
+                >
+                    Save product
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="medium"
+                    startIcon={<ShoppingCart />}
+                >
+                    Save product
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    startIcon={<ShoppingCart />}
+                >
+                    Save product
+                </Button>
+            </div>
+            <div className="actions-bar actions-bar--direction-column u-margin-b-10">
+                <Button
+                    variant="outlined"
+                    size="large"
+                    startIcon={<ShoppingCart />}
+                    endIcon={<KeyboardArrowRight />}
+                >
+                    Save product
+                </Button>
+                <Button variant="outlined" size="medium" startIcon={<ShoppingCart />}>
+                    Save product
+                </Button>
+                <Button variant="outlined" size="small" startIcon={<ShoppingCart />}>
+                    Save product
+                </Button>
             </div>
         </>
     );
