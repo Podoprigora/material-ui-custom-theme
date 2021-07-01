@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { ArrowDropDown, KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
+import { KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
 
 import { Button, ButtonProps } from './TemplateButton';
 
@@ -17,7 +17,8 @@ export const Default: Story<ButtonProps> = (args) => {
 Default.args = {
     color: 'secondary',
     variant: 'contained',
-    children: 'Save product'
+    children: 'Save product',
+    startIcon: <ShoppingCart />
 } as ButtonProps;
 
 export const Examples = () => {
