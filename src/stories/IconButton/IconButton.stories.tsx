@@ -1,8 +1,22 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
+import { Icon } from '@material-ui/core';
 import { FavoriteBorder } from '@material-ui/icons';
+
 import { IconButton, IconButtonProps } from './Template';
+import { TestSvg } from '../../assets/svg-icons';
+import {
+    AnchorSvg,
+    ArrowRightSvg,
+    UserSvg,
+    CheckCircleSvg,
+    EditSvg,
+    PlusSvg,
+    GridSvg,
+    Menu1Svg,
+    SquareSvg
+} from '../../assets/svg-icons/feather';
 
 export default {
     component: IconButton,
@@ -73,6 +87,61 @@ export const Examples = () => {
                 </IconButton>
                 <IconButton size="small" color="primary">
                     <FavoriteBorder />
+                </IconButton>
+            </div>
+
+            {/* Custom icon */}
+
+            <div className="actions-bar">
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <TestSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <AnchorSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <ArrowRightSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <UserSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <CheckCircleSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <EditSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <PlusSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="large" color="primary">
+                    <Icon>
+                        <GridSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="medium" color="primary">
+                    <Icon fontSize="large">
+                        <Menu1Svg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="medium" color="primary">
+                    <Icon fontSize="large">
+                        <SquareSvg />
+                    </Icon>
                 </IconButton>
             </div>
         </>

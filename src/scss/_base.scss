@@ -24,3 +24,9 @@ body {
 	line-height: $line-height;
 	color: $body-color;
 }
+
+svg {
+	fill: currentColor;
+	width: 1em;
+	height: 1em;
+}

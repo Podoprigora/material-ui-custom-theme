@@ -116,6 +116,15 @@ module.exports = (_, config) => {
                 {
                     test: /\.(jpe?g|png)$/i,
                     type: 'asset/resource'
+                },
+                {
+                    test: /\.svg$/i,
+                    loader: '@svgr/webpack',
+                    options: {
+                        svgo: true,
+                        dimensions: false,
+                        ref: true
+                    }
                 }
             ]
         }

@@ -15,6 +15,8 @@ module.exports = {
             plugins: [new TsConfigPathPlugin()]
         };
 
+        // Handle CSS / SCSS
+
         const cssRule = config.module.rules.find(({ test }) => /css/gi.test(test));
 
         if (cssRule) {
@@ -49,6 +51,27 @@ module.exports = {
                 ]
             });
         }
+
+        // Handle svg icons from svg-icons directory
+
+        const svgRule = config.module.rules.find(({ test }) => /svg/gi.test(test));
+
+        if (svgRule) {
+            Object.assign(svgRule, {
+                exclude: /[\\\/]svg\-icons[\\\/]/i
+            });
+        }
+
+        config.module.rules.push({
+            test: /\.svg$/i,
+            loader: '@svgr/webpack',
+            include: /[\\\/]svg\-icons[\\\/]/i,
+            options: {
+                svgo: true,
+                dimensions: false,
+                ref: true
+            }
+        });
 
         return config;
     }
