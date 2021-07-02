@@ -3,7 +3,6 @@ const fsPromise = require('fs/promises');
 const minimist = require('minimist');
 
 const processArgs = minimist(process.argv.slice(2));
-
 const pathname = path.resolve(processArgs?.pathname);
 
 const getImportFilename = (fileName = '') => {

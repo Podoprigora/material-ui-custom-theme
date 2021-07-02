@@ -93,52 +93,52 @@ export const Examples = () => {
             {/* Custom icon */}
 
             <div className="actions-bar">
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <TestSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <AnchorSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <ArrowRightSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <UserSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <CheckCircleSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <EditSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <PlusSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="large" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon>
                         <GridSvg />
                     </Icon>
                 </IconButton>
-                <IconButton size="medium" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon fontSize="large">
                         <Menu1Svg />
                     </Icon>
                 </IconButton>
-                <IconButton size="medium" color="primary">
+                <IconButton size="large" color="inherit">
                     <Icon fontSize="large">
                         <SquareSvg />
                     </Icon>
