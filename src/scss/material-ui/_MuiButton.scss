@@ -9,6 +9,7 @@
 		font-weight: $btn-font-weight;
 		line-height: $btn-line-height;
 		text-transform: initial;
+		min-width: 0;
 		border-radius: $btn-border-radius;
 		transition: $btn-transition;
 
@@ -237,5 +238,31 @@
 
 	&-iconSizeSmall {
 		font-size: $icon-small-font-size;
+	}
+
+	// Custom classes that are added with className property
+
+	&-iconOnly {
+		padding: 0;
+
+		&#{$this}-colorInherit {
+			color: $icon-color;
+		}
+
+		&#{$this}-sizeLarge {
+			min-width: $btn-large-min-height;
+		}
+
+		&#{$this}-sizeMedium {
+			min-width: $btn-medium-min-height;
+		}
+
+		&#{$this}-sizeSmall {
+			min-width: $btn-small-min-height;
+		}
+
+		& #{$this}-startIcon {
+			margin-right: 0;
+		}
 	}
 }

@@ -99,9 +99,13 @@ $breakpoints: (
 );
 
 // Icon
+$icon-color: $gray-darken-1;
 $icon-large-font-size: 2.4rem;
 $icon-medium-font-size: 2.2rem;
 $icon-small-font-size: 1.8rem;
+
+// MuiIconButton
+$icon-btn-border-radius: 1rem;
 
 // MuiButton
 $btn-color: $gray-darken-4;

@@ -21,7 +21,7 @@ module.exports = (_, config) => {
             assetModuleFilename: 'images/[hash][ext][query]'
         },
         plugins: [
-            ...(!isDev ? new CleanWebpackPlugin() : []),
+            ...(!isDev ? [new CleanWebpackPlugin()] : []),
             new MiniCssExtractPlugin({
                 filename: '[name].css',
                 chunkFilename: '[name].css'

@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
 
-import { Button, ButtonProps } from './TemplateButton';
+import { Button, ButtonProps } from './Template';
 
 export default {
     component: Button,
@@ -61,7 +61,9 @@ export const Examples = () => {
                     Save product
                 </Button>
             </div>
+
             {/* Outlined disabled */}
+
             <div className="actions-bar u-margin-b-10">
                 <Button variant="outlined" disabled>
                     Save product
@@ -155,6 +157,31 @@ export const Examples = () => {
                 <Button variant="outlined" size="small" startIcon={<ShoppingCart />}>
                     Save product
                 </Button>
+            </div>
+
+            {/* Only Icon */}
+
+            <div className="actions-bar u-margin-b-10">
+                <Button
+                    variant="text"
+                    size="large"
+                    color="secondary"
+                    startIcon={<ShoppingCart />}
+                    className="MuiButton-iconOnly"
+                />
+                <Button
+                    variant="text"
+                    size="medium"
+                    startIcon={<ShoppingCart />}
+                    className="MuiButton-iconOnly"
+                />
+                <Button
+                    variant="text"
+                    size="small"
+                    color="inherit"
+                    startIcon={<ShoppingCart />}
+                    className="MuiButton-iconOnly"
+                />
             </div>
         </>
     );

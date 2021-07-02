@@ -10,6 +10,24 @@ export const theme = createTheme({
                 focusRipple: false,
                 focusVisibleClassName: 'MuiButton-focusVisible'
             }
+        },
+        MuiIconButton: {
+            defaultProps: {
+                size: 'medium',
+                disableRipple: true,
+                focusRipple: false,
+                focusVisibleClassName: 'MuiIconButton-focusVisible'
+            }
+        },
+        MuiSvgIcon: {
+            defaultProps: {
+                fontSize: 'inherit'
+            }
+        },
+        MuiIcon: {
+            defaultProps: {
+                fontSize: 'inherit'
+            }
         }
     }
 });
