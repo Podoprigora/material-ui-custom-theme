@@ -40,8 +40,9 @@ export const Default: Story<ToggleButtonGroupProps> = (args) => {
 };
 
 Default.args = {
-    size: 'small',
-    exclusive: true
+    size: 'medium',
+    exclusive: true,
+    color: 'secondary'
 } as ToggleButtonGroupProps;
 
 const FiltersExample = () => {

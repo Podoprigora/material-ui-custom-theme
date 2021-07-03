@@ -1,6 +1,6 @@
 .MuiToggleButtonGroup {
 	&-root {
-		border-radius: $border-radius-sm;
+		border-radius: 0;
 	}
 }
 
@@ -10,7 +10,6 @@
 
 		color: inherit;
 		border-color: $btn-bg-color;
-		transition: background-color .15s;
 
 		&:hover {
 			background-color: rgba($btn-color, $btn-outlined-hover-opacity);
@@ -23,9 +22,7 @@
 	}
 
 	&-sizeLarge {
-		font-size: $btn-large-font-size;
-		padding: 0 $btn-large-padding-x;
-		min-height: $btn-large-min-height;
+		@extend .MuiButton-sizeLarge;
 
 		.MuiIcon-root {
 			font-size: $icon-large-font-size;
@@ -33,9 +30,7 @@
 	}
 
 	&-sizeMedium {
-		font-size: $btn-medium-font-size;
-		padding: 0 $btn-medium-padding-x;
-		min-height: $btn-medium-min-height;
+		@extend .MuiButton-sizeMedium;
 
 		.MuiIcon-root {
 			font-size: $icon-medium-font-size;
@@ -43,9 +38,7 @@
 	}
 
 	&-sizeSmall {
-		font-size: $btn-small-font-size;
-		padding: 0 $btn-small-padding-x;
-		min-height: $btn-small-min-height;
+		@extend .MuiButton-sizeSmall;
 
 		.MuiIcon-root {
 			font-size: $icon-small-font-size;
