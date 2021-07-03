@@ -98,15 +98,6 @@ $breakpoints: (
 	"xxl": $breakpoint-xxl
 );
 
-// Icon
-$icon-color: $gray-darken-1;
-$icon-large-font-size: 2.4rem;
-$icon-medium-font-size: 2.2rem;
-$icon-small-font-size: 1.8rem;
-
-// MuiIconButton
-$icon-btn-border-radius: 1rem;
-
 // MuiButton
 $btn-color: $gray-darken-4;
 $btn-bg-color: $gray-lighten-3;
@@ -135,3 +126,15 @@ $btn-disabled-opacity: .4;
 $btn-hover-opacity: .65;
 $btn-focus-visible-box-shadow: 0 0px 0px .4rem rgba($color-primary, .3);
 $btn-transition: all .15s ease;
+
+// Icon
+$icon-color: $gray-darken-1;
+$icon-large-font-size: 2.4rem;
+$icon-large-padding: $spacing-scale-6;
+$icon-medium-font-size: 2.4rem;
+$icon-medium-padding: $spacing-scale-4;
+$icon-small-font-size: 1.8rem;
+$icon-small-padding: $spacing-scale-4;
+
+// MuiIconButton
+$icon-btn-border-radius: 1rem;

@@ -5,7 +5,6 @@ import { Icon } from '@material-ui/core';
 import { FavoriteBorder } from '@material-ui/icons';
 
 import { IconButton, IconButtonProps } from './Template';
-import { TestSvg } from '../../assets/svg-icons';
 import {
     AnchorSvg,
     ArrowRightSvg,
@@ -95,11 +94,6 @@ export const Examples = () => {
             <div className="actions-bar">
                 <IconButton size="large" color="inherit">
                     <Icon>
-                        <TestSvg />
-                    </Icon>
-                </IconButton>
-                <IconButton size="large" color="inherit">
-                    <Icon>
                         <AnchorSvg />
                     </Icon>
                 </IconButton>
@@ -140,6 +134,35 @@ export const Examples = () => {
                 </IconButton>
                 <IconButton size="large" color="inherit">
                     <Icon fontSize="large">
+                        <SquareSvg />
+                    </Icon>
+                </IconButton>
+            </div>
+
+            {/* Custom classes:  Dense */}
+
+            <div className="actions-bar">
+                <IconButton size="large" color="primary" className="MuiIconButton-dense">
+                    <FavoriteBorder />
+                </IconButton>
+                <IconButton size="medium" color="primary" className="MuiIconButton-dense">
+                    <FavoriteBorder />
+                </IconButton>
+                <IconButton size="small" color="primary" className="MuiIconButton-dense">
+                    <FavoriteBorder />
+                </IconButton>
+                <IconButton size="medium" color="inherit" className="MuiIconButton-dense">
+                    <Icon>
+                        <GridSvg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="medium" color="inherit" className="MuiIconButton-dense">
+                    <Icon>
+                        <Menu1Svg />
+                    </Icon>
+                </IconButton>
+                <IconButton size="medium" color="inherit" className="MuiIconButton-dense">
+                    <Icon>
                         <SquareSvg />
                     </Icon>
                 </IconButton>

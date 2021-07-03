@@ -1,6 +1,6 @@
 .actions-bar {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(3rem, max-content));
+	grid-template-columns: repeat(auto-fit, minmax(2rem, max-content));
 	grid-gap: $spacing-scale-6;
 	align-items: center;
 	justify-content: start;

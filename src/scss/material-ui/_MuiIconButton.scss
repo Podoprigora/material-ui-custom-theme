@@ -1,6 +1,8 @@
 @use "sass:math";
 
 .MuiIconButton {
+	$this: &;
+
 	&-root {
 		$selector: &;
 
@@ -24,25 +26,41 @@
 
 	&-sizeLarge {
 		font-size: $icon-large-font-size;
-		padding: math.div($btn-large-padding-x, 2);
+		padding: $icon-large-padding;
+
+		&#{$this}-edgeStart {
+			margin-left: $icon-large-padding * -1;
+		}
+
+		&#{$this}-edgeEnd {
+			margin-right: $icon-large-padding * -1;
+		}
 	}
 
 	&-sizeMedium {
 		font-size: $icon-medium-font-size;
-		padding: math.div($btn-medium-padding-x, 2);
+		padding: $icon-medium-padding;
+
+		&#{$this}-edgeStart {
+			margin-left: $icon-medium-padding * -1;
+		}
+
+		&#{$this}-edgeEnd {
+			margin-right: $icon-medium-padding * -1;
+		}
 	}
 
 	&-sizeSmall {
 		font-size: $icon-small-font-size;
-		padding: math.div($btn-small-padding-x, 2);
-	}
+		padding: $icon-small-padding;
 
-	&-edgeStart {
-		margin-left: math.div($btn-small-padding-x, 2) * -1;
-	}
+		&#{$this}-edgeStart {
+			margin-left: $icon-small-padding * -1;
+		}
 
-	&-edgeEnd {
-		margin-right: math.div($btn-small-padding-x, 2) * -1;
+		&#{$this}-edgeEnd {
+			margin-right: $icon-small-padding * -1;
+		}
 	}
 
 	&-colorPrimary {
@@ -72,6 +90,84 @@
 
 		&.Mui-disabled {
 			@extend #{$selector};
+		}
+	}
+
+	// Custom classes
+
+	&-dense {
+		$selector: &;
+
+		position: relative;
+		padding: 0;
+
+		&::after {
+			position: absolute;
+			content: "";
+			top: $icon-medium-padding * -1;
+			right: $icon-medium-padding * -1;
+			bottom: $icon-medium-padding * -1;
+			left: $icon-medium-padding * -1;
+		}
+
+		&:hover,
+		&.Mui-focusVisible {
+			background-color: transparent;
+
+			&::after {
+				@extend #{$this}-root;
+			}
+		}
+
+		&#{$this}-focusVisible.Mui-focusVisible {
+			&::after {
+				@extend #{$this}-focusVisible;
+			}
+		}
+
+		&#{$this}-colorPrimary {
+			&:hover,
+			&.Mui-focusVisible {
+				&::after {
+					background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+				}
+			}
+		}
+
+		&#{$this}-colorSecondary {
+			&:hover,
+			&.Mui-focusVisible {
+				&::after {
+					background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+				}
+			}
+		}
+
+		&#{$this}-sizeLarge {
+			&::after {
+				top: $icon-large-padding * -1;
+				right: $icon-large-padding * -1;
+				bottom: $icon-large-padding * -1;
+				left: $icon-large-padding * -1;
+			}
+		}
+
+		&#{$this}-sizeMedium {
+			&::after {
+				top: $icon-medium-padding * -1;
+				right: $icon-medium-padding * -1;
+				bottom: $icon-medium-padding * -1;
+				left: $icon-medium-padding * -1;
+			}
+		}
+
+		&#{$this}-sizeSmall {
+			&::after {
+				top: $icon-small-padding * -1;
+				right: $icon-small-padding * -1;
+				bottom: $icon-small-padding * -1;
+				left: $icon-small-padding * -1;
+			}
 		}
 	}
 }
