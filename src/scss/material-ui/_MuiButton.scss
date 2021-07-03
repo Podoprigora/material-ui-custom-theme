@@ -24,19 +24,19 @@
 
 	&-sizeLarge {
 		font-size: $font-size-xmedium;
-		padding: $btn-large-padding-y $btn-large-padding-x;
+		padding: 0 $btn-large-padding-x;
 		min-height: $btn-large-min-height;
 	}
 
 	&-sizeMedium {
 		font-size: $font-size-medium;
-		padding: $btn-medium-padding-y $btn-medium-padding-x;
+		padding: 0 $btn-medium-padding-x;
 		min-height: $btn-medium-min-height;
 	}
 
 	&-sizeSmall {
 		font-size: $font-size-small;
-		padding: $btn-small-padding-y $btn-small-padding-x;
+		padding: 0 $btn-small-padding-x;
 		min-height: $btn-small-min-height;
 	}
 
@@ -103,18 +103,15 @@
 		}
 
 		&SizeLarge {
-			padding: calc(#{$btn-large-padding-y} - #{$btn-border-width})
-				calc(#{$btn-large-padding-x} - #{$btn-border-width});
+			padding: 0 calc(#{$btn-large-padding-x} - #{$btn-border-width});
 		}
 
 		&SizeMedium {
-			padding: calc(#{$btn-medium-padding-y} - #{$btn-border-width})
-				calc(#{$btn-medium-padding-x} - #{$btn-border-width});
+			padding: 0 calc(#{$btn-medium-padding-x} - #{$btn-border-width});
 		}
 
 		&SizeSmall {
-			padding: calc(#{$btn-small-padding-y} - #{$btn-border-width})
-				calc(#{$btn-small-padding-x} - #{$btn-border-width});
+			padding: 0 calc(#{$btn-small-padding-x} - #{$btn-border-width});
 		}
 
 		&Primary {

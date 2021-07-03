@@ -1,0 +1,68 @@
+.MuiToggleButtonGroup {
+	&-root {
+		border-radius: $border-radius-sm;
+	}
+}
+
+.MuiToggleButton {
+	&-root {
+		@extend .MuiButton-root;
+
+		color: inherit;
+		border-color: $btn-bg-color;
+		transition: background-color .15s;
+
+		&:hover {
+			background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+		}
+
+		&.Mui-selected {
+			color: $body-color;
+			background-color: rgba($body-color, $btn-outlined-hover-opacity);
+		}
+	}
+
+	&-sizeLarge {
+		font-size: $btn-large-font-size;
+		padding: 0 $btn-large-padding-x;
+		min-height: $btn-large-min-height;
+
+		.MuiIcon-root {
+			font-size: $icon-large-font-size;
+		}
+	}
+
+	&-sizeMedium {
+		font-size: $btn-medium-font-size;
+		padding: 0 $btn-medium-padding-x;
+		min-height: $btn-medium-min-height;
+
+		.MuiIcon-root {
+			font-size: $icon-medium-font-size;
+		}
+	}
+
+	&-sizeSmall {
+		font-size: $btn-small-font-size;
+		padding: 0 $btn-small-padding-x;
+		min-height: $btn-small-min-height;
+
+		.MuiIcon-root {
+			font-size: $icon-small-font-size;
+		}
+	}
+
+	&-primary {
+		&.Mui-selected {
+			color: $color-primary;
+			background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+		}
+	}
+
+	&-secondary {
+		&.Mui-selected {
+			color: $color-secondary;
+			background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+		}
+	}
+}

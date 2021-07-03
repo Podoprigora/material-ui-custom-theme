@@ -10,15 +10,17 @@ $font-size: $font-size-medium;
 $font-weight: 400;
 $line-height: 1.4;
 
-$color-primary-light: #36b4c4;
+$color-primary-light: #8ac5cc;
 $color-primary: #36b4c4;
-$color-primary-dark: #36b4c4;
+$color-primary-dark: #19b6cb;
 $color-primary-text: #fff;
+$color-primary-border-color: #d9ebed;
 
-$color-secondary-light: #ad57a0;
+$color-secondary-light: #ae82a7;
 $color-secondary: #ad57a0;
-$color-secondary-dark: #ad57a0;
+$color-secondary-dark: #b31acf;
 $color-secondary-text: #fff;
+$color-secondary-border-color: #e5d3e2;
 
 // Body
 $body-bg-color: $gray-lighten-5;
@@ -109,13 +111,10 @@ $btn-font-size: $btn-medium-font-size;
 $btn-font-weight: 400;
 $btn-text-transform: none;
 $btn-line-height: 1.2;
-$btn-large-padding-y: 0;
 $btn-large-padding-x: $spacing-scale-12;
 $btn-large-min-height: 4.8rem;
-$btn-medium-padding-y: 0;
 $btn-medium-padding-x: $spacing-scale-10;
 $btn-medium-min-height: 4rem;
-$btn-small-padding-y: 0;
 $btn-small-padding-x: $spacing-scale-8;
 $btn-small-min-height: 3rem;
 $btn-border-width: 2px;

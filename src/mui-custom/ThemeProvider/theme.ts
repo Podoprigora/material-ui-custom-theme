@@ -19,6 +19,13 @@ export const theme = createTheme({
                 focusVisibleClassName: 'MuiIconButton-focusVisible'
             }
         },
+        MuiToggleButton: {
+            defaultProps: {
+                size: 'medium',
+                disableRipple: true,
+                disableFocusRipple: false
+            }
+        },
         MuiSvgIcon: {
             defaultProps: {
                 fontSize: 'inherit'
@@ -27,6 +34,15 @@ export const theme = createTheme({
         MuiIcon: {
             defaultProps: {
                 fontSize: 'inherit'
+            }
+        },
+        MuiButtonGroup: {
+            defaultProps: {
+                disableElevation: true,
+                disableRipple: true,
+                disableFocusRipple: true,
+                color: 'inherit',
+                variant: 'outlined'
             }
         }
     }
