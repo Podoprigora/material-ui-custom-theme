@@ -199,15 +199,15 @@
 
 	&-startIcon {
 		&#{$this}-iconSizeLarge {
-			margin-right: math.div($btn-large-padding-x, 2);
+			margin-right: $btn-large-padding-x - $spacing-scale-1;
 		}
 
 		&#{$this}-iconSizeMedium {
-			margin-right: math.div($btn-medium-padding-x, 2);
+			margin-right: $btn-medium-padding-x - $spacing-scale-1;
 		}
 
 		&#{$this}-iconSizeSmall {
-			margin-right: math.div($btn-small-padding-x, 2);
+			margin-right: $btn-small-padding-x - $spacing-scale-1;
 		}
 	}
 

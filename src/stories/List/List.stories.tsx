@@ -8,12 +8,14 @@ import {
     ListItemIcon,
     Icon,
     Divider,
-    Button
+    Button,
+    Box,
+    IconButton
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 
 import { List, ListProps } from './Template';
-import { FileSvg, InboxSvg, PlusSvg } from '../../assets/svg-icons/feather';
+import { FileSvg, InboxSvg, PlusSvg, ChevronRightSvg } from '../../assets/svg-icons/feather';
 
 export default {
     title: 'mui-custom/List',
@@ -29,7 +31,7 @@ export const Default: Story<ListProps> = (args) => {
                 variant="contained"
                 startIcon={
                     <Icon>
-                        <PlusSvg />
+                        <InboxSvg />
                     </Icon>
                 }
             >
@@ -53,17 +55,54 @@ export const Default: Story<ListProps> = (args) => {
                     </ListItemButton>
                 </List>
                 <Divider />
+                <List>
+                    <ListItem
+                        disablePadding
+                        secondaryAction={
+                            <IconButton edge="end">
+                                <Icon>
+                                    <ChevronRightSvg />
+                                </Icon>
+                            </IconButton>
+                        }
+                    >
+                        <ListItemButton>
+                            <ListItemText inset>Social</ListItemText>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem
+                        disablePadding
+                        secondaryAction={
+                            <IconButton edge="end">
+                                <Icon>
+                                    <ChevronRightSvg />
+                                </Icon>
+                            </IconButton>
+                        }
+                    >
+                        <ListItemButton>
+                            <ListItemText inset>Updates</ListItemText>
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+                <Divider />
                 <List {...args}>
-                    <ListItemButton>
-                        <ListItemText>Trash</ListItemText>
+                    <ListItemButton alignItems="flex-start">
+                        <ListItemText
+                            sx={{
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden'
+                            }}
+                        >
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </ListItemText>
+                        <ListItemText sx={{ flex: 'none', fontWeight: 500 }}>100</ListItemText>
+                        <ListItemText sx={{ flex: 'none', fontWeight: 500 }}>100</ListItemText>
                     </ListItemButton>
                     <ListItemButton>
-                        <ListItemText>Spam</ListItemText>
-                        <ListItemIcon>
-                            <Icon>
-                                <InsertDriveFileOutlined />
-                            </Icon>
-                        </ListItemIcon>
+                        <ListItemText>Lorem ipsum</ListItemText>
+                        <ListItemText sx={{ flex: 'none', fontWeight: 500 }}>100</ListItemText>
                     </ListItemButton>
                 </List>
             </div>
