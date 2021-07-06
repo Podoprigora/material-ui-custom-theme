@@ -1,0 +1,47 @@
+@use 'sass:math';
+
+.MuiList {
+	&-padding {
+		padding: $list-padding-y 0;
+	}
+}
+
+.MuiListItemButton {
+	&-root {
+		padding-top: $list-padding-y;
+		padding-bottom: $list-padding-y;
+	}
+
+	&-dense {
+		padding-top: math.div($list-padding-y, 2);
+		padding-bottom: math.div($list-padding-y, 2);
+	}
+
+	&-gutters {
+		padding-left: $list-padding-x;
+		padding-right: $list-padding-x;
+	}
+}
+
+.MuiListItemText {
+	&-root {
+		margin-top: math.div($list-padding-y, 2);
+		margin-bottom: math.div($list-padding-y, 2);
+	}
+}
+
+.MuiListItemIcon {
+	$this: &;
+
+	&-root {
+		min-width: 0;
+
+		&:first-child {
+			margin-right: $list-padding-x;
+		}
+
+		&:not(:first-child) {
+			margin-left: $list-padding-x;
+		}
+	}
+}

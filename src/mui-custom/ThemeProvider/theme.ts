@@ -2,19 +2,22 @@ import { createTheme } from '@material-ui/core';
 
 export const theme = createTheme({
     components: {
+        MuiButtonBase: {
+            defaultProps: {
+                disableRipple: true,
+                focusRipple: false
+            }
+        },
         MuiButton: {
             defaultProps: {
                 disableElevation: true,
-                disableRipple: true,
                 disableFocusRipple: true,
-                focusRipple: false,
                 focusVisibleClassName: 'MuiButton-focusVisible'
             }
         },
         MuiIconButton: {
             defaultProps: {
                 size: 'medium',
-                disableRipple: true,
                 focusRipple: false,
                 focusVisibleClassName: 'MuiIconButton-focusVisible'
             }
@@ -22,7 +25,6 @@ export const theme = createTheme({
         MuiToggleButton: {
             defaultProps: {
                 size: 'medium',
-                disableRipple: true,
                 disableFocusRipple: false
             }
         },
@@ -43,6 +45,12 @@ export const theme = createTheme({
                 disableFocusRipple: true,
                 color: 'inherit',
                 variant: 'outlined'
+            }
+        },
+
+        MuiListItemText: {
+            defaultProps: {
+                disableTypography: true
             }
         }
     }
