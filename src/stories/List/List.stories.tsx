@@ -15,7 +15,13 @@ import {
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 
 import { List, ListProps } from './Template';
-import { FileSvg, InboxSvg, PlusSvg, ChevronRightSvg } from '../../assets/svg-icons/feather';
+import {
+    FileSvg,
+    InboxSvg,
+    PlusSvg,
+    ChevronRightSvg,
+    Trash2Svg
+} from '../../assets/svg-icons/feather';
 
 export default {
     title: 'mui-custom/List',
@@ -61,7 +67,7 @@ export const Default: Story<ListProps> = (args) => {
                         secondaryAction={
                             <IconButton edge="end">
                                 <Icon>
-                                    <ChevronRightSvg />
+                                    <Trash2Svg />
                                 </Icon>
                             </IconButton>
                         }
@@ -75,7 +81,7 @@ export const Default: Story<ListProps> = (args) => {
                         secondaryAction={
                             <IconButton edge="end">
                                 <Icon>
-                                    <ChevronRightSvg />
+                                    <Trash2Svg />
                                 </Icon>
                             </IconButton>
                         }
@@ -87,6 +93,12 @@ export const Default: Story<ListProps> = (args) => {
                 </List>
                 <Divider />
                 <List {...args}>
+                    <ListItemButton alignItems="flex-start">
+                        <ListItemText>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </ListItemText>
+                        <ListItemText sx={{ flex: 'none', fontWeight: 500 }}>100</ListItemText>
+                    </ListItemButton>
                     <ListItemButton alignItems="flex-start">
                         <ListItemText
                             sx={{
