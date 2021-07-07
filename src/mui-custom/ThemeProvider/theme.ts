@@ -1,11 +1,17 @@
 import { createTheme } from '@material-ui/core';
 
+declare module '@material-ui/core/Icon' {
+    interface IconPropsSizeOverrides {
+        xsmall: true;
+    }
+}
+
 export const theme = createTheme({
     components: {
         MuiButtonBase: {
             defaultProps: {
                 disableRipple: true,
-                focusRipple: false
+                focusRipple: true
             }
         },
         MuiButton: {
@@ -47,7 +53,6 @@ export const theme = createTheme({
                 variant: 'outlined'
             }
         },
-
         MuiListItemText: {
             defaultProps: {
                 disableTypography: true

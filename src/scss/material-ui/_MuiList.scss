@@ -8,8 +8,19 @@
 
 .MuiListItemButton {
 	&-root {
+		$selector: &;
 		padding-top: $list-padding-y;
 		padding-bottom: $list-padding-y;
+
+		&:hover {
+			background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+		}
+
+		@include media-not-hover {
+			&:hover {
+				background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+			}
+		}
 	}
 
 	&-dense {
@@ -54,5 +65,22 @@
 		&:not(:first-child) {
 			margin-left: $list-padding-x;
 		}
+	}
+}
+
+.MuiListSubheader {
+	&-root {
+		display: flex;
+		align-items: center;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: $list-item-line-height;
+		color: inherit;
+		min-height: $list-subheader-min-height;
+	}
+
+	&-gutters {
+		padding-left: $list-padding-x;
+		padding-right: $list-padding-x;
 	}
 }

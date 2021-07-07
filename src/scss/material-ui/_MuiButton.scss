@@ -40,6 +40,13 @@
 		min-height: $btn-small-min-height;
 	}
 
+	&-outlined,
+	&-text {
+		.MuiIcon-root {
+			color: $icon-color;
+		}
+	}
+
 	&-contained {
 		$selector: &;
 
@@ -84,6 +91,10 @@
 			&.Mui-disabled {
 				@extend #{$selector};
 			}
+		}
+
+		.MuiIcon-root {
+			color: rgba($btn-color, .65);
 		}
 	}
 
