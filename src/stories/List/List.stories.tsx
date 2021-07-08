@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import {
@@ -10,21 +10,20 @@ import {
     Icon,
     Divider,
     Button,
-    Box,
-    IconButton
+    IconButton,
+    Checkbox
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 import { MuiCustomSimplebar } from '@mui-custom/Simplebar';
 
 import { List, ListProps } from './Template';
 import {
-    FileSvg,
     InboxSvg,
-    PlusSvg,
-    ChevronRightSvg,
     Trash2Svg,
     CheckSvg,
-    MapPinSvg
+    MapPinSvg,
+    ChevronDownSvg,
+    ChevronUpSvg
 } from '../../assets/svg-icons/feather';
 
 export default {
@@ -255,5 +254,74 @@ export const LocationsList = () => {
                 {nearbyLoacations.cities.map((item, index) => renderListItems(item.name, index))}
             </List>
         </MuiCustomSimplebar>
+    );
+};
+
+// Multiselect list
+
+const multiselectItems = Array.from({ length: 18 }).map((_, index) => {
+    return `List item ${index + 1}`;
+});
+
+export const MultiselectList = () => {
+    const [selected, setSelected] = useState<number[]>([]);
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandedItemClick = useCallback(() => {
+        setExpanded((prevState) => !prevState);
+    }, []);
+
+    const handleItemClick = (index: number) => () => {
+        setSelected((prevState) => {
+            const existedIndex = prevState.indexOf(index);
+
+            if (existedIndex !== -1) {
+                return prevState.filter((item) => item !== index);
+            }
+
+            return [...prevState, index];
+        });
+    };
+
+    const limit = expanded ? multiselectItems.length : 8;
+
+    const renderItem = useCallback(
+        (text: string, index: number): React.ReactElement => {
+            const isSelected = selected.indexOf(index) !== -1;
+
+            return (
+                <ListItemButton key={index} selected={isSelected} onClick={handleItemClick(index)}>
+                    <ListItemIcon>
+                        <Checkbox
+                            checked={isSelected}
+                            tabIndex={-1}
+                            className="MuiCheckbox-dense"
+                        />
+                    </ListItemIcon>
+                    <ListItemText>{text}</ListItemText>
+                </ListItemButton>
+            );
+        },
+        [selected]
+    );
+
+    const expandedListItem = useMemo(() => {
+        return (
+            <ListItemButton onClick={handleExpandedItemClick}>
+                <ListItemIcon>
+                    <Icon>{expanded ? <ChevronUpSvg /> : <ChevronDownSvg />}</Icon>
+                </ListItemIcon>
+                <ListItemText>{expanded ? 'Show less' : 'Show more'}</ListItemText>
+            </ListItemButton>
+        );
+    }, [expanded, handleExpandedItemClick]);
+
+    return (
+        <List>
+            {multiselectItems.slice(0, limit).map((item, index) => {
+                return renderItem(item, index);
+            })}
+            {expandedListItem}
+        </List>
     );
 };

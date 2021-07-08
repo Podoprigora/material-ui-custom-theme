@@ -21,6 +21,14 @@
 				background-color: rgba($btn-color, $btn-outlined-hover-opacity);
 			}
 		}
+
+		&.Mui-selected {
+			background-color: $list-item-selected-bg-color;
+
+			&:hover {
+				background-color: $list-item-selected-hover-bg-color;
+			}
+		}
 	}
 
 	&-dense {

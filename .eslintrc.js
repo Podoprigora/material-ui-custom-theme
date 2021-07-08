@@ -17,11 +17,9 @@ module.exports = {
         'airbnb-typescript',
         'plugin:prettier/recommended',
         'plugin:react/recommended',
-        'plugin:@typescript-eslint/recommended',
-        'prettier/@typescript-eslint',
-        'prettier/react'
+        'plugin:@typescript-eslint/recommended'
     ],
-    plugins: ['@typescript-eslint', 'react'],
+    plugins: ['@typescript-eslint', 'react-hooks'],
     rules: {
         camelcase: 0,
         'no-console': 0,
@@ -83,5 +81,16 @@ module.exports = {
         'import/no-extraneous-dependencies': 0,
 
         'prettier/prettier': 0
-    }
+    },
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+            rules: {
+                '@typescript-eslint/explicit-module-boundary-types': 0,
+                '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
+                '@typescript-eslint/ban-ts-comment': 0,
+                '@typescript-eslint/no-use-before-define': ['error', { functions: false }]
+            }
+        }
+    ]
 };
