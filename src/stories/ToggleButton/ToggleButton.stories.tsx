@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Icon } from '@material-ui/core';
+import { Icon, IconProps } from '@material-ui/core';
 import { GridSvg, ListSvg } from '../../assets/svg-icons/feather';
 import {
     ToggleButton,
@@ -16,7 +16,10 @@ export default {
     subcomponents: { ToggleButton }
 } as Meta;
 
-export const Default: Story<ToggleButtonGroupProps> = (args) => {
+type DefaultStoryProps = ToggleButtonGroupProps & { iconFontSize?: IconProps['fontSize'] };
+
+export const Default: Story<DefaultStoryProps> = (args) => {
+    const { iconFontSize, ...other } = args;
     const [selected, setSelected] = useState<string>('grid');
 
     const handleChange = (ev: React.MouseEvent, newValue: string) => {
@@ -24,14 +27,14 @@ export const Default: Story<ToggleButtonGroupProps> = (args) => {
     };
 
     return (
-        <ToggleButtonGroup {...args} value={selected} onChange={handleChange}>
+        <ToggleButtonGroup {...other} value={selected} onChange={handleChange}>
             <ToggleButton value="grid">
-                <Icon>
+                <Icon fontSize={iconFontSize}>
                     <GridSvg />
                 </Icon>
             </ToggleButton>
             <ToggleButton value="list">
-                <Icon>
+                <Icon fontSize={iconFontSize}>
                     <ListSvg />
                 </Icon>
             </ToggleButton>
@@ -42,8 +45,9 @@ export const Default: Story<ToggleButtonGroupProps> = (args) => {
 Default.args = {
     size: 'medium',
     exclusive: true,
-    color: 'secondary'
-} as ToggleButtonGroupProps;
+    color: 'secondary',
+    iconFontSize: 'large'
+} as DefaultStoryProps;
 
 const FiltersExample = () => {
     const [selected, setSelected] = useState<string>('');

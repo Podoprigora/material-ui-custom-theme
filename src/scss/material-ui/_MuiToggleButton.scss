@@ -24,7 +24,7 @@
 	&-sizeLarge {
 		@extend .MuiButton-sizeLarge;
 
-		.MuiIcon-root {
+		.MuiIcon-fontSizeInherit {
 			font-size: $icon-large-font-size;
 		}
 	}
@@ -32,7 +32,7 @@
 	&-sizeMedium {
 		@extend .MuiButton-sizeMedium;
 
-		.MuiIcon-root {
+		.MuiIcon-fontSizeInherit {
 			font-size: $icon-medium-font-size;
 		}
 	}
@@ -40,7 +40,7 @@
 	&-sizeSmall {
 		@extend .MuiButton-sizeSmall;
 
-		.MuiIcon-root {
+		.MuiIcon-fontSizeInherit {
 			font-size: $icon-small-font-size;
 		}
 	}
