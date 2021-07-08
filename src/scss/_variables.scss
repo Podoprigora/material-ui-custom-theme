@@ -10,17 +10,17 @@ $font-size: $font-size-medium;
 $font-weight: 400;
 $line-height: 1.4;
 
-$color-primary-light: #8ac5cc;
-$color-primary: #36b4c4;
-$color-primary-dark: #19b6cb;
+$color-primary-light: #ae82a7;
+$color-primary: #ad57a0;
+$color-primary-dark: #b31acf;
 $color-primary-text: #fff;
-$color-primary-border-color: #d9ebed;
+$color-primary-border-color: #e5d3e2;
 
-$color-secondary-light: #ae82a7;
-$color-secondary: #ad57a0;
-$color-secondary-dark: #b31acf;
+$color-secondary-light: #8ac5cc;
+$color-secondary: #36b4c4;
+$color-secondary-dark: #19b6cb;
 $color-secondary-text: #fff;
-$color-secondary-border-color: #e5d3e2;
+$color-secondary-border-color: #d9ebed;
 
 // Body
 $body-bg-color: $gray-lighten-5;
@@ -124,7 +124,7 @@ $btn-outlined-border-opacity: .55;
 $btn-disabled-opacity: .4;
 $btn-hover-opacity: .65;
 $btn-focus-visible-box-shadow: 0 0px 0px .4rem rgba($color-primary, .3);
-$btn-transition: background-color .15s ease;
+$btn-transition: background-color .2s ease;
 
 // Icon
 $icon-color: $gray-darken-1;

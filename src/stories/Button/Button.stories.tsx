@@ -15,7 +15,7 @@ export const Default: Story<ButtonProps> = (args) => {
 };
 
 Default.args = {
-    color: 'secondary',
+    color: 'primary',
     variant: 'contained',
     children: 'Save product',
     startIcon: <ShoppingCart />

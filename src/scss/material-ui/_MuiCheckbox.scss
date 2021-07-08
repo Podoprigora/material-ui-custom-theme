@@ -1,0 +1,32 @@
+.MuiCheckbox {
+	&-root {
+		@extend .MuiIconButton-root;
+
+		font-size: $icon-large-font-size;
+		padding: $spacing-scale-4;
+		background-color: transparent;
+		transition: $btn-transition;
+	}
+
+	&-colorPrimary {
+		&.Mui-checked {
+			color: $color-primary;
+		}
+
+		&:hover,
+		&.Mui-focusVisible {
+			background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+		}
+	}
+
+	&-colorSecondary {
+		&.Mui-checked {
+			color: $color-secondary;
+		}
+
+		&:hover,
+		&.Mui-focusVisible {
+			background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+		}
+	}
+}

@@ -49,6 +49,10 @@
 		&.Mui-selected {
 			color: $color-primary;
 			background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+
+			&:hover {
+				background-color: rgba($color-primary-dark, $btn-outlined-hover-opacity);
+			}
 		}
 	}
 
@@ -56,6 +60,10 @@
 		&.Mui-selected {
 			color: $color-secondary;
 			background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+
+			&:hover {
+				background-color: rgba($color-secondary-dark, $btn-outlined-hover-opacity);
+			}
 		}
 	}
 }

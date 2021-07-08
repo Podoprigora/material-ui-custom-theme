@@ -8,6 +8,7 @@
 
 		color: $icon-color;
 		border-radius: $icon-btn-border-radius;
+		transition: $btn-transition;
 
 		&:hover {
 			background-color: rgba($icon-color, $btn-outlined-hover-opacity);
