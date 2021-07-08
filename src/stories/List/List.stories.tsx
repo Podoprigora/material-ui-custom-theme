@@ -14,6 +14,7 @@ import {
     IconButton
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
+import { MuiCustomSimplebar } from '@mui-custom/Simplebar';
 
 import { List, ListProps } from './Template';
 import {
@@ -243,13 +244,16 @@ export const LocationsList = () => {
     };
 
     return (
-        <div style={{ width: '100%', maxWidth: '36rem', maxHeight: '34rem', overflow: 'auto' }}>
+        <MuiCustomSimplebar
+            autoHide={false}
+            style={{ width: '100%', maxWidth: '36rem', maxHeight: '34rem' }}
+        >
             <List disablePadding subheader={<ListSubheader>Nearby towns</ListSubheader>}>
                 {nearbyLoacations.towns.map((item, index) => renderListItems(item.name, index))}
             </List>
             <List disablePadding subheader={<ListSubheader>Other locations</ListSubheader>}>
                 {nearbyLoacations.cities.map((item, index) => renderListItems(item.name, index))}
             </List>
-        </div>
+        </MuiCustomSimplebar>
     );
 };
