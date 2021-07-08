@@ -246,7 +246,7 @@ export const LocationsList = () => {
     return (
         <MuiCustomSimplebar
             autoHide={false}
-            style={{ width: '100%', maxWidth: '36rem', maxHeight: '34rem' }}
+            style={{ width: '100%', maxWidth: '36rem', height: '32rem' }}
         >
             <List disablePadding subheader={<ListSubheader>Nearby towns</ListSubheader>}>
                 {nearbyLoacations.towns.map((item, index) => renderListItems(item.name, index))}

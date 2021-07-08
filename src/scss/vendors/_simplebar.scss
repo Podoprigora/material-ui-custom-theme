@@ -1,0 +1,28 @@
+.simplebar {
+	$this: &;
+
+	&-custom {
+		#{$this}-track#{$this}-vertical {
+			width: $simplebar-track-size;
+		}
+
+		#{$this}-track#{$this}-horizontal {
+			height: $simplebar-track-size;
+		}
+
+		#{$this}-scrollbar {
+			min-height: $simplebar-scrollbar-min-size;
+
+			&#{$this}-visible:before {
+				border-radius: 1rem;
+				opacity: $simplebar-scrollbar-opacity;
+				background: $simplebar-scrollbar-bg-color;
+				transition: opacity .15s ease;
+			}
+
+			&#{$this}-visible#{$this}-hover:before {
+				opacity: $simplebar-scrollbar-hover-opacity;
+			}
+		}
+	}
+}
