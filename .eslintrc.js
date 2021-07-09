@@ -49,7 +49,7 @@ module.exports = {
         'react/jsx-indent': 0,
         'react/jsx-indent-props': 0,
         'react/no-danger': 0,
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
         'react/prefer-stateless-function': 0,
         'react/no-array-index-key': 0,
         'react/forbid-prop-types': 0,
