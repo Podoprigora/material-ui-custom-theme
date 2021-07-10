@@ -1,5 +1,13 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import * as yup from 'yup';
+import {
+    areEqual,
+    FixedSizeList as VirtualizedFixiedSizeList,
+    ListChildComponentProps as VirtualizedChildComponentProps
+} from 'react-window';
+
+import VirtualizedAutoSizer from 'react-virtualized-auto-sizer';
 
 import {
     ListItem,
@@ -11,10 +19,11 @@ import {
     Divider,
     Button,
     IconButton,
-    Checkbox
+    Checkbox,
+    Tooltip
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
-import { MuiCustomSimplebar } from '@mui-custom/Simplebar';
+import { MuiCustomSimplebar, MuiCustomSimplebarRef } from '@mui-custom/Simplebar';
 
 import { List, ListProps } from './Template';
 import {
@@ -25,6 +34,8 @@ import {
     ChevronDownSvg,
     ChevronUpSvg
 } from '../../assets/svg-icons/feather';
+
+import countriesRawData from '../assets/data/countries.json';
 
 export default {
     title: 'mui-custom/List',
@@ -229,6 +240,31 @@ const nearbyLoacations: NearbyLoacaions = {
 };
 
 export const LocationsList = () => {
+    const scrollbarRef = useRef<MuiCustomSimplebarRef>(null);
+
+    const changeScrollPostion = useCallback((offset: number) => {
+        if (scrollbarRef.current) {
+            const scrolledElement = scrollbarRef.current.getScrollElement();
+            const topPos = scrolledElement.scrollTop;
+
+            scrolledElement.scrollTo({
+                top: topPos + offset
+            });
+        }
+    }, []);
+
+    const handleScrollDown = useCallback(() => {
+        changeScrollPostion(15);
+    }, [changeScrollPostion]);
+
+    const handleScrollUp = useCallback(() => {
+        changeScrollPostion(-15);
+    }, [changeScrollPostion]);
+
+    useEffect(() => {
+        console.log(scrollbarRef.current);
+    }, []);
+
     const renderListItems = (text: string, index: number): React.ReactElement => {
         return (
             <ListItemButton key={index}>
@@ -243,17 +279,38 @@ export const LocationsList = () => {
     };
 
     return (
-        <MuiCustomSimplebar
-            autoHide={false}
-            style={{ width: '100%', maxWidth: '36rem', height: '32rem' }}
-        >
-            <List disablePadding subheader={<ListSubheader>Nearby towns</ListSubheader>}>
-                {nearbyLoacations.towns.map((item, index) => renderListItems(item.name, index))}
-            </List>
-            <List disablePadding subheader={<ListSubheader>Other locations</ListSubheader>}>
-                {nearbyLoacations.cities.map((item, index) => renderListItems(item.name, index))}
-            </List>
-        </MuiCustomSimplebar>
+        <>
+            <div className="actions-bar">
+                <Tooltip title="Scroll to bottom" open>
+                    <IconButton onClick={handleScrollDown}>
+                        <Icon>
+                            <ChevronDownSvg />
+                        </Icon>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Scroll to top" open>
+                    <IconButton onClick={handleScrollUp}>
+                        <Icon>
+                            <ChevronUpSvg />
+                        </Icon>
+                    </IconButton>
+                </Tooltip>
+            </div>
+            <MuiCustomSimplebar
+                ref={scrollbarRef}
+                autoHide={false}
+                style={{ width: '100%', maxWidth: '36rem', height: '32rem' }}
+            >
+                <List disablePadding subheader={<ListSubheader>Nearby towns</ListSubheader>}>
+                    {nearbyLoacations.towns.map((item, index) => renderListItems(item.name, index))}
+                </List>
+                <List disablePadding subheader={<ListSubheader>Other locations</ListSubheader>}>
+                    {nearbyLoacations.cities.map((item, index) =>
+                        renderListItems(item.name, index)
+                    )}
+                </List>
+            </MuiCustomSimplebar>
+        </>
     );
 };
 
@@ -327,3 +384,113 @@ export const MultiselectList = () => {
 };
 
 // Virtualized list
+
+const countiesSchema = yup
+    .array(
+        yup.object().shape({
+            code: yup.string().optional(),
+            label: yup.string().optional(),
+            phone: yup.string().optional()
+        })
+    )
+    .defined();
+
+type CountryItems = yup.Asserts<typeof countiesSchema>;
+
+type VirtualizedItemDataProps = {
+    items?: Readonly<CountryItems>;
+};
+
+interface VirtualizedListItemProps extends VirtualizedChildComponentProps {
+    data: Readonly<VirtualizedItemDataProps>;
+}
+
+const VirtualizedListItem = React.memo((props: VirtualizedListItemProps) => {
+    const { data, style, index } = props;
+    const { items = [] } = data;
+    const { code, label, phone } = items[index] || {};
+
+    return (
+        <ListItem style={style}>
+            <ListItemIcon>
+                <Checkbox className="MuiCheckbox-dense" />
+            </ListItemIcon>
+            <ListItemText sx={{ flex: 'none' }}>{code}</ListItemText>
+            <ListItemText>{label}</ListItemText>
+            <ListItemText sx={{ flex: 'none' }}>{phone}</ListItemText>
+        </ListItem>
+    );
+}, areEqual);
+
+export const VirtualizedList = () => {
+    const [items, setItems] = useState<CountryItems>([]);
+    const listRef = useRef<VirtualizedFixiedSizeList>(null);
+    const [scrollbarRef, setScrollbarRef] = useState<HTMLElement | null>(null);
+
+    const handleScroll = useCallback((ev: Event) => {
+        const target = ev.target as HTMLElement;
+
+        if (listRef.current) {
+            listRef.current.scrollTo(target.scrollTop);
+        }
+    }, []);
+
+    const validateItems = async () => {
+        try {
+            const validItems = await countiesSchema.validate(countriesRawData);
+
+            setItems(validItems);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        validateItems();
+    }, []);
+
+    useEffect(() => {
+        if (scrollbarRef) {
+            scrollbarRef.addEventListener('scroll', handleScroll, false);
+
+            return () => {
+                scrollbarRef.removeEventListener('scroll', handleScroll, false);
+            };
+        }
+
+        return undefined;
+    }, [scrollbarRef, handleScroll]);
+
+    const itemData = useMemo<VirtualizedItemDataProps>(
+        () => ({
+            items
+        }),
+        [items]
+    );
+
+    if (items.length === 0) {
+        return null;
+    }
+
+    return (
+        <VirtualizedAutoSizer style={{ width: '36rem', height: '32rem' }}>
+            {({ height }) => {
+                return (
+                    <MuiCustomSimplebar style={{ height }} scrollableNodeHandler={setScrollbarRef}>
+                        <VirtualizedFixiedSizeList
+                            ref={listRef}
+                            width="100%"
+                            height={height}
+                            itemCount={items.length}
+                            itemSize={40}
+                            itemData={itemData}
+                            style={{ overflow: 'initial' }}
+                        >
+                            {VirtualizedListItem}
+                        </VirtualizedFixiedSizeList>
+                    </MuiCustomSimplebar>
+                );
+            }}
+        </VirtualizedAutoSizer>
+    );
+};
