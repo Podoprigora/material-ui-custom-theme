@@ -264,10 +264,6 @@ export const LocationsList = () => {
         changeScrollPostion(-15);
     }, [changeScrollPostion]);
 
-    useEffect(() => {
-        console.log(scrollbarRef);
-    }, [scrollbarRef]);
-
     const renderListItems = (text: string, index: number): React.ReactElement => {
         return (
             <ListItemButton key={index}>
@@ -466,11 +462,7 @@ export const VirtualizedList = () => {
         <VirtualizedAutoSizer style={{ width: '36rem', height: '32rem' }}>
             {({ height }) => {
                 return (
-                    <MuiCustomSimplebar
-                        style={{ height }}
-                        // ref={setScrollbarRef}
-                        onScroll={handleScroll}
-                    >
+                    <MuiCustomSimplebar style={{ height }} onScroll={handleScroll}>
                         <VirtualizedFixiedSizeList
                             ref={listRef}
                             width="100%"

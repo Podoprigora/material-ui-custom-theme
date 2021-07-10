@@ -31,6 +31,13 @@ $border-radius-sm: .4rem;
 $border-radius-lg: 1rem;
 $border-radius: $border-radius-lg;
 
+// Box shadow
+$box-shadow-sm: 0 .2rem .1rem -.1rem rgba($black, 0.12), 0 .1rem .1rem 0 rgba($black, 0.05),
+	0 .1rem .3rem 0 rgba($black, 0.122);
+$box-shadow-md: 0 .2rem .1rem -.1rem rgba($black, 0.12), 0 .1rem .1rem 0 rgba($black, 0.1),
+	0 .2rem .4rem 0 rgba($black, .2);
+$box-shadow-lg: 0 .4rem 1.6rem -.1rem rgba(0, 0, 0, 0.25);
+
 // Grid & spacing
 
 $spacer: .8rem;
@@ -163,10 +170,11 @@ $checkbox-padding: $spacing-scale-4;
 $tooltip-font-size: $font-size-small;
 $tooltip-font-weight: 400;
 $tooltip-line-height: 1.2;
-$tooltip-letter-spacing: .2px;
+$tooltip-letter-spacing: .4px;
 $tooltip-padding: $spacing-scale-4 $spacing-scale-6;
-$tooltip-margin: $spacing-scale-4;
-$tooltip-bg-color: lighten($gray-darken-3, 8%);
-$tooltip-color: $white;
+$tooltip-margin: $spacing-scale-5;
+$tooltip-bg-color: $gray-lighten-5;
+$tooltip-color: $black;
 $tooltip-max-width: 32rem;
+$tooltip-box-shadow: $box-shadow-sm;
 $tooltip-border-radius: $border-radius-sm;

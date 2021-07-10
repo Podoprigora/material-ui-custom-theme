@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Icon } from '@material-ui/core';
+import { Icon, Tooltip } from '@material-ui/core';
 import { FavoriteBorder } from '@material-ui/icons';
 
 import { IconButton, IconButtonProps } from './Template';
@@ -34,15 +34,21 @@ export const Examples = () => {
     return (
         <>
             <div className="actions-bar">
-                <IconButton size="large">
-                    <FavoriteBorder />
-                </IconButton>
-                <IconButton size="medium">
-                    <FavoriteBorder />
-                </IconButton>
-                <IconButton size="small">
-                    <FavoriteBorder />
-                </IconButton>
+                <Tooltip title="Add to favorite">
+                    <IconButton size="large">
+                        <FavoriteBorder />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Add to favorite">
+                    <IconButton size="medium">
+                        <FavoriteBorder />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Add to favorite">
+                    <IconButton size="small">
+                        <FavoriteBorder />
+                    </IconButton>
+                </Tooltip>
             </div>
             <div className="actions-bar">
                 <IconButton size="large" disabled>
@@ -78,15 +84,21 @@ export const Examples = () => {
                 </IconButton>
             </div>
             <div className="actions-bar">
-                <IconButton size="large" color="primary">
-                    <FavoriteBorder />
-                </IconButton>
-                <IconButton size="medium" color="primary">
-                    <FavoriteBorder />
-                </IconButton>
-                <IconButton size="small" color="primary">
-                    <FavoriteBorder />
-                </IconButton>
+                <Tooltip title="Add to favorite">
+                    <IconButton size="large" color="primary">
+                        <FavoriteBorder />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Add to favorite">
+                    <IconButton size="medium" color="primary">
+                        <FavoriteBorder />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Add to favorite">
+                    <IconButton size="small" color="primary">
+                        <FavoriteBorder />
+                    </IconButton>
+                </Tooltip>
             </div>
 
             {/* Custom icon */}

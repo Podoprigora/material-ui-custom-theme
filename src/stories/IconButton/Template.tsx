@@ -7,6 +7,9 @@ import {
 
 export type IconButtonProps = MuiIconButtonProps;
 
-export const IconButton = (props: IconButtonProps) => {
-    return <MuiIconButton {...props} />;
-};
+export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
+    props,
+    forwardedRef
+) {
+    return <MuiIconButton {...props} ref={forwardedRef} />;
+});
