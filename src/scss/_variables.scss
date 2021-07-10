@@ -147,6 +147,11 @@ $icon-small-padding: $spacing-scale-4;
 // MuiIconButton
 $icon-btn-border-radius: 1rem;
 
+// MuiToggleButton
+$toggle-btn-selected-box-shadow: inset 0 0 0 .1rem rgba($body-color, .25);
+$toggle-btn-primary-selected-box-shadow: inset 0 0 0 .1rem rgba($color-primary, .6);
+$toggle-btn-secondary-selected-box-shadow: inset 0 0 0 .1rem rgba($color-secondary, .6);
+
 // MuiList
 $list-padding-y: $spacing-scale-4;
 $list-padding-x: $spacing-scale-8;

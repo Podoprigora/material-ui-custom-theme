@@ -3,12 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Icon, IconProps } from '@material-ui/core';
 import { GridSvg, ListSvg } from '../../assets/svg-icons/feather';
-import {
-    ToggleButton,
-    ToggleButtonProps,
-    ToggleButtonGroup,
-    ToggleButtonGroupProps
-} from './Templete';
+import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps } from './Templete';
 
 export default {
     title: 'mui-custom/ToggleButton',
@@ -50,14 +45,14 @@ Default.args = {
 } as DefaultStoryProps;
 
 const FiltersExample = () => {
-    const [selected, setSelected] = useState<string>('');
+    const [selected, setSelected] = useState<string>('pending');
 
     const handleChange = (ev: React.MouseEvent, newValue: string) => {
         setSelected(newValue);
     };
 
     return (
-        <ToggleButtonGroup exclusive color="secondary" value={selected} onChange={handleChange}>
+        <ToggleButtonGroup exclusive color="primary" value={selected} onChange={handleChange}>
             <ToggleButton value="new">New</ToggleButton>
             <ToggleButton value="pending">Pending</ToggleButton>
             <ToggleButton value="completed">Completed</ToggleButton>
