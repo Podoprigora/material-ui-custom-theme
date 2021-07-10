@@ -20,7 +20,8 @@ import {
     Button,
     IconButton,
     Checkbox,
-    Tooltip
+    Tooltip,
+    Box
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 import { MuiCustomSimplebar, MuiCustomSimplebarRef } from '@mui-custom/Simplebar';
@@ -279,22 +280,6 @@ export const LocationsList = () => {
 
     return (
         <>
-            <div className="actions-bar">
-                <Tooltip title="Scroll to bottom">
-                    <IconButton onClick={handleScrollDown}>
-                        <Icon>
-                            <ChevronDownSvg />
-                        </Icon>
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Scroll to top">
-                    <IconButton onClick={handleScrollUp}>
-                        <Icon>
-                            <ChevronUpSvg />
-                        </Icon>
-                    </IconButton>
-                </Tooltip>
-            </div>
             <MuiCustomSimplebar
                 ref={setScrollbarRef}
                 autoHide={false}
@@ -309,6 +294,22 @@ export const LocationsList = () => {
                     )}
                 </List>
             </MuiCustomSimplebar>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', maxWidth: '36rem' }}>
+                <Tooltip title="Scroll to bottom">
+                    <IconButton onClick={handleScrollDown}>
+                        <Icon>
+                            <ChevronDownSvg />
+                        </Icon>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Scroll to top">
+                    <IconButton onClick={handleScrollUp}>
+                        <Icon>
+                            <ChevronUpSvg />
+                        </Icon>
+                    </IconButton>
+                </Tooltip>
+            </Box>
         </>
     );
 };
@@ -398,6 +399,8 @@ type CountryItems = yup.Asserts<typeof countiesSchema>;
 
 type VirtualizedItemDataProps = {
     items?: Readonly<CountryItems>;
+    selected: number[];
+    onSelect: (index: number) => void;
 };
 
 interface VirtualizedListItemProps extends VirtualizedChildComponentProps {
@@ -406,13 +409,22 @@ interface VirtualizedListItemProps extends VirtualizedChildComponentProps {
 
 const VirtualizedListItem = React.memo((props: VirtualizedListItemProps) => {
     const { data, style, index } = props;
-    const { items = [] } = data;
+    const { items = [], selected, onSelect } = data;
     const { code, label, phone } = items[index] || {};
+    const checked = !!selected.find((item) => item === index);
+
+    const handleCheckboxChange = useCallback(() => {
+        onSelect(index);
+    }, [index, onSelect]);
 
     return (
         <ListItem style={style}>
             <ListItemIcon>
-                <Checkbox className="MuiCheckbox-dense" />
+                <Checkbox
+                    checked={checked}
+                    className="MuiCheckbox-dense"
+                    onChange={handleCheckboxChange}
+                />
             </ListItemIcon>
             <ListItemText sx={{ flex: 'none' }}>{code}</ListItemText>
             <ListItemText>{label}</ListItemText>
@@ -423,6 +435,7 @@ const VirtualizedListItem = React.memo((props: VirtualizedListItemProps) => {
 
 export const VirtualizedList = () => {
     const [items, setItems] = useState<CountryItems>([]);
+    const [selected, setSelected] = useState<number[]>([]);
     const listRef = useRef<VirtualizedFixiedSizeList>(null);
 
     const handleScroll = useCallback((ev: Event) => {
@@ -431,6 +444,18 @@ export const VirtualizedList = () => {
         if (listRef.current) {
             listRef.current.scrollTo(target.scrollTop);
         }
+    }, []);
+
+    const handleSelect = useCallback((index: number) => {
+        setSelected((prevState) => {
+            const existedIndex = prevState.indexOf(index);
+
+            if (existedIndex !== -1) {
+                return prevState.filter((item) => item !== index);
+            }
+
+            return [...prevState, index];
+        });
     }, []);
 
     const validateItems = async () => {
@@ -449,9 +474,11 @@ export const VirtualizedList = () => {
 
     const itemData = useMemo<VirtualizedItemDataProps>(
         () => ({
-            items
+            items,
+            selected,
+            onSelect: handleSelect
         }),
-        [items]
+        [items, selected, handleSelect]
     );
 
     if (items.length === 0) {
