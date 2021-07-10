@@ -240,18 +240,21 @@ const nearbyLoacations: NearbyLoacaions = {
 };
 
 export const LocationsList = () => {
-    const scrollbarRef = useRef<MuiCustomSimplebarRef>(null);
+    const [scrollbarRef, setScrollbarRef] = useState<MuiCustomSimplebarRef>(null);
 
-    const changeScrollPostion = useCallback((offset: number) => {
-        if (scrollbarRef.current) {
-            const scrolledElement = scrollbarRef.current.getScrollElement();
-            const topPos = scrolledElement.scrollTop;
+    const changeScrollPostion = useCallback(
+        (offset: number) => {
+            if (scrollbarRef) {
+                const scrolledElement = scrollbarRef.getScrollElement();
+                const topPos = scrolledElement.scrollTop;
 
-            scrolledElement.scrollTo({
-                top: topPos + offset
-            });
-        }
-    }, []);
+                scrolledElement.scrollTo({
+                    top: topPos + offset
+                });
+            }
+        },
+        [scrollbarRef]
+    );
 
     const handleScrollDown = useCallback(() => {
         changeScrollPostion(15);
@@ -262,8 +265,8 @@ export const LocationsList = () => {
     }, [changeScrollPostion]);
 
     useEffect(() => {
-        console.log(scrollbarRef.current);
-    }, []);
+        console.log(scrollbarRef);
+    }, [scrollbarRef]);
 
     const renderListItems = (text: string, index: number): React.ReactElement => {
         return (
@@ -281,14 +284,14 @@ export const LocationsList = () => {
     return (
         <>
             <div className="actions-bar">
-                <Tooltip title="Scroll to bottom" open>
+                <Tooltip title="Scroll to bottom">
                     <IconButton onClick={handleScrollDown}>
                         <Icon>
                             <ChevronDownSvg />
                         </Icon>
                     </IconButton>
                 </Tooltip>
-                <Tooltip title="Scroll to top" open>
+                <Tooltip title="Scroll to top">
                     <IconButton onClick={handleScrollUp}>
                         <Icon>
                             <ChevronUpSvg />
@@ -297,7 +300,7 @@ export const LocationsList = () => {
                 </Tooltip>
             </div>
             <MuiCustomSimplebar
-                ref={scrollbarRef}
+                ref={setScrollbarRef}
                 autoHide={false}
                 style={{ width: '100%', maxWidth: '36rem', height: '32rem' }}
             >
@@ -425,7 +428,6 @@ const VirtualizedListItem = React.memo((props: VirtualizedListItemProps) => {
 export const VirtualizedList = () => {
     const [items, setItems] = useState<CountryItems>([]);
     const listRef = useRef<VirtualizedFixiedSizeList>(null);
-    const [scrollbarRef, setScrollbarRef] = useState<HTMLElement | null>(null);
 
     const handleScroll = useCallback((ev: Event) => {
         const target = ev.target as HTMLElement;
@@ -449,18 +451,6 @@ export const VirtualizedList = () => {
         validateItems();
     }, []);
 
-    useEffect(() => {
-        if (scrollbarRef) {
-            scrollbarRef.addEventListener('scroll', handleScroll, false);
-
-            return () => {
-                scrollbarRef.removeEventListener('scroll', handleScroll, false);
-            };
-        }
-
-        return undefined;
-    }, [scrollbarRef, handleScroll]);
-
     const itemData = useMemo<VirtualizedItemDataProps>(
         () => ({
             items
@@ -476,7 +466,11 @@ export const VirtualizedList = () => {
         <VirtualizedAutoSizer style={{ width: '36rem', height: '32rem' }}>
             {({ height }) => {
                 return (
-                    <MuiCustomSimplebar style={{ height }} scrollableNodeHandler={setScrollbarRef}>
+                    <MuiCustomSimplebar
+                        style={{ height }}
+                        // ref={setScrollbarRef}
+                        onScroll={handleScroll}
+                    >
                         <VirtualizedFixiedSizeList
                             ref={listRef}
                             width="100%"

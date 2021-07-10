@@ -158,3 +158,15 @@ $simplebar-scrollbar-hover-opacity: .5;
 
 // MuiCheckbox
 $checkbox-padding: $spacing-scale-4;
+
+// MuiTooltip
+$tooltip-font-size: $font-size-small;
+$tooltip-font-weight: 400;
+$tooltip-line-height: 1.2;
+$tooltip-letter-spacing: .2px;
+$tooltip-padding: $spacing-scale-4 $spacing-scale-6;
+$tooltip-margin: $spacing-scale-4;
+$tooltip-bg-color: lighten($gray-darken-3, 8%);
+$tooltip-color: $white;
+$tooltip-max-width: 32rem;
+$tooltip-border-radius: $border-radius-sm;
