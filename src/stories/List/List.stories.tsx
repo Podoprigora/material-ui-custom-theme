@@ -15,13 +15,15 @@ import {
     ListItemText,
     ListItemIcon,
     ListSubheader,
+    ListItemAvatar,
     Icon,
     Divider,
     Button,
     IconButton,
     Checkbox,
     Tooltip,
-    Box
+    Box,
+    Avatar
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 import { MuiCustomSimplebar, MuiCustomSimplebarRef } from '@mui-custom/Simplebar';
@@ -33,9 +35,11 @@ import {
     CheckSvg,
     MapPinSvg,
     ChevronDownSvg,
-    ChevronUpSvg
+    ChevronUpSvg,
+    FileTextSvg
 } from '../../assets/svg-icons/feather';
 
+import '../scss/navigation-list.scss';
 import countriesRawData from '../assets/data/countries.json';
 
 export default {
@@ -505,5 +509,112 @@ export const VirtualizedList = () => {
                 );
             }}
         </VirtualizedAutoSizer>
+    );
+};
+
+// Navigation list
+
+export const NavigationList = () => {
+    return (
+        <List className="navigation-list">
+            <ListItemButton>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon>
+                            <FileTextSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Your orders"
+                    secondary="Information about your orders"
+                />
+            </ListItemButton>
+            <ListItemButton>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Login & Security"
+                    secondary="Change name, contact info, security settings"
+                />
+            </ListItemButton>
+            <ListItemButton>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Your addresses"
+                    secondary="Add or edit your addresses"
+                />
+            </ListItemButton>
+            <ListItemButton>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Locations"
+                    secondary="Add or edit your business locations"
+                />
+            </ListItemButton>
+            <ListItemButton selected>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Products"
+                    secondary="Create products and services"
+                />
+            </ListItemButton>
+            <ListItemButton>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Message center"
+                    secondary="Your messages and notifications"
+                />
+            </ListItemButton>
+            <ListItemButton>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Finances"
+                    secondary="Manage your finances & payments"
+                />
+            </ListItemButton>
+            <ListItemButton>
+                <ListItemIcon>
+                    <Icon>
+                        <FileTextSvg />
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText
+                    disableTypography={false}
+                    primary="Analytics"
+                    secondary="Statistical information about your sales"
+                />
+            </ListItemButton>
+        </List>
     );
 };

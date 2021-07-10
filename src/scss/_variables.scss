@@ -22,6 +22,8 @@ $color-secondary-dark: #19b6cb;
 $color-secondary-text: #fff;
 $color-secondary-border-color: #d9ebed;
 
+$color-text-note: $gray-darken-1;
+
 // Body
 $body-bg-color: $gray-lighten-5;
 $body-color: $gray-darken-4;
@@ -160,6 +162,11 @@ $list-item-icon-font-size: $icon-large-font-size;
 $list-item-selected-bg-color: rgba($color-primary, .12);
 $list-item-selected-hover-bg-color: rgba($color-primary, .08);
 $list-subheader-min-height: 4rem;
+$list-item-multiline-text-line-height: 1.4;
+$list-item-multiline-text-primary-font-size: $font-size-xmedium;
+$list-item-multiline-text-primary-margin-bottom: $spacing-scale-3;
+$list-item-multiline-text-secondary-font-size: $font-size-medium;
+$list-item-multiline-text-secondary-color: $color-text-note;
 
 // Simplebar
 $simplebar-track-size: 1.1rem;

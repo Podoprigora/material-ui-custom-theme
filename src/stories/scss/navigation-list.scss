@@ -1,0 +1,49 @@
+@use '../../scss/variables' as *;
+
+.navigation-list {
+	width: 100%;
+	max-width: 36rem;
+	background-color: $white;
+
+	.MuiListItemButton {
+		&-root {
+			border-radius: $border-radius-lg;
+
+			&:hover {
+				background-color: rgba($color-primary, .12);
+			}
+
+			&.Mui-selected {
+				background-color: rgba($color-primary, .8);
+				color: $white;
+
+				.MuiListItemIcon {
+					&-root {
+						color: inherit;
+					}
+				}
+
+				.MuiListItemText {
+					&-primary,
+					&-secondary {
+						color: inherit;
+					}
+
+					&-secondary {
+						opacity: .9;
+					}
+				}
+			}
+		}
+	}
+
+	.MuiListItemText {
+		&-primary {
+			font-weight: 500;
+			letter-spacing: .2px;
+		}
+		&-secondary {
+			letter-spacing: .4px;
+		}
+	}
+}

@@ -43,6 +43,8 @@
 }
 
 .MuiListItemText {
+	$this: &;
+
 	&-root {
 		margin-top: math.div($list-padding-y, 2);
 		margin-bottom: math.div($list-padding-y, 2);
@@ -55,6 +57,22 @@
 
 	&-inset {
 		padding-left: $list-padding-x - $spacing-scale-1 + $list-item-icon-font-size;
+	}
+
+	&-multiline {
+		line-height: $list-item-multiline-text-line-height;
+
+		#{$this}-primary {
+			font-size: $list-item-multiline-text-primary-font-size;
+			line-height: inherit;
+			margin-bottom: $list-item-multiline-text-primary-margin-bottom;
+		}
+
+		#{$this}-secondary {
+			font-size: $list-item-multiline-text-secondary-font-size;
+			line-height: inherit;
+			color: $list-item-multiline-text-secondary-color;
+		}
 	}
 }
 
