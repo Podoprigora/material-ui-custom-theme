@@ -12,6 +12,7 @@ import VirtualizedAutoSizer from 'react-virtualized-auto-sizer';
 import {
     ListItem,
     ListItemButton,
+    ListItemButtonProps,
     ListItemText,
     ListItemIcon,
     ListSubheader,
@@ -36,7 +37,14 @@ import {
     MapPinSvg,
     ChevronDownSvg,
     ChevronUpSvg,
-    FileTextSvg
+    FileTextSvg,
+    LockSvg,
+    ShoppingBagSvg,
+    MapSvg,
+    MessageSquareSvg,
+    DollarSignSvg,
+    TrendingUpSvg,
+    PackageSvg
 } from '../../assets/svg-icons/feather';
 
 import '../scss/navigation-list.scss';
@@ -515,13 +523,26 @@ export const VirtualizedList = () => {
 // Navigation list
 
 export const NavigationList = () => {
+    const [selected, setSelected] = useState('orders');
+
+    const handleSelect = (name: string) => () => {
+        setSelected(name);
+    };
+
+    const getItemProps = (name: string): ListItemButtonProps => {
+        return {
+            selected: selected === name,
+            onClick: handleSelect(name)
+        };
+    };
+
     return (
         <List className="navigation-list">
-            <ListItemButton>
+            <ListItemButton {...getItemProps('orders')}>
                 <ListItemAvatar>
                     <Avatar>
-                        <Icon>
-                            <FileTextSvg />
+                        <Icon fontSize="large">
+                            <ShoppingBagSvg />
                         </Icon>
                     </Avatar>
                 </ListItemAvatar>
@@ -531,84 +552,99 @@ export const NavigationList = () => {
                     secondary="Information about your orders"
                 />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('security')}>
+                <ListItemAvatar>
+                    <Avatar variant="circular">
+                        <Icon fontSize="large">
+                            <LockSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
                 <ListItemText
                     disableTypography={false}
                     primary="Login & Security"
                     secondary="Change name, contact info, security settings"
                 />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('addresses')}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon fontSize="large">
+                            <FileTextSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
+
                 <ListItemText
                     disableTypography={false}
                     primary="Your addresses"
                     secondary="Add or edit your addresses"
                 />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('locations')}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon fontSize="large">
+                            <MapSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
                 <ListItemText
                     disableTypography={false}
                     primary="Locations"
                     secondary="Add or edit your business locations"
                 />
             </ListItemButton>
-            <ListItemButton selected>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('products')}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon fontSize="large">
+                            <PackageSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
                 <ListItemText
                     disableTypography={false}
                     primary="Products"
                     secondary="Create products and services"
                 />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('messages')}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon fontSize="large">
+                            <MessageSquareSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
                 <ListItemText
                     disableTypography={false}
                     primary="Message center"
                     secondary="Your messages and notifications"
                 />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('finances')}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon fontSize="large">
+                            <DollarSignSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
                 <ListItemText
                     disableTypography={false}
                     primary="Finances"
                     secondary="Manage your finances & payments"
                 />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Icon>
-                        <FileTextSvg />
-                    </Icon>
-                </ListItemIcon>
+            <ListItemButton {...getItemProps('analitics')}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <Icon fontSize="large">
+                            <TrendingUpSvg />
+                        </Icon>
+                    </Avatar>
+                </ListItemAvatar>
                 <ListItemText
                     disableTypography={false}
                     primary="Analytics"

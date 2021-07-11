@@ -1,49 +1,74 @@
 @use '../../scss/variables' as *;
 
 .navigation-list {
-	width: 100%;
-	max-width: 36rem;
-	background-color: $white;
+    width: 100%;
+    max-width: 36rem;
+    background-color: $white;
 
-	.MuiListItemButton {
-		&-root {
-			border-radius: $border-radius-lg;
+    .MuiListItemButton {
+        &-root {
+            padding-top: $spacing-scale-3;
+            padding-bottom: $spacing-scale-3;
+            border-radius: $border-radius-lg;
 
-			&:hover {
-				background-color: rgba($color-primary, .12);
-			}
+            &:not(:last-of-type) {
+                margin-bottom: $spacing-scale-4;
+            }
 
-			&.Mui-selected {
-				background-color: rgba($color-primary, .8);
-				color: $white;
+            &:hover {
+                background-color: rgba($color-primary, 0.12);
 
-				.MuiListItemIcon {
-					&-root {
-						color: inherit;
-					}
-				}
+                .MuiAvatar-root {
+                    background-color: transparent;
+                }
+            }
 
-				.MuiListItemText {
-					&-primary,
-					&-secondary {
-						color: inherit;
-					}
+            &.Mui-selected {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    to bottom,
+                    rgba($color-primary, 0.65),
+                    20%,
+                    $color-primary
+                );
+                color: $white;
+                box-shadow: $box-shadow-sm;
 
-					&-secondary {
-						opacity: .9;
-					}
-				}
-			}
-		}
-	}
+                .MuiListItemText {
+                    &-primary,
+                    &-secondary {
+                        color: inherit;
+                    }
 
-	.MuiListItemText {
-		&-primary {
-			font-weight: 500;
-			letter-spacing: .2px;
-		}
-		&-secondary {
-			letter-spacing: .4px;
-		}
-	}
+                    &-secondary {
+                        opacity: 0.9;
+                    }
+                }
+
+                .MuiAvatar-root {
+                    color: inherit;
+                    background-color: transparent;
+
+                    .MuiIcon-root {
+                        color: inherit;
+                    }
+                }
+            }
+
+            .MuiAvatar-root {
+                background-color: $gray-lighten-4;
+                transition: background-color 0.2s;
+            }
+        }
+    }
+
+    .MuiListItemText {
+        &-primary {
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        &-secondary {
+            letter-spacing: 0.4px;
+        }
+    }
 }

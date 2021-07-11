@@ -1,6 +1,6 @@
 @import './color-pallete-variables';
 
-$font-family-primary: "Poppins", "Arial", sans-serif, monospace;
+$font-family-primary: 'Poppins', 'Arial', sans-serif, monospace;
 $font-family: $font-family-primary;
 $font-size-small: 1.2rem;
 $font-size-medium: 1.4rem;
@@ -29,20 +29,20 @@ $body-bg-color: $gray-lighten-5;
 $body-color: $gray-darken-4;
 
 // Border radius
-$border-radius-sm: .4rem;
+$border-radius-sm: 0.4rem;
 $border-radius-lg: 1rem;
 $border-radius: $border-radius-lg;
 
 // Box shadow
-$box-shadow-sm: 0 .2rem .1rem -.1rem rgba($black, 0.12), 0 .1rem .1rem 0 rgba($black, 0.05),
-	0 .1rem .3rem 0 rgba($black, 0.122);
-$box-shadow-md: 0 .2rem .1rem -.1rem rgba($black, 0.12), 0 .1rem .1rem 0 rgba($black, 0.1),
-	0 .2rem .4rem 0 rgba($black, .2);
-$box-shadow-lg: 0 .4rem 1.6rem -.1rem rgba(0, 0, 0, 0.25);
+$box-shadow-sm: 0 0.2rem 0.1rem -0.1rem rgba($black, 0.12), 0 0.1rem 0.1rem 0 rgba($black, 0.05),
+    0 0.1rem 0.3rem 0 rgba($black, 0.122);
+$box-shadow-md: 0 0.2rem 0.1rem -0.1rem rgba($black, 0.12), 0 0.1rem 0.1rem 0 rgba($black, 0.1),
+    0 0.2rem 0.4rem 0 rgba($black, 0.2);
+$box-shadow-lg: 0 0.4rem 1.6rem -0.1rem rgba(0, 0, 0, 0.25);
 
 // Grid & spacing
 
-$spacer: .8rem;
+$spacer: 0.8rem;
 
 $spacing-scale-0: 0;
 $spacing-scale-1: $spacer * 0.25; // .2rem
@@ -68,28 +68,28 @@ $spacing-scale-20: $spacer * 5; // 4rem
 $spacing-scale-24: $spacer * 6; // 4.8rem
 
 $spacing-scale: (
-	"0": $spacing-scale-0,
-	"1": $spacing-scale-1,
-	"2": $spacing-scale-2,
-	"3": $spacing-scale-3,
-	"4": $spacing-scale-4,
-	"5": $spacing-scale-5,
-	"6": $spacing-scale-6,
-	"7": $spacing-scale-7,
-	"8": $spacing-scale-8,
-	"9": $spacing-scale-9,
-	"10": $spacing-scale-10,
-	"11": $spacing-scale-11,
-	"12": $spacing-scale-12,
-	"13": $spacing-scale-13,
-	"14": $spacing-scale-14,
-	"15": $spacing-scale-15,
-	"16": $spacing-scale-16,
-	"17": $spacing-scale-17,
-	"18": $spacing-scale-18,
-	"19": $spacing-scale-19,
-	"20": $spacing-scale-20,
-	"24": $spacing-scale-24
+    '0': $spacing-scale-0,
+    '1': $spacing-scale-1,
+    '2': $spacing-scale-2,
+    '3': $spacing-scale-3,
+    '4': $spacing-scale-4,
+    '5': $spacing-scale-5,
+    '6': $spacing-scale-6,
+    '7': $spacing-scale-7,
+    '8': $spacing-scale-8,
+    '9': $spacing-scale-9,
+    '10': $spacing-scale-10,
+    '11': $spacing-scale-11,
+    '12': $spacing-scale-12,
+    '13': $spacing-scale-13,
+    '14': $spacing-scale-14,
+    '15': $spacing-scale-15,
+    '16': $spacing-scale-16,
+    '17': $spacing-scale-17,
+    '18': $spacing-scale-18,
+    '19': $spacing-scale-19,
+    '20': $spacing-scale-20,
+    '24': $spacing-scale-24
 );
 
 // Breakpoints
@@ -101,12 +101,12 @@ $breakpoint-xl: px-to-em(1200px);
 $breakpoint-xxl: px-to-em(1400px);
 
 $breakpoints: (
-	"xs": $breakpoint-xs,
-	"sm": $breakpoint-sm,
-	"md": $breakpoint-md,
-	"lg": $breakpoint-lg,
-	"xl": $breakpoint-xl,
-	"xxl": $breakpoint-xxl
+    'xs': $breakpoint-xs,
+    'sm': $breakpoint-sm,
+    'md': $breakpoint-md,
+    'lg': $breakpoint-lg,
+    'xl': $breakpoint-xl,
+    'xxl': $breakpoint-xxl
 );
 
 // MuiButton
@@ -128,12 +128,12 @@ $btn-small-padding-x: $spacing-scale-8;
 $btn-small-min-height: 3rem;
 $btn-border-width: $spacing-scale-1;
 $btn-border-radius: $border-radius-lg;
-$btn-outlined-hover-opacity: .065;
-$btn-outlined-border-opacity: .55;
-$btn-disabled-opacity: .4;
-$btn-hover-opacity: .65;
-$btn-focus-visible-box-shadow: 0 0px 0px .4rem rgba($color-primary, .3);
-$btn-transition: background-color .2s ease;
+$btn-outlined-hover-opacity: 0.065;
+$btn-outlined-border-opacity: 0.55;
+$btn-disabled-opacity: 0.4;
+$btn-hover-opacity: 0.65;
+$btn-focus-visible-box-shadow: 0 0px 0px 0.4rem rgba($color-primary, 0.3);
+$btn-transition: background-color 0.2s ease;
 
 // Icon
 $icon-color: $gray-darken-1;
@@ -150,17 +150,17 @@ $icon-small-padding: $spacing-scale-4;
 $icon-btn-border-radius: 1rem;
 
 // MuiToggleButton
-$toggle-btn-selected-box-shadow: inset 0 0 0 .1rem rgba($body-color, .25);
-$toggle-btn-primary-selected-box-shadow: inset 0 0 0 .1rem rgba($color-primary, .6);
-$toggle-btn-secondary-selected-box-shadow: inset 0 0 0 .1rem rgba($color-secondary, .6);
+$toggle-btn-selected-box-shadow: inset 0 0 0 0.1rem rgba($body-color, 0.25);
+$toggle-btn-primary-selected-box-shadow: inset 0 0 0 0.1rem rgba($color-primary, 0.6);
+$toggle-btn-secondary-selected-box-shadow: inset 0 0 0 0.1rem rgba($color-secondary, 0.6);
 
 // MuiList
 $list-padding-y: $spacing-scale-4;
 $list-padding-x: $spacing-scale-8;
 $list-item-line-height: $btn-line-height;
 $list-item-icon-font-size: $icon-large-font-size;
-$list-item-selected-bg-color: rgba($color-primary, .12);
-$list-item-selected-hover-bg-color: rgba($color-primary, .08);
+$list-item-selected-bg-color: rgba($color-primary, 0.12);
+$list-item-selected-hover-bg-color: rgba($color-primary, 0.08);
 $list-subheader-min-height: 4rem;
 $list-item-multiline-text-line-height: 1.4;
 $list-item-multiline-text-primary-font-size: $font-size-xmedium;
@@ -172,8 +172,8 @@ $list-item-multiline-text-secondary-color: $color-text-note;
 $simplebar-track-size: 1.1rem;
 $simplebar-scrollbar-min-size: 1rem;
 $simplebar-scrollbar-bg-color: $icon-color;
-$simplebar-scrollbar-opacity: .5;
-$simplebar-scrollbar-hover-opacity: .5;
+$simplebar-scrollbar-opacity: 0.5;
+$simplebar-scrollbar-hover-opacity: 0.5;
 
 // MuiCheckbox
 $checkbox-padding: $spacing-scale-4;
@@ -182,7 +182,7 @@ $checkbox-padding: $spacing-scale-4;
 $tooltip-font-size: $font-size-small;
 $tooltip-font-weight: 400;
 $tooltip-line-height: 1.2;
-$tooltip-letter-spacing: .4px;
+$tooltip-letter-spacing: 0.4px;
 $tooltip-padding: $spacing-scale-4 $spacing-scale-6;
 $tooltip-margin: $spacing-scale-5;
 $tooltip-bg-color: $gray-lighten-5;
@@ -190,3 +190,12 @@ $tooltip-color: $black;
 $tooltip-max-width: 32rem;
 $tooltip-box-shadow: $box-shadow-sm;
 $tooltip-border-radius: $border-radius-sm;
+
+// MuiAvatar
+$avatar-font-size: $font-size-large;
+$avatar-font-weight: 400;
+$avatar-text-transform: uppercase;
+$avatar-bg-color: $gray-lighten-3;
+$avatar-color: rgba($btn-color, 0.65);
+$avatar-size: 4rem;
+$avatar-rounded-border-radius: $border-radius-sm;
