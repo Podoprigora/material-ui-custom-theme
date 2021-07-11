@@ -25,9 +25,23 @@ import {
     Tooltip,
     Box,
     Avatar,
-    Badge
+    Badge,
+    Collapse
 } from '@material-ui/core';
-import { InsertDriveFileOutlined } from '@material-ui/icons';
+import {
+    AccessTimeRounded,
+    ApartmentRounded,
+    BarChartRounded,
+    FolderOpenRounded,
+    GroupsRounded,
+    HelpOutlineRounded,
+    InsertDriveFileOutlined,
+    KeyboardArrowDownRounded,
+    KeyboardArrowUpRounded,
+    LocalOfferRounded,
+    PeopleAltRounded,
+    SettingsRounded
+} from '@material-ui/icons';
 import { MuiCustomSimplebar, MuiCustomSimplebarRef } from '@mui-custom/Simplebar';
 
 import { List, ListProps } from './Template';
@@ -50,6 +64,8 @@ import {
 } from '../../assets/svg-icons/feather';
 
 import '../scss/navigation-list.scss';
+import '../scss/nested-navigation-list.scss';
+
 import countriesRawData from '../assets/data/countries.json';
 import UserpicImg from '../assets/images/userpic.jpg';
 
@@ -693,5 +709,163 @@ export const NavigationList = () => {
                 </List>
             </div>
         </>
+    );
+};
+
+// Nested navigation list
+
+const useNestedNavigationList = () => {
+    const [selected, setSelected] = useState('');
+    const [expanded, setExpanded] = useState<string[]>([]);
+
+    const handleSelect = (key: string) => () => {
+        setSelected(key);
+    };
+
+    const getSelectedItemProps = (name: string): ListItemButtonProps => {
+        return {
+            selected: name === selected,
+            onClick: handleSelect(name)
+        };
+    };
+
+    const isExpanded = (key: string) => {
+        return expanded.indexOf(key) !== -1;
+    };
+
+    const handleExpanded = (name: string) => () => {
+        setExpanded((prevState) => {
+            if (prevState.indexOf(name) !== -1) {
+                return prevState.filter((item) => item !== name);
+            }
+
+            return [...prevState, name];
+        });
+    };
+
+    return {
+        getSelectedItemProps,
+        isExpanded,
+        handleExpanded
+    } as const;
+};
+
+export const NestedNavigationList = () => {
+    const { getSelectedItemProps, isExpanded, handleExpanded } = useNestedNavigationList();
+
+    return (
+        <div style={{ width: '100%', maxWidth: '28rem' }}>
+            <List className="nested-navigation-list">
+                <ListItemButton {...getSelectedItemProps('time')}>
+                    <ListItemIcon>
+                        <AccessTimeRounded />
+                    </ListItemIcon>
+                    <ListItemText>Time</ListItemText>
+                </ListItemButton>
+                <ListItemButton onClick={handleExpanded('reports')}>
+                    <ListItemIcon>
+                        <BarChartRounded />
+                    </ListItemIcon>
+                    <ListItemText>Reports</ListItemText>
+                    <ListItemIcon>
+                        {isExpanded('reports') ? (
+                            <KeyboardArrowUpRounded />
+                        ) : (
+                            <KeyboardArrowDownRounded />
+                        )}
+                    </ListItemIcon>
+                </ListItemButton>
+                <Collapse in={isExpanded('reports')}>
+                    <List disablePadding className="nested-navigation-list">
+                        <ListItemButton {...getSelectedItemProps('reports-projects-summary')}>
+                            <ListItemText inset>Projects Summary</ListItemText>
+                        </ListItemButton>
+                        <ListItemButton {...getSelectedItemProps('reports-tasks-summary')}>
+                            <ListItemText inset>Tasks Summary</ListItemText>
+                        </ListItemButton>
+                        <ListItemButton {...getSelectedItemProps('reports-team-summary')}>
+                            <ListItemText inset>Team Summary</ListItemText>
+                        </ListItemButton>
+                        <ListItemButton {...getSelectedItemProps('reports-detailed-summary')}>
+                            <ListItemText inset>Detailed Summary</ListItemText>
+                        </ListItemButton>
+                    </List>
+                </Collapse>
+                <ListItemButton onClick={handleExpanded('projects')}>
+                    <ListItemIcon>
+                        <FolderOpenRounded />
+                    </ListItemIcon>
+                    <ListItemText>Projects</ListItemText>
+                    <ListItemIcon>
+                        {isExpanded('projects') ? (
+                            <KeyboardArrowUpRounded />
+                        ) : (
+                            <KeyboardArrowDownRounded />
+                        )}
+                    </ListItemIcon>
+                </ListItemButton>
+                <Collapse in={isExpanded('projects')}>
+                    <List disablePadding className="nested-navigation-list">
+                        <ListItemButton {...getSelectedItemProps('projects-all')}>
+                            <ListItemText inset>All projects</ListItemText>
+                        </ListItemButton>
+                        <ListItemButton {...getSelectedItemProps('projects-new')}>
+                            <ListItemText inset>New projects</ListItemText>
+                        </ListItemButton>
+                        <ListItemButton {...getSelectedItemProps('projects-pending')}>
+                            <ListItemText inset>Pending projects</ListItemText>
+                        </ListItemButton>
+                        <ListItemButton {...getSelectedItemProps('projects-completed')}>
+                            <ListItemText inset>Completed projects</ListItemText>
+                        </ListItemButton>
+                    </List>
+                </Collapse>
+                <ListItemButton {...getSelectedItemProps('clients')}>
+                    <ListItemIcon>
+                        <ApartmentRounded />
+                    </ListItemIcon>
+                    <ListItemText>Clients</ListItemText>
+                </ListItemButton>
+            </List>
+            <Divider />
+            <List
+                subheader={<ListSubheader>Workspace</ListSubheader>}
+                className="nested-navigation-list"
+            >
+                <ListItemButton {...getSelectedItemProps('settings')}>
+                    <ListItemIcon>
+                        <SettingsRounded />
+                    </ListItemIcon>
+                    <ListItemText>Settings</ListItemText>
+                </ListItemButton>
+                <ListItemButton {...getSelectedItemProps('members')}>
+                    <ListItemIcon>
+                        <PeopleAltRounded />
+                    </ListItemIcon>
+                    <ListItemText>Members</ListItemText>
+                </ListItemButton>
+                <ListItemButton {...getSelectedItemProps('teams')}>
+                    <ListItemIcon>
+                        <GroupsRounded />
+                    </ListItemIcon>
+                    <ListItemText>Teams</ListItemText>
+                </ListItemButton>
+                <ListItemButton {...getSelectedItemProps('tags')}>
+                    <ListItemIcon>
+                        <LocalOfferRounded />
+                    </ListItemIcon>
+                    <ListItemText>Tags</ListItemText>
+                </ListItemButton>
+            </List>
+            <Divider />
+            <List className="nested-navigation-list">
+                <ListItemButton {...getSelectedItemProps('help')}>
+                    <ListItemIcon>
+                        <HelpOutlineRounded />
+                    </ListItemIcon>
+                    <ListItemText>Help</ListItemText>
+                </ListItemButton>
+            </List>
+        </div>
     );
 };
