@@ -53,6 +53,12 @@
         & ~ & {
             margin-left: $list-padding-x;
         }
+
+        .MuiBadge-badge {
+            min-width: $list-item-icon-font-size;
+            height: $list-item-icon-font-size;
+            box-shadow: none;
+        }
     }
 
     &-inset {

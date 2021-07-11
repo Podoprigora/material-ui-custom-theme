@@ -24,7 +24,8 @@ import {
     Checkbox,
     Tooltip,
     Box,
-    Avatar
+    Avatar,
+    Badge
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 import { MuiCustomSimplebar, MuiCustomSimplebarRef } from '@mui-custom/Simplebar';
@@ -44,11 +45,13 @@ import {
     MessageSquareSvg,
     DollarSignSvg,
     TrendingUpSvg,
-    PackageSvg
+    PackageSvg,
+    HeartSvg
 } from '../../assets/svg-icons/feather';
 
 import '../scss/navigation-list.scss';
 import countriesRawData from '../assets/data/countries.json';
+import UserpicImg from '../assets/images/userpic.jpg';
 
 export default {
     title: 'mui-custom/List',
@@ -537,120 +540,158 @@ export const NavigationList = () => {
     };
 
     return (
-        <List className="navigation-list">
-            <ListItemButton {...getItemProps('orders')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <ShoppingBagSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Your orders"
-                    secondary="Information about your orders"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('security')}>
-                <ListItemAvatar>
-                    <Avatar variant="circular">
-                        <Icon fontSize="large">
-                            <LockSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Login & Security"
-                    secondary="Change name, contact info, security settings"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('addresses')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <FileTextSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
+        <>
+            <div style={{ width: '100%', maxWidth: '36rem' }}>
+                <List className="navigation-list">
+                    <ListItemButton {...getItemProps('profile')} className="navigation-list__user">
+                        <ListItemAvatar>
+                            <Avatar src={UserpicImg} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Podoprigora Alexandr"
+                            secondary="podoprigoraisv@gmail.com"
+                            className="u-text-truncate"
+                        />
+                    </ListItemButton>
+                </List>
+                <Divider />
+                <List className="navigation-list">
+                    <ListItemButton {...getItemProps('orders')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <ShoppingBagSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Your orders"
+                            secondary="Information about your orders"
+                        />
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('wishlist')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <HeartSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Wishlist"
+                            secondary="Information about your favorite products"
+                        />
+                        <ListItemText sx={{ flex: 'none' }}>
+                            <Badge badgeContent={5} color="secondary" />
+                        </ListItemText>
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('security')}>
+                        <ListItemAvatar>
+                            <Avatar variant="circular">
+                                <Icon fontSize="large">
+                                    <LockSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Login & Security"
+                            secondary="Change name, contact info, security settings"
+                        />
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('addresses')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <FileTextSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
 
-                <ListItemText
-                    disableTypography={false}
-                    primary="Your addresses"
-                    secondary="Add or edit your addresses"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('locations')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <MapSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Locations"
-                    secondary="Add or edit your business locations"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('products')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <PackageSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Products"
-                    secondary="Create products and services"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('messages')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <MessageSquareSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Message center"
-                    secondary="Your messages and notifications"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('finances')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <DollarSignSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Finances"
-                    secondary="Manage your finances & payments"
-                />
-            </ListItemButton>
-            <ListItemButton {...getItemProps('analitics')}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <Icon fontSize="large">
-                            <TrendingUpSvg />
-                        </Icon>
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    disableTypography={false}
-                    primary="Analytics"
-                    secondary="Statistical information about your sales"
-                />
-            </ListItemButton>
-        </List>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Your addresses"
+                            secondary="Add or edit your addresses"
+                        />
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('locations')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <MapSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Locations"
+                            secondary="Add or edit your business locations"
+                        />
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('products')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <PackageSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Products"
+                            secondary="Create products and services"
+                        />
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('messages')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <MessageSquareSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Message center"
+                            secondary="Your messages and notifications"
+                        />
+                        <ListItemText>
+                            <Badge badgeContent={100} color="secondary" />
+                        </ListItemText>
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('finances')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <DollarSignSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Finances"
+                            secondary="Manage your finances & payments"
+                        />
+                    </ListItemButton>
+                    <ListItemButton {...getItemProps('analitics')}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Icon fontSize="large">
+                                    <TrendingUpSvg />
+                                </Icon>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Analytics"
+                            secondary="Statistical information about your sales"
+                        />
+                    </ListItemButton>
+                </List>
+            </div>
+        </>
     );
 };

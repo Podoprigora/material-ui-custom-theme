@@ -57,6 +57,11 @@ export const theme = createTheme({
             defaultProps: {
                 disableTypography: true
             }
+        },
+        MuiBadge: {
+            defaultProps: {
+                color: 'primary'
+            }
         }
     }
 });

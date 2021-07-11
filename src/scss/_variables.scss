@@ -8,6 +8,7 @@ $font-size-xmedium: 1.7rem;
 $font-size-large: 2rem;
 $font-size: $font-size-medium;
 $font-weight: 400;
+$font-weight-strong: 500;
 $line-height: 1.4;
 
 $color-primary-light: #ae82a7;
@@ -162,7 +163,7 @@ $list-item-icon-font-size: $icon-large-font-size;
 $list-item-selected-bg-color: rgba($color-primary, 0.12);
 $list-item-selected-hover-bg-color: rgba($color-primary, 0.08);
 $list-subheader-min-height: 4rem;
-$list-item-multiline-text-line-height: 1.4;
+$list-item-multiline-text-line-height: 1.2;
 $list-item-multiline-text-primary-font-size: $font-size-xmedium;
 $list-item-multiline-text-primary-margin-bottom: $spacing-scale-3;
 $list-item-multiline-text-secondary-font-size: $font-size-medium;
@@ -199,3 +200,17 @@ $avatar-bg-color: $gray-lighten-3;
 $avatar-color: rgba($btn-color, 0.65);
 $avatar-size: 4rem;
 $avatar-rounded-border-radius: $border-radius-sm;
+
+// MuiBadge
+$badge-font-size: $font-size-small;
+$badge-font-weight: 400;
+$badge-line-height: 1;
+$badge-color: $body-color;
+$badge-primary-color: $white;
+$badge-secondary-color: $white;
+$badge-padding: 0 $spacing-scale-3;
+$badge-min-width: 2rem;
+$badge-height: 2rem;
+$badge-border-radius: 1.2rem;
+$badge-dot-size: 0.8rem;
+$badge-box-shadow: 0 0 0 0.2rem $white;
