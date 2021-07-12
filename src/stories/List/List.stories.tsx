@@ -573,7 +573,7 @@ export const NavigationList = () => {
                 </List>
                 <Divider />
                 <List className="navigation-list">
-                    <ListItemButton {...getItemProps('orders')}>
+                    <ListItemButton {...getItemProps('orders')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -587,7 +587,7 @@ export const NavigationList = () => {
                             secondary="Information about your orders"
                         />
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('wishlist')}>
+                    <ListItemButton {...getItemProps('wishlist')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -600,11 +600,11 @@ export const NavigationList = () => {
                             primary="Wishlist"
                             secondary="Information about your favorite products"
                         />
-                        <ListItemText sx={{ flex: 'none' }}>
+                        <ListItemText sx={{ flex: 'none', alignSelf: 'center' }}>
                             <Badge badgeContent={5} color="secondary" />
                         </ListItemText>
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('security')}>
+                    <ListItemButton {...getItemProps('security')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar variant="circular">
                                 <Icon fontSize="large">
@@ -618,7 +618,7 @@ export const NavigationList = () => {
                             secondary="Change name, contact info, security settings"
                         />
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('addresses')}>
+                    <ListItemButton {...getItemProps('addresses')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -633,7 +633,7 @@ export const NavigationList = () => {
                             secondary="Add or edit your addresses"
                         />
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('locations')}>
+                    <ListItemButton {...getItemProps('locations')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -647,7 +647,7 @@ export const NavigationList = () => {
                             secondary="Add or edit your business locations"
                         />
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('products')}>
+                    <ListItemButton {...getItemProps('products')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -661,7 +661,7 @@ export const NavigationList = () => {
                             secondary="Create products and services"
                         />
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('messages')}>
+                    <ListItemButton {...getItemProps('messages')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -674,11 +674,11 @@ export const NavigationList = () => {
                             primary="Message center"
                             secondary="Your messages and notifications"
                         />
-                        <ListItemText>
+                        <ListItemText sx={{ alignSelf: 'center' }}>
                             <Badge badgeContent={100} color="secondary" />
                         </ListItemText>
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('finances')}>
+                    <ListItemButton {...getItemProps('finances')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
@@ -692,7 +692,7 @@ export const NavigationList = () => {
                             secondary="Manage your finances & payments"
                         />
                     </ListItemButton>
-                    <ListItemButton {...getItemProps('analitics')}>
+                    <ListItemButton {...getItemProps('analitics')} alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar>
                                 <Icon fontSize="large">
