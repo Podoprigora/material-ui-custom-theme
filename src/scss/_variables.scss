@@ -190,6 +190,10 @@ $simplebar-scrollbar-bg-color: $icon-color;
 $simplebar-scrollbar-opacity: 0.5;
 $simplebar-scrollbar-hover-opacity: 0.5;
 
+// Popper
+$popper-arrow-size: 1.2rem !default;
+$popper-arrow-border: 1px solid rgba(#000, 0.04) !default;
+
 // MuiCheckbox
 $checkbox-padding: $spacing-scale-4;
 

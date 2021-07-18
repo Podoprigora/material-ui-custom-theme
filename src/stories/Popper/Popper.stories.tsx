@@ -1,8 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, Paper } from '@material-ui/core';
-import { Popper, PopperProps } from './Template';
+import { Popper, PopperProps, Paper, Fade, IconButton, Icon } from '@material-ui/core';
+import { MapPinSvg, XSvg } from '../../assets/svg-icons/feather';
+
+import '../scss/map-popper.scss';
 
 export default {
     title: 'mui-custom/Popper',
@@ -18,15 +20,21 @@ export const Default: Story<PopperProps> = () => {
         setOpen((prevState) => !prevState);
     }, []);
 
+    const handleClose = useCallback(() => {
+        setOpen(false);
+    }, []);
+
     const popperProps = useMemo<PopperProps>(
         () => ({
             open,
             anchorEl: anchorRef,
+            placement: 'top',
+            transition: true,
             modifiers: [
                 {
                     name: 'offset',
                     options: {
-                        offset: [0, 8]
+                        offset: [0, 20]
                     }
                 },
                 {
@@ -42,22 +50,46 @@ export const Default: Story<PopperProps> = () => {
     );
 
     return (
-        <>
-            <Button variant="contained" ref={setAnchorRef} onClick={handleButtonClick}>
-                Toggle Popper
-            </Button>
-            <Popper {...popperProps}>
-                <div ref={setArrowRef} data-popper-arrow />
-                <Paper
-                    style={{ width: '100%', maxWidth: '20rem' }}
-                    elevation={4}
-                    className="u-padding-8"
-                >
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, aperiam sapiente
-                    cumque delectus esse sunt possimus, labore commodi, repudiandae quam eaque iste
-                    atque soluta? Voluptas quisquam harum quaerat facere quos!
-                </Paper>
+        <div style={{ margin: '20rem' }}>
+            <IconButton
+                color="primary"
+                size="large"
+                className="MuiIconButton-dense"
+                ref={setAnchorRef}
+                onClick={handleButtonClick}
+            >
+                <Icon>
+                    <MapPinSvg />
+                </Icon>
+            </IconButton>
+            <Popper {...popperProps} className="popper map-popper">
+                {({ TransitionProps }) => {
+                    return (
+                        <Fade {...TransitionProps}>
+                            <Paper>
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo,
+                                aperiam sapiente cumque delectus esse sunt possimus, labore commodi,
+                                repudiandae quam eaque iste atque soluta? Voluptas quisquam harum
+                                quaerat facere quos!
+                                <div
+                                    ref={setArrowRef}
+                                    data-popper-arrow
+                                    className="popper__arrow"
+                                />
+                                <IconButton
+                                    size="small"
+                                    className="map-popper__close MuiIconButton-dense"
+                                    onClick={handleClose}
+                                >
+                                    <Icon>
+                                        <XSvg />
+                                    </Icon>
+                                </IconButton>
+                            </Paper>
+                        </Fade>
+                    );
+                }}
             </Popper>
-        </>
+        </div>
     );
 };
