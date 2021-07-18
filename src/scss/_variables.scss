@@ -34,11 +34,12 @@ $border-radius-sm: 0.4rem;
 $border-radius-lg: 1rem;
 $border-radius: $border-radius-lg;
 
+$border-color: rgba($black, 0.1);
+
 // Box shadow
 $box-shadow-sm: 0 0.2rem 0.1rem -0.1rem rgba($black, 0.12), 0 0.1rem 0.1rem 0 rgba($black, 0.05),
     0 0.1rem 0.3rem 0 rgba($black, 0.122);
-$box-shadow-md: 0 0.2rem 0.1rem -0.1rem rgba($black, 0.12), 0 0.1rem 0.1rem 0 rgba($black, 0.1),
-    0 0.2rem 0.4rem 0 rgba($black, 0.2);
+$box-shadow-md: 0 0.1rem 0.1rem 0 rgba($black, 0.1), 0 0.2rem 0.4rem 0 rgba($black, 0.16);
 $box-shadow-lg: 0 0.4rem 1.6rem -0.1rem rgba(0, 0, 0, 0.25);
 
 // Grid & spacing
@@ -108,6 +109,19 @@ $breakpoints: (
     'lg': $breakpoint-lg,
     'xl': $breakpoint-xl,
     'xxl': $breakpoint-xxl
+);
+
+// MuiPaper
+$paper-color: inherit;
+$paper-bg-color: $white;
+$paper-border-radius: $border-radius-sm;
+$paper-elevations: (
+    1: 0 0 0 0.1rem $border-color,
+    2: $box-shadow-sm,
+    4: $box-shadow-md,
+    6: 0 2px 6px 0 rgba($black, 0.12),
+    8: $box-shadow-lg,
+    16: 0 0.4rem 1.6rem -0.1rem rgba($black, 0.25)
 );
 
 // MuiButton
