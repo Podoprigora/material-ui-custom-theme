@@ -6,15 +6,15 @@
 
     &.popper {
         .popper__arrow {
-            width: 1.6rem;
-            height: 1.6rem;
+            width: 1.4rem;
+            height: 1.4rem;
 
             &::before {
                 border: 1px solid rgba($black, 0.12);
             }
         }
 
-        @include popper-arrow-placement('.popper', 1.6rem);
+        @include popper-arrow-placement('.popper', 1.4rem);
     }
 
     &__close {
@@ -28,8 +28,8 @@
             width: 100%;
             max-width: 32rem;
             padding: $spacing-scale-10;
-            border-radius: $border-radius-lg;
-            box-shadow: $box-shadow-md;
+            border-radius: $border-radius-sm;
+            box-shadow: 0 0 0.6rem 0.1rem rgba($black, 0.16);
         }
     }
 }
