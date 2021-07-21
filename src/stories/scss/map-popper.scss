@@ -23,13 +23,11 @@
         right: $spacing-scale-5;
     }
 
-    .MuiPaper {
-        &-root {
-            width: 100%;
-            max-width: 32rem;
-            padding: $spacing-scale-10;
-            border-radius: $border-radius-sm;
-            box-shadow: 0 0 0.6rem 0.1rem rgba($black, 0.16);
-        }
+    &__content {
+        width: 100%;
+        max-width: 32rem;
+        padding: $spacing-scale-10;
+        border-radius: $border-radius-sm;
+        box-shadow: 0 0 0.6rem 0.1rem rgba($black, 0.16);
     }
 }

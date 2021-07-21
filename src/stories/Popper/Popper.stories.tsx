@@ -64,7 +64,7 @@ export const Example: Story<PopperProps> = () => {
                     {({ TransitionProps }) => {
                         return (
                             <Fade {...TransitionProps}>
-                                <Paper>
+                                <Paper className="map-popper__content">
                                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo,
                                     aperiam sapiente cumque delectus esse sunt possimus, labore
                                     commodi, repudiandae quam eaque iste atque soluta? Voluptas
