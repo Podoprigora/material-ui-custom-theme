@@ -86,10 +86,11 @@ module.exports = {
         {
             files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
             rules: {
-                '@typescript-eslint/explicit-module-boundary-types': 0,
                 '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
+                '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
+                '@typescript-eslint/explicit-module-boundary-types': 0,
                 '@typescript-eslint/ban-ts-comment': 0,
-                '@typescript-eslint/no-use-before-define': ['error', { functions: false }]
+                '@typescript-eslint/dot-notation': 0
             }
         }
     ]

@@ -24,6 +24,6 @@
           "@mui-custom/*": ["./src/mui-custom/*"]
       }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "node-utility-scripts/**/*"],
   "exclude": ["node_modules"]
 }
