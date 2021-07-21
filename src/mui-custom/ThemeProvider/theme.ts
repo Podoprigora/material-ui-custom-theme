@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core';
+import { createTheme, Fade } from '@material-ui/core';
 
 declare module '@material-ui/core/Icon' {
     interface IconPropsSizeOverrides {
@@ -61,6 +61,15 @@ export const theme = createTheme({
         MuiBadge: {
             defaultProps: {
                 color: 'primary'
+            }
+        },
+        MuiMenu: {
+            defaultProps: {
+                TransitionComponent: Fade,
+                PaperProps: {
+                    elevation: 4,
+                    sx: { width: '100%', maxWidth: '14rem', marginTop: '.2rem' }
+                }
             }
         }
     }

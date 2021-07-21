@@ -1,23 +1,27 @@
+@mixin icon-font-sizes {
+    &-fontSizeLarge {
+        font-size: $icon-large-font-size;
+    }
+
+    &-fontSizeMedium {
+        font-size: $icon-medium-font-size;
+    }
+
+    &-fontSizeXsmall {
+        font-size: $icon-xsmall-font-size;
+    }
+
+    &-fontSizeSmall {
+        font-size: $icon-small-font-size;
+    }
+}
+
 .MuiIcon {
-	&-root {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-	}
+    &-root {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-	&-fontSizeLarge {
-		font-size: $icon-large-font-size;
-	}
-
-	&-fontSizeMedium {
-		font-size: $icon-medium-font-size;
-	}
-
-	&-fontSizeXsmall {
-		font-size: $icon-xsmall-font-size;
-	}
-
-	&-fontSizeSmall {
-		font-size: $icon-small-font-size;
-	}
+    @include icon-font-sizes;
 }
