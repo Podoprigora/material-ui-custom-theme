@@ -1,4 +1,4 @@
-import { createTheme, Fade } from '@material-ui/core';
+import { createTheme, Fade, Grow } from '@material-ui/core';
 
 declare module '@material-ui/core/Icon' {
     interface IconPropsSizeOverrides {
@@ -65,9 +65,11 @@ export const theme = createTheme({
         },
         MuiMenu: {
             defaultProps: {
-                TransitionComponent: Fade,
+                TransitionComponent: Grow,
+                TransitionProps: { timeout: { exit: 120, enter: 220 } },
+                anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                transformOrigin: { vertical: 'top', horizontal: 'left' },
                 PaperProps: {
-                    elevation: 4,
                     sx: { minWidth: '14rem' }
                 }
             }

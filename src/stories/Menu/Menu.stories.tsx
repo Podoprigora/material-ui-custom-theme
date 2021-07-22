@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 
 import {
@@ -10,11 +10,12 @@ import {
     ListItemText,
     Menu,
     MenuItem,
-    Typography
+    Typography,
+    useEventCallback
 } from '@material-ui/core';
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
 
-import { KeyboardArrowDown } from '@material-ui/icons';
+import { Check, KeyboardArrowDown, Sort } from '@material-ui/icons';
 import { ChevronDownSvg, CopySvg, Edit2Svg, Trash2Svg } from '../../assets/svg-icons/feather';
 
 export default {
@@ -39,7 +40,7 @@ export const Basic = () => {
             >
                 Basic menu
             </Button>
-            <Menu {...bindMenu(popupState)}>
+            <Menu {...bindMenu(popupState)} onClick={popupState.close}>
                 <MenuItem>
                     <ListItemIcon>
                         <Icon fontSize="xsmall">
@@ -65,6 +66,102 @@ export const Basic = () => {
                     </ListItemIcon>
                     Delete
                 </MenuItem>
+            </Menu>
+        </>
+    );
+};
+
+// @TODO: Add default elevation to theme
+
+interface SelectedMenuOption {
+    name: string;
+}
+
+const selectedMenuOptions: SelectedMenuOption[] = [
+    { name: 'Relevance' },
+    { name: 'Price up' },
+    { name: 'Price down' },
+    { name: 'Brand new' },
+    { name: 'Top seller' },
+    { name: 'Name' }
+];
+
+export const SelectedMenu = () => {
+    const popupState = usePopupState({ variant: 'popover', popupId: 'selectedMenu' });
+    const [selectedOption, setSelectedOption] = useState<SelectedMenuOption | undefined>();
+
+    const handlePopupClose = useEventCallback(() => {
+        popupState.close();
+    });
+
+    // Render
+
+    const buttonText = useMemo<string>(() => {
+        const foundOption = selectedMenuOptions.find(
+            (option) => selectedOption && option.name === selectedOption.name
+        );
+
+        return (foundOption && foundOption.name) || 'Sort By';
+    }, [selectedOption]);
+
+    const items = useMemo(() => {
+        return selectedMenuOptions.map((option) => {
+            const { name } = option;
+            const key = name.replace(/\s+/g, '-');
+            const selected = selectedOption && selectedOption.name === name;
+
+            const handleMenuItemSelect = (opt: SelectedMenuOption) => () => {
+                setSelectedOption(opt);
+                handlePopupClose();
+            };
+
+            return (
+                <MenuItem key={key} selected={selected} onClick={handleMenuItemSelect(option)}>
+                    {selected ? (
+                        <>
+                            <ListItemText>
+                                <span className="u-text-strong u-text-primary">{name}</span>
+                            </ListItemText>
+                            <ListItemIcon sx={{ flex: 'none' }}>
+                                <Icon color="primary" fontSize="medium">
+                                    <Check />
+                                </Icon>
+                            </ListItemIcon>
+                        </>
+                    ) : (
+                        <ListItemText>{name}</ListItemText>
+                    )}
+                </MenuItem>
+            );
+        });
+    }, [selectedOption, handlePopupClose]);
+
+    return (
+        <>
+            <Button
+                variant="text"
+                color="inherit"
+                startIcon={
+                    <Icon fontSize="large">
+                        <Sort />
+                    </Icon>
+                }
+                endIcon={
+                    <Icon fontSize="xsmall">
+                        <KeyboardArrowDown />
+                    </Icon>
+                }
+                style={{ minWidth: '20rem' }}
+                className="MuiButton-justifyStart"
+                {...bindTrigger(popupState)}
+            >
+                <span className="u-text-strong">{buttonText}</span>
+            </Button>
+            <Menu
+                PaperProps={{ sx: { width: '100%', maxWidth: '20rem' } }}
+                {...bindMenu(popupState)}
+            >
+                {items}
             </Menu>
         </>
     );

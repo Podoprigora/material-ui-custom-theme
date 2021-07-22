@@ -6,8 +6,7 @@
     }
 }
 
-.MuiListItemButton,
-.MuiMenuItem {
+.MuiListItemButton {
     &-root {
         $selector: &;
 
@@ -27,16 +26,13 @@
             }
         }
 
-        &.Mui-selected {
+        &.Mui-selected,
+        &.Mui-selected.Mui-focusVisible {
             background-color: $list-item-selected-bg-color;
 
             &:hover {
                 background-color: $list-item-selected-hover-bg-color;
             }
-        }
-
-        .MuiListItemIcon-root {
-            @extend .MuiListItemIcon-root;
         }
 
         & + .MuiDivider-root {

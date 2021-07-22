@@ -278,4 +278,14 @@
             margin-right: 0;
         }
     }
+
+    &-justifyStart {
+        &#{$this}-root {
+            justify-content: flex-start;
+        }
+
+        #{$this}-endIcon {
+            margin-left: auto;
+        }
+    }
 }

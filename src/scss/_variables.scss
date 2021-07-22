@@ -183,6 +183,10 @@ $list-item-multiline-text-primary-margin-bottom: $spacing-scale-3;
 $list-item-multiline-text-secondary-font-size: $font-size-medium;
 $list-item-multiline-text-secondary-color: $color-text-note;
 
+// MuiMenu
+$menu-item-min-height: 3.8rem;
+$menu-paper-box-shadow: map-get($paper-elevations, 4);
+
 // Simplebar
 $simplebar-track-size: 1.1rem;
 $simplebar-scrollbar-min-size: 1rem;

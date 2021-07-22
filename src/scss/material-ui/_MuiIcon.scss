@@ -23,5 +23,13 @@
         justify-content: center;
     }
 
+    &-colorPrimary {
+        color: $color-primary;
+    }
+
+    &-colorSecondary {
+        color: $color-secondary;
+    }
+
     @include icon-font-sizes;
 }
