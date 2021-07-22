@@ -68,7 +68,7 @@ export const theme = createTheme({
                 TransitionComponent: Fade,
                 PaperProps: {
                     elevation: 4,
-                    sx: { width: '100%', maxWidth: '14rem', marginTop: '.2rem' }
+                    sx: { minWidth: '14rem' }
                 }
             }
         }

@@ -9,7 +9,8 @@ import {
     ListItemIcon,
     ListItemText,
     Menu,
-    MenuItem
+    MenuItem,
+    Typography
 } from '@material-ui/core';
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
 
