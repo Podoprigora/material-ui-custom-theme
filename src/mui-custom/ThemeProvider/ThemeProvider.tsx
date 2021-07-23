@@ -8,7 +8,7 @@ type ThemeProviderPrividerProps = {
     children: React.ReactNode;
 };
 
-export const ThemeProvider = (props: ThemeProviderPrividerProps) => {
+export const MuiCustomThemeProvider = (props: ThemeProviderPrividerProps) => {
     const { children } = props;
 
     return (

@@ -6,6 +6,11 @@
                 box-shadow: $menu-paper-box-shadow;
             }
         }
+
+        & .MuiDivider-root {
+            margin-top: $spacing-scale-4;
+            margin-bottom: $spacing-scale-4;
+        }
     }
 }
 

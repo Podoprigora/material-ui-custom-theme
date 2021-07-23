@@ -21,6 +21,7 @@
       
       "types": [],
       "paths": {
+          "@mui-custom": ["./src/mui-custom"],
           "@mui-custom/*": ["./src/mui-custom/*"]
       }
   },

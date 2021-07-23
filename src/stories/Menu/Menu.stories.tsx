@@ -6,17 +6,34 @@ import {
     Divider,
     Fade,
     Icon,
+    List,
+    ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     Menu,
     MenuItem,
-    Typography,
+    MenuList,
+    Modal,
+    Paper,
+    Portal,
     useEventCallback
 } from '@material-ui/core';
-import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+import {
+    Check,
+    FiberManualRecord,
+    FormatAlignCenterRounded,
+    FormatAlignLeftRounded,
+    FormatAlignRightRounded,
+    KeyboardArrowDown,
+    KeyboardArrowRightRounded,
+    Sort
+} from '@material-ui/icons';
 
-import { Check, KeyboardArrowDown, Sort } from '@material-ui/icons';
-import { ChevronDownSvg, CopySvg, Edit2Svg, Trash2Svg } from '../../assets/svg-icons/feather';
+import { MuiCustomMenu, MuiCustomSubMenu } from '@mui-custom';
+import { usePopupState, bindTrigger, bindMenu, bindToggle } from 'material-ui-popup-state/hooks';
+
+import { CopySvg, Edit2Svg, Trash2Svg } from '../../assets/svg-icons/feather';
 
 export default {
     title: 'mui-custom/Menu',
@@ -70,8 +87,6 @@ export const Basic = () => {
         </>
     );
 };
-
-// @TODO: Add default elevation to theme
 
 interface SelectedMenuOption {
     name: string;
@@ -163,6 +178,98 @@ export const SelectedMenu = () => {
             >
                 {items}
             </Menu>
+        </>
+    );
+};
+
+export const NestedMenu = () => {
+    const popupState = usePopupState({ variant: 'popover', popupId: 'nestedMenu' });
+
+    return (
+        <>
+            <Button
+                {...bindToggle(popupState)}
+                variant="text"
+                color="inherit"
+                endIcon={
+                    <Icon fontSize="xsmall">
+                        <KeyboardArrowDown />
+                    </Icon>
+                }
+            >
+                Format
+            </Button>
+            <MuiCustomMenu {...bindMenu(popupState)}>
+                <MuiCustomSubMenu title="Colors">
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="medium" sx={{ color: 'red' }}>
+                                <FiberManualRecord />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Red</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="medium" sx={{ color: 'blue' }}>
+                                <FiberManualRecord />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Blue</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="medium" sx={{ color: 'green' }}>
+                                <FiberManualRecord />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Green</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="medium" sx={{ color: 'gray' }}>
+                                <FiberManualRecord />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Gray</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="medium" sx={{ color: 'black' }}>
+                                <FiberManualRecord />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Black</ListItemText>
+                    </MenuItem>
+                </MuiCustomSubMenu>
+                <Divider />
+                <MuiCustomSubMenu title="Aligns">
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="large">
+                                <FormatAlignCenterRounded />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Center</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="large">
+                                <FormatAlignLeftRounded />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Left</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Icon fontSize="large">
+                                <FormatAlignRightRounded />
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText>Right</ListItemText>
+                    </MenuItem>
+                </MuiCustomSubMenu>
+            </MuiCustomMenu>
         </>
     );
 };

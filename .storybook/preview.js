@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ThemeProvider } from '../src/mui-custom/ThemeProvider';
+import { MuiCustomThemeProvider } from '../src/mui-custom/ThemeProvider';
 
 import '../src/scss/styles.scss';
 
@@ -17,9 +17,9 @@ export const parameters = {
 export const decorators = [
     (Story) => {
         return (
-            <ThemeProvider>
+            <MuiCustomThemeProvider>
                 <Story />
-            </ThemeProvider>
+            </MuiCustomThemeProvider>
         );
     }
 ];
