@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 
 import {
@@ -25,13 +25,21 @@ import {
     FormatAlignCenterRounded,
     FormatAlignLeftRounded,
     FormatAlignRightRounded,
+    FormatColorTextRounded,
     KeyboardArrowDown,
     KeyboardArrowRightRounded,
     Sort
 } from '@material-ui/icons';
 
 import { MuiCustomMenu, MuiCustomSubMenu } from '@mui-custom';
-import { usePopupState, bindTrigger, bindMenu, bindToggle } from 'material-ui-popup-state/hooks';
+import {
+    usePopupState,
+    bindTrigger,
+    bindMenu,
+    bindToggle,
+    bindHover,
+    bindPopper
+} from 'material-ui-popup-state/hooks';
 
 import { CopySvg, Edit2Svg, Trash2Svg } from '../../assets/svg-icons/feather';
 
@@ -185,6 +193,10 @@ export const SelectedMenu = () => {
 export const NestedMenu = () => {
     const popupState = usePopupState({ variant: 'popper', popupId: 'nestedMenu' });
 
+    const handleClose = useCallback(() => {
+        popupState.close();
+    }, [popupState]);
+
     return (
         <>
             <Button
@@ -199,8 +211,19 @@ export const NestedMenu = () => {
             >
                 Format
             </Button>
-            <MuiCustomMenu {...bindMenu(popupState)}>
-                <MuiCustomSubMenu title="Colors">
+            <MuiCustomMenu {...bindPopper(popupState)} onClose={handleClose} onClick={handleClose}>
+                <MuiCustomSubMenu
+                    title={
+                        <>
+                            <ListItemIcon>
+                                <Icon fontSize="large">
+                                    <FormatColorTextRounded />
+                                </Icon>
+                            </ListItemIcon>
+                            <ListItemText>Colors</ListItemText>
+                        </>
+                    }
+                >
                     <MenuItem>
                         <ListItemIcon>
                             <Icon fontSize="medium" sx={{ color: 'red' }}>

@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import {
     MenuProps as MuiMenuProps,
     MenuList,
+    MenuListProps as MuiMenuListProps,
     Paper,
     PaperProps as MuiPaperProps,
     Popper,
@@ -14,7 +15,8 @@ import {
 
 import { createCtx } from '../utils/createCtx';
 
-export interface MuiCustomMenuProps {
+export interface MuiCustomMenuProps extends MuiMenuListProps {
+    children: React.ReactElement | React.ReactElement[];
     open: boolean;
     anchorEl: MuiPopperProps['anchorEl'];
     placement?: MuiPopperProps['placement'];
@@ -42,7 +44,8 @@ export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps
             transition = true,
             PaperProps: PaperPropsProp,
             TransitionProps: TransitionPropsProp,
-            onClose
+            onClose,
+            ...other
         } = props;
 
         const theme = useTheme();
@@ -110,13 +113,15 @@ export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps
                                     style={{ transformOrigin: '0 0 0' }}
                                     {...TransitionPropsProp}
                                 >
-                                    <div className="MuiMenu-root">
+                                    <div className="MuiMenu-root MuiCustomMenu">
                                         <Paper
                                             elevation={8}
                                             {...PaperPropsProp}
                                             onKeyDown={handleKeyDown}
                                         >
-                                            <MenuList autoFocus>{children}</MenuList>
+                                            <MenuList autoFocus {...other}>
+                                                {children}
+                                            </MenuList>
                                         </Paper>
                                     </div>
                                 </TransitionComponent>

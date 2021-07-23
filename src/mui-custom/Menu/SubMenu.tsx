@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     ListItemText,
     ListItemIcon,
@@ -9,18 +9,19 @@ import {
     useForkRef
 } from '@material-ui/core';
 import { KeyboardArrowRight } from '@material-ui/icons';
+import clsx from 'clsx';
 
+import { useMountedRef } from '../utils';
 import { useMuiCustomMenu } from './Menu';
 import { MuiCustomSubMenuList } from './SubMenuList';
 
-interface MuiCustomSubMenuProps extends MenuItemProps {
+interface MuiCustomSubMenuProps extends Omit<MenuItemProps, 'title'> {
     children?: React.ReactElement | React.ReactElement[];
-    title?: string;
-    renderTitle?: () => React.ReactElement;
+    title: string | React.ReactElement;
 }
 
 export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
-    const { title, renderTitle, children, ...other } = props;
+    const { title, children, ...other } = props;
 
     const [anchorEl, setAnchorEl] = useState<HTMLLIElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -28,6 +29,7 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
     const handleMenuItemRef = useForkRef<HTMLLIElement>(menuItemRef, setAnchorEl);
     const itemContainerRef = useRef<HTMLDivElement>(null);
     const closeTimerRef = useRef<number | undefined>();
+    const isMountedRef = useMountedRef();
 
     const { isParentOpen } = useMuiCustomMenu();
 
@@ -38,9 +40,11 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
 
     const handleItemMouseLeave = useCallback(() => {
         closeTimerRef.current = setTimeout(() => {
-            setOpen(false);
-        }, 50);
-    }, []);
+            if (isMountedRef.current) {
+                setOpen(false);
+            }
+        }, 100);
+    }, [isMountedRef]);
 
     const handleItemKeyDown = useEventCallback((ev: React.KeyboardEvent<HTMLDivElement>) => {
         if (ev.key === 'ArrowRight') {
@@ -53,15 +57,21 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
         itemContainerRef.current?.focus();
     });
 
-    useEffect(() => {
-        if (isParentOpen) {
-            return () => {
-                setOpen(false);
-            };
+    const handleMenuItemClick = useEventCallback((ev: React.MouseEvent) => {
+        ev.stopPropagation();
+    });
+
+    const handleMenuItemMouseDown = useEventCallback((ev: React.MouseEvent) => {
+        ev.preventDefault();
+    });
+
+    const titleElement = useMemo(() => {
+        if (typeof title === 'string') {
+            return <ListItemText>{title}</ListItemText>;
         }
 
-        return undefined;
-    }, [isParentOpen]);
+        return title;
+    }, [title]);
 
     return (
         <div
@@ -73,15 +83,25 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
             onKeyDown={handleItemKeyDown}
             ref={itemContainerRef}
         >
-            <MenuItem {...other} ref={handleMenuItemRef}>
-                <ListItemText>{title}</ListItemText>
+            <MenuItem
+                {...other}
+                className={clsx({ 'Mui-focusVisible': open })}
+                onMouseDown={handleMenuItemMouseDown}
+                onClick={handleMenuItemClick}
+                ref={handleMenuItemRef}
+            >
+                {titleElement}
                 <ListItemIcon>
                     <Icon fontSize="xsmall">
                         <KeyboardArrowRight />
                     </Icon>
                 </ListItemIcon>
             </MenuItem>
-            <MuiCustomSubMenuList open={open} anchorEl={anchorEl} onClose={handleCloseMenu}>
+            <MuiCustomSubMenuList
+                open={open && isParentOpen}
+                anchorEl={anchorEl}
+                onClose={handleCloseMenu}
+            >
                 {children}
             </MuiCustomSubMenuList>
         </div>

@@ -1,7 +1,14 @@
+.MuiCustomMenu {
+    &,
+    & * {
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
 .MuiCustomSubMenuItem {
     &:focus {
-        outline: none;
-
         .MuiMenuItem-root {
             background-color: $list-item-focus-visible-bg-color;
         }
