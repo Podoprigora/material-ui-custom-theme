@@ -1,19 +1,27 @@
 import React, { useCallback, useMemo } from 'react';
 import {
-    Menu as MuiMenu,
     MenuProps as MuiMenuProps,
     MenuList,
     Paper,
+    PaperProps as MuiPaperProps,
     Popper,
     PopperProps as MuiPopperProps,
     ClickAwayListener,
-    useEventCallback
+    useEventCallback,
+    Grow,
+    useTheme
 } from '@material-ui/core';
 
 import { createCtx } from '../utils/createCtx';
 
-export interface MuiCustomMenuProps extends MuiPopperProps {
-    onClose: () => void;
+export interface MuiCustomMenuProps {
+    open: boolean;
+    anchorEl: MuiPopperProps['anchorEl'];
+    placement?: MuiPopperProps['placement'];
+    transition?: boolean;
+    TransitionProps?: MuiMenuProps['TransitionProps'];
+    PaperProps?: MuiPaperProps;
+    onClose?: () => void;
 }
 
 type MuiCustomMenuContextValue = {
@@ -26,26 +34,57 @@ export const useMuiCustomMenu = MuiCustomMenuContext.useContext;
 
 export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps>(
     function MuiCustomMenu(props, forwardedRef) {
-        const { open, anchorEl, children, onClose } = props;
+        const {
+            open,
+            anchorEl,
+            children,
+            placement = 'bottom-start',
+            transition = true,
+            PaperProps: PaperPropsProp,
+            TransitionProps: TransitionPropsProp,
+            onClose
+        } = props;
 
-        // console.log(props);
+        const theme = useTheme();
+        const menuDefaultProps = theme.components?.MuiMenu?.defaultProps || {};
+
+        const handleClose = useEventCallback(() => {
+            if (onClose) {
+                onClose();
+            }
+
+            if (anchorEl) {
+                (anchorEl as HTMLElement).focus();
+            }
+        });
 
         const handleClickAway = useCallback(
             (ev: MouseEvent | TouchEvent) => {
-                if (open && ev.target !== anchorEl && onClose) {
-                    onClose();
+                if (open && ev.target !== anchorEl) {
+                    handleClose();
                 }
             },
-            [open, anchorEl, onClose]
+            [open, anchorEl, handleClose]
         );
 
-        const popperProps = useMemo<MuiPopperProps>(() => {
-            return {
+        const handleKeyDown = useCallback(
+            (ev: React.KeyboardEvent<HTMLDivElement>) => {
+                if (ev.key === 'Escape') {
+                    handleClose();
+                }
+            },
+            [handleClose]
+        );
+
+        const popperProps = useMemo<MuiPopperProps>(
+            () => ({
+                placement,
                 open,
                 anchorEl,
-                placement: 'bottom-start'
-            };
-        }, [anchorEl, open]);
+                transition
+            }),
+            [anchorEl, open, placement, transition]
+        );
 
         const contextValue = useMemo<MuiCustomMenuContextValue>(() => {
             return {
@@ -53,15 +92,36 @@ export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps
             };
         }, [open]);
 
+        const TransitionComponent = menuDefaultProps.TransitionComponent || Grow;
+        const transitionTimeout = menuDefaultProps.TransitionProps?.timeout || {
+            exit: 120,
+            enter: 220
+        };
+
         return (
             <MuiCustomMenuContext.Provider value={contextValue}>
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Popper {...popperProps}>
-                        <div className="MuiMenu-root">
-                            <Paper elevation={8}>
-                                <MenuList autoFocus>{children}</MenuList>
-                            </Paper>
-                        </div>
+                    <Popper {...popperProps} ref={forwardedRef}>
+                        {({ TransitionProps }) => {
+                            return (
+                                <TransitionComponent
+                                    {...TransitionProps}
+                                    timeout={transitionTimeout}
+                                    style={{ transformOrigin: '0 0 0' }}
+                                    {...TransitionPropsProp}
+                                >
+                                    <div className="MuiMenu-root">
+                                        <Paper
+                                            elevation={8}
+                                            {...PaperPropsProp}
+                                            onKeyDown={handleKeyDown}
+                                        >
+                                            <MenuList autoFocus>{children}</MenuList>
+                                        </Paper>
+                                    </div>
+                                </TransitionComponent>
+                            );
+                        }}
                     </Popper>
                 </ClickAwayListener>
             </MuiCustomMenuContext.Provider>

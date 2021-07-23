@@ -183,7 +183,7 @@ export const SelectedMenu = () => {
 };
 
 export const NestedMenu = () => {
-    const popupState = usePopupState({ variant: 'popover', popupId: 'nestedMenu' });
+    const popupState = usePopupState({ variant: 'popper', popupId: 'nestedMenu' });
 
     return (
         <>

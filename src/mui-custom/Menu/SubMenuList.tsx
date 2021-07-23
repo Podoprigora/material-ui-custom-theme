@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import {
-    List,
     ListProps as MuiListProps,
     MenuList,
-    MenuListProps as MuiMenuListProps,
     Paper,
     Popper,
     PopperProps as MuiPopperProps,
+    Fade,
     useEventCallback
 } from '@material-ui/core';
 
@@ -31,6 +30,7 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
     const popperProps = useMemo<MuiPopperProps>(() => {
         return {
             ...PopperPropsProp,
+            transition: true,
             open,
             anchorEl,
             placement: 'right-start',
@@ -51,13 +51,19 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
 
     return (
         <Popper {...popperProps}>
-            <div className="MuiMenu-root">
-                <Paper elevation={8}>
-                    <MenuList {...other} autoFocus onKeyDown={handleKeyDown}>
-                        {children}
-                    </MenuList>
-                </Paper>
-            </div>
+            {({ TransitionProps }) => {
+                return (
+                    <Fade {...TransitionProps} timeout={{ exit: 120, enter: 220 }}>
+                        <div className="MuiMenu-root">
+                            <Paper elevation={8}>
+                                <MenuList {...other} autoFocus onKeyDown={handleKeyDown}>
+                                    {children}
+                                </MenuList>
+                            </Paper>
+                        </div>
+                    </Fade>
+                );
+            }}
         </Popper>
     );
 };

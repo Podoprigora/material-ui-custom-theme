@@ -35,6 +35,10 @@
             }
         }
 
+        &.Mui-focusVisible {
+            background-color: $list-item-focus-visible-bg-color;
+        }
+
         & + .MuiDivider-root {
             margin-top: $spacing-scale-4;
             margin-bottom: $spacing-scale-4;
