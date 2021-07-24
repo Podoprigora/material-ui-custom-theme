@@ -41,15 +41,7 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
 
     const popperProps = useMemo<MuiPopperProps>(() => {
         return {
-            ...PopperPropsProp,
-            transition: true,
-            open,
-            anchorEl,
             placement: 'right-start',
-            disablePortal: true,
-            popperOptions: {
-                strategy: 'fixed'
-            },
             modifiers: [
                 {
                     name: 'offset',
@@ -57,7 +49,15 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
                         offset: [0, 2]
                     }
                 }
-            ]
+            ],
+            ...PopperPropsProp,
+            transition: true,
+            open,
+            anchorEl,
+            disablePortal: true,
+            popperOptions: {
+                strategy: 'fixed'
+            }
         };
     }, [open, anchorEl, PopperPropsProp]);
 

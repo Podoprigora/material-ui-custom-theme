@@ -184,7 +184,7 @@ export const NestedMenu = () => {
     });
 
     return (
-        <>
+        <div>
             <Button
                 {...bindToggle(popupState)}
                 variant="text"
@@ -221,7 +221,10 @@ export const NestedMenu = () => {
                 <Divider variant="middle" />
                 <MuiCustomSubMenu
                     title="Switch Group"
-                    MenuListProps={{ PaperProps: { sx: { width: '100%', maxWidth: '30rem' } } }}
+                    MenuListProps={{
+                        PaperProps: { sx: { width: '100%', maxWidth: '30rem' } },
+                        PopperProps: { placement: 'right' }
+                    }}
                 >
                     <MenuItem>Group 1</MenuItem>
                     <MenuItem>Group 2</MenuItem>
@@ -244,7 +247,9 @@ export const NestedMenu = () => {
                         </ListItemText>
                     </MenuItem>
                 </MuiCustomSubMenu>
+                <MenuItem>Go to File...</MenuItem>
+                <MenuItem>Go to Symbol in Workspace...</MenuItem>
             </MuiCustomMenu>
-        </>
+        </div>
     );
 };
