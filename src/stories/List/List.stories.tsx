@@ -26,7 +26,8 @@ import {
     Box,
     Avatar,
     Badge,
-    Collapse
+    Collapse,
+    Paper
 } from '@material-ui/core';
 import {
     AccessTimeRounded,
@@ -42,7 +43,7 @@ import {
     PeopleAltRounded,
     SettingsRounded
 } from '@material-ui/icons';
-import { MuiCustomSimplebar, MuiCustomSimplebarRef } from '@mui-custom/Simplebar';
+import { MuiCustomSimplebar, MuiCustomSimplebarRef, MuiCustomColorList } from '@mui-custom';
 
 import { List, ListProps } from './Template';
 import {
@@ -867,5 +868,15 @@ export const NestedNavigationList = () => {
                 </ListItemButton>
             </List>
         </div>
+    );
+};
+
+// Color List
+
+export const ColorList = () => {
+    return (
+        <Paper elevation={4} style={{ display: 'inline-block' }}>
+            <MuiCustomColorList selectedIndex={1} />
+        </Paper>
     );
 };

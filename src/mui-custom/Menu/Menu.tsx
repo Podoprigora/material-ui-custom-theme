@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
     MenuProps as MuiMenuProps,
     MenuList,
@@ -13,7 +13,7 @@ import {
     useTheme
 } from '@material-ui/core';
 
-import { createCtx } from '../utils/createCtx';
+import { MuiCustomMenuContext, MuiCustomMenuContextValue } from './MenuContext';
 
 export interface MuiCustomMenuProps extends MuiMenuListProps {
     children: React.ReactElement | React.ReactElement[];
@@ -25,14 +25,6 @@ export interface MuiCustomMenuProps extends MuiMenuListProps {
     PaperProps?: MuiPaperProps;
     onClose?: () => void;
 }
-
-type MuiCustomMenuContextValue = {
-    isParentOpen: boolean;
-};
-
-const MuiCustomMenuContext = createCtx<MuiCustomMenuContextValue>();
-
-export const useMuiCustomMenu = MuiCustomMenuContext.useContext;
 
 export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps>(
     function MuiCustomMenu(props, forwardedRef) {
@@ -61,23 +53,19 @@ export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps
             }
         });
 
-        const handleClickAway = useCallback(
-            (ev: MouseEvent | TouchEvent) => {
-                if (open && ev.target !== anchorEl) {
-                    handleClose();
-                }
-            },
-            [open, anchorEl, handleClose]
-        );
+        const handleClickAway = useEventCallback((ev: MouseEvent | TouchEvent) => {
+            if (open && ev.target !== anchorEl) {
+                handleClose();
+            }
+        });
 
-        const handleKeyDown = useCallback(
-            (ev: React.KeyboardEvent<HTMLDivElement>) => {
-                if (ev.key === 'Escape') {
-                    handleClose();
-                }
-            },
-            [handleClose]
-        );
+        const handleKeyDown = useEventCallback((ev: React.KeyboardEvent<HTMLDivElement>) => {
+            if (ev.key === 'Escape') {
+                handleClose();
+            }
+        });
+
+        // Render
 
         const popperProps = useMemo<MuiPopperProps>(
             () => ({

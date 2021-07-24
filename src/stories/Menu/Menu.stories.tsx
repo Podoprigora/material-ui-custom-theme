@@ -11,6 +11,7 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    ListSubheader,
     Menu,
     MenuItem,
     MenuList,
@@ -21,6 +22,7 @@ import {
 } from '@material-ui/core';
 import {
     Check,
+    ColorLensOutlined,
     FiberManualRecord,
     FormatAlignCenterRounded,
     FormatAlignLeftRounded,
@@ -209,18 +211,18 @@ export const NestedMenu = () => {
                     </Icon>
                 }
             >
-                Format
+                Nested menu
             </Button>
             <MuiCustomMenu {...bindPopper(popupState)} onClose={handleClose} onClick={handleClose}>
                 <MuiCustomSubMenu
                     title={
                         <>
                             <ListItemIcon>
-                                <Icon fontSize="large">
-                                    <FormatColorTextRounded />
+                                <Icon fontSize="medium">
+                                    <ColorLensOutlined />
                                 </Icon>
                             </ListItemIcon>
-                            <ListItemText>Colors</ListItemText>
+                            <ListItemText>Change color</ListItemText>
                         </>
                     }
                 >
@@ -265,11 +267,10 @@ export const NestedMenu = () => {
                         <ListItemText>Black</ListItemText>
                     </MenuItem>
                 </MuiCustomSubMenu>
-                <Divider />
                 <MuiCustomSubMenu title="Aligns">
                     <MenuItem>
                         <ListItemIcon>
-                            <Icon fontSize="large">
+                            <Icon fontSize="small">
                                 <FormatAlignCenterRounded />
                             </Icon>
                         </ListItemIcon>
@@ -277,7 +278,7 @@ export const NestedMenu = () => {
                     </MenuItem>
                     <MenuItem>
                         <ListItemIcon>
-                            <Icon fontSize="large">
+                            <Icon fontSize="small">
                                 <FormatAlignLeftRounded />
                             </Icon>
                         </ListItemIcon>
@@ -285,11 +286,37 @@ export const NestedMenu = () => {
                     </MenuItem>
                     <MenuItem>
                         <ListItemIcon>
-                            <Icon fontSize="large">
+                            <Icon fontSize="small">
                                 <FormatAlignRightRounded />
                             </Icon>
                         </ListItemIcon>
                         <ListItemText>Right</ListItemText>
+                    </MenuItem>
+                </MuiCustomSubMenu>
+                <Divider variant="middle" />
+                <MuiCustomSubMenu
+                    title="Switch Group"
+                    PaperProps={{ sx: { width: '100%', maxWidth: '30rem' } }}
+                >
+                    <MenuItem>Group 1</MenuItem>
+                    <MenuItem>Group 2</MenuItem>
+                    <MenuItem disabled>Group 3</MenuItem>
+                    <MenuItem disabled>Group 4</MenuItem>
+                    <Divider variant="middle" />
+                    <MenuItem>Next Group</MenuItem>
+                    <MenuItem>Previous Group</MenuItem>
+                    <Divider variant="middle" />
+                    <MenuItem>
+                        <ListItemText>Group Left</ListItemText>
+                        <ListItemText sx={{ flex: 'none' }}>
+                            <span className="u-text-note u-text-small">Ctrl+K Ctrl+LeftArrow</span>
+                        </ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemText>Group Right</ListItemText>
+                        <ListItemText sx={{ flex: 'none' }}>
+                            <span className="u-text-note u-text-small">Ctrl+K Ctrl+RightArrow</span>
+                        </ListItemText>
                     </MenuItem>
                 </MuiCustomSubMenu>
             </MuiCustomMenu>

@@ -5,6 +5,7 @@ import {
     Paper,
     Popper,
     PopperProps as MuiPopperProps,
+    PaperProps as MuiPaperProps,
     Fade,
     useEventCallback
 } from '@material-ui/core';
@@ -13,11 +14,20 @@ interface MuiCustomSubMenuListProps extends MuiListProps {
     open: MuiPopperProps['open'];
     anchorEl: MuiPopperProps['anchorEl'];
     PopperProps?: Omit<MuiPopperProps, 'children' | 'open' | 'anchorEl'>;
+    PaperProps?: MuiPaperProps;
     onClose?: () => void;
 }
 
 export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
-    const { open, anchorEl, children, PopperProps: PopperPropsProp, onClose, ...other } = props;
+    const {
+        open,
+        anchorEl,
+        children,
+        PopperProps: PopperPropsProp,
+        PaperProps: PaperPropsProp,
+        onClose,
+        ...other
+    } = props;
 
     const handleKeyDown = useEventCallback((ev: React.KeyboardEvent) => {
         ev.stopPropagation();
@@ -55,7 +65,7 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
                 return (
                     <Fade {...TransitionProps} timeout={{ exit: 120, enter: 220 }}>
                         <div className="MuiMenu-root">
-                            <Paper elevation={8}>
+                            <Paper elevation={8} {...PaperPropsProp}>
                                 <MenuList {...other} autoFocus onKeyDown={handleKeyDown}>
                                     {children}
                                 </MenuList>

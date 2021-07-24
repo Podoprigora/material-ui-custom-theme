@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
     ListItemText,
     ListItemIcon,
     MenuItemProps,
     MenuItem,
+    PaperProps as MuiPaperProps,
     Icon,
     useEventCallback,
     useForkRef
@@ -12,16 +13,17 @@ import { KeyboardArrowRight } from '@material-ui/icons';
 import clsx from 'clsx';
 
 import { useMountedRef } from '../utils';
-import { useMuiCustomMenu } from './Menu';
 import { MuiCustomSubMenuList } from './SubMenuList';
+import { useMuiCustomMenu } from './MenuContext';
 
 interface MuiCustomSubMenuProps extends Omit<MenuItemProps, 'title'> {
-    children?: React.ReactElement | React.ReactElement[];
     title: string | React.ReactElement;
+    children?: React.ReactElement | React.ReactElement[];
+    PaperProps?: MuiPaperProps;
 }
 
 export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
-    const { title, children, ...other } = props;
+    const { title, children, PaperProps: PaperPropsProp, ...other } = props;
 
     const [anchorEl, setAnchorEl] = useState<HTMLLIElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -65,6 +67,8 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
         ev.preventDefault();
     });
 
+    // Render
+
     const titleElement = useMemo(() => {
         if (typeof title === 'string') {
             return <ListItemText>{title}</ListItemText>;
@@ -100,6 +104,7 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
             <MuiCustomSubMenuList
                 open={open && isParentOpen}
                 anchorEl={anchorEl}
+                PaperProps={PaperPropsProp}
                 onClose={handleCloseMenu}
             >
                 {children}
