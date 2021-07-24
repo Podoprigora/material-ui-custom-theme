@@ -72,9 +72,10 @@ export const MuiCustomMenu = React.forwardRef<HTMLDivElement, MuiCustomMenuProps
                 placement,
                 open,
                 anchorEl,
-                transition
+                transition,
+                style: { zIndex: theme.zIndex.modal }
             }),
-            [anchorEl, open, placement, transition]
+            [anchorEl, open, placement, transition, theme]
         );
 
         const contextValue = useMemo<MuiCustomMenuContextValue>(() => {
