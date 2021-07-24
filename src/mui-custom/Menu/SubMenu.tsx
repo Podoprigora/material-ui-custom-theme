@@ -4,7 +4,6 @@ import {
     ListItemIcon,
     MenuItemProps,
     MenuItem,
-    PaperProps as MuiPaperProps,
     Icon,
     useEventCallback,
     useForkRef
@@ -13,17 +12,17 @@ import { KeyboardArrowRight } from '@material-ui/icons';
 import clsx from 'clsx';
 
 import { useMountedRef } from '../utils';
-import { MuiCustomSubMenuList } from './SubMenuList';
+import { MuiCustomSubMenuList, MuiCustomSubMenuListProps } from './SubMenuList';
 import { useMuiCustomMenu } from './MenuContext';
 
 interface MuiCustomSubMenuProps extends Omit<MenuItemProps, 'title'> {
     title: string | React.ReactElement;
     children?: React.ReactElement | React.ReactElement[];
-    PaperProps?: MuiPaperProps;
+    MenuListProps?: Omit<MuiCustomSubMenuListProps, 'open' | 'anchorEl'>;
 }
 
 export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
-    const { title, children, PaperProps: PaperPropsProp, ...other } = props;
+    const { title, children, MenuListProps, ...other } = props;
 
     const [anchorEl, setAnchorEl] = useState<HTMLLIElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -102,9 +101,9 @@ export const MuiCustomSubMenu = (props: MuiCustomSubMenuProps) => {
                 </ListItemIcon>
             </MenuItem>
             <MuiCustomSubMenuList
+                {...MenuListProps}
                 open={open && isParentOpen}
                 anchorEl={anchorEl}
-                PaperProps={PaperPropsProp}
                 onClose={handleCloseMenu}
             >
                 {children}

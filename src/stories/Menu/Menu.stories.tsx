@@ -4,42 +4,21 @@ import { Meta } from '@storybook/react/types-6-0';
 import {
     Button,
     Divider,
-    Fade,
     Icon,
-    List,
-    ListItem,
-    ListItemButton,
     ListItemIcon,
     ListItemText,
-    ListSubheader,
     Menu,
     MenuItem,
-    MenuList,
-    Modal,
-    Paper,
-    Portal,
     useEventCallback
 } from '@material-ui/core';
-import {
-    Check,
-    ColorLensOutlined,
-    FiberManualRecord,
-    FormatAlignCenterRounded,
-    FormatAlignLeftRounded,
-    FormatAlignRightRounded,
-    FormatColorTextRounded,
-    KeyboardArrowDown,
-    KeyboardArrowRightRounded,
-    Sort
-} from '@material-ui/icons';
+import { Check, ColorLensOutlined, KeyboardArrowDown, Sort } from '@material-ui/icons';
 
-import { MuiCustomMenu, MuiCustomSubMenu } from '@mui-custom';
+import { MuiCustomColorList, MuiCustomMenu, MuiCustomSubMenu } from '@mui-custom';
 import {
     usePopupState,
     bindTrigger,
     bindMenu,
     bindToggle,
-    bindHover,
     bindPopper
 } from 'material-ui-popup-state/hooks';
 
@@ -194,10 +173,15 @@ export const SelectedMenu = () => {
 
 export const NestedMenu = () => {
     const popupState = usePopupState({ variant: 'popper', popupId: 'nestedMenu' });
+    const [selectedColor, setSelectedColor] = useState<string>();
 
     const handleClose = useCallback(() => {
         popupState.close();
     }, [popupState]);
+
+    const handleSelectColor = useEventCallback((color?: string) => {
+        setSelectedColor(color);
+    });
 
     return (
         <>
@@ -225,78 +209,19 @@ export const NestedMenu = () => {
                             <ListItemText>Change color</ListItemText>
                         </>
                     }
-                >
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="medium" sx={{ color: 'red' }}>
-                                <FiberManualRecord />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Red</ListItemText>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="medium" sx={{ color: 'blue' }}>
-                                <FiberManualRecord />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Blue</ListItemText>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="medium" sx={{ color: 'green' }}>
-                                <FiberManualRecord />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Green</ListItemText>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="medium" sx={{ color: 'gray' }}>
-                                <FiberManualRecord />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Gray</ListItemText>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="medium" sx={{ color: 'black' }}>
-                                <FiberManualRecord />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Black</ListItemText>
-                    </MenuItem>
-                </MuiCustomSubMenu>
-                <MuiCustomSubMenu title="Aligns">
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="small">
-                                <FormatAlignCenterRounded />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Center</ListItemText>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="small">
-                                <FormatAlignLeftRounded />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Left</ListItemText>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Icon fontSize="small">
-                                <FormatAlignRightRounded />
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText>Right</ListItemText>
-                    </MenuItem>
-                </MuiCustomSubMenu>
+                    MenuListProps={{
+                        MenuListComponent: (
+                            <MuiCustomColorList
+                                selected={selectedColor}
+                                onSelect={handleSelectColor}
+                            />
+                        )
+                    }}
+                />
                 <Divider variant="middle" />
                 <MuiCustomSubMenu
                     title="Switch Group"
-                    PaperProps={{ sx: { width: '100%', maxWidth: '30rem' } }}
+                    MenuListProps={{ PaperProps: { sx: { width: '100%', maxWidth: '30rem' } } }}
                 >
                     <MenuItem>Group 1</MenuItem>
                     <MenuItem>Group 2</MenuItem>

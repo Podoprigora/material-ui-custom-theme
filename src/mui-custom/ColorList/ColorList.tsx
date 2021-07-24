@@ -4,10 +4,11 @@ import { MenuList as MuiMenuList, MenuListProps as MuiListProps } from '@materia
 import clsx from 'clsx';
 import { MuiCustomColorListItem } from './ColorListItem';
 
-export interface MuiCustomColorListProps extends Omit<MuiListProps, 'children'> {
+export interface MuiCustomColorListProps extends Omit<MuiListProps, 'children' | 'onSelect'> {
     colorPalette?: string[];
     selected?: string;
     selectedIndex?: number;
+    onSelect?: (color?: string, index?: number) => void;
 }
 
 // prettier-ignore
@@ -25,21 +26,37 @@ export const MuiCustomColorList = React.forwardRef<HTMLUListElement, MuiCustomCo
             colorPalette = [],
             selected: selectedProp,
             selectedIndex: selectedIndexProp,
+            onSelect,
             ...other
         } = props;
 
         const items = useMemo(() => {
             const colors = colorPalette.length > 0 ? colorPalette : defaultColorPalette;
 
+            const handleSelect = (color: string, index: number) => () => {
+                if (onSelect) {
+                    onSelect(color, index);
+                }
+            };
+
             return colors.map((color, index) => {
                 const selected = selectedProp === color || selectedIndexProp === index;
 
-                return <MuiCustomColorListItem key={index} color={color} selected={selected} />;
+                return (
+                    <MuiCustomColorListItem
+                        key={index}
+                        autoFocus={selected || index === 0}
+                        color={color}
+                        selected={selected}
+                        onClick={handleSelect(color, index)}
+                    />
+                );
             });
-        }, [colorPalette, selectedProp, selectedIndexProp]);
+        }, [colorPalette, selectedProp, selectedIndexProp, onSelect]);
 
         return (
             <MuiMenuList
+                autoFocus
                 {...other}
                 className={clsx('MuiCustomColorList', className)}
                 ref={forwardedRef}

@@ -27,7 +27,8 @@ import {
     Avatar,
     Badge,
     Collapse,
-    Paper
+    Paper,
+    useEventCallback
 } from '@material-ui/core';
 import {
     AccessTimeRounded,
@@ -874,9 +875,15 @@ export const NestedNavigationList = () => {
 // Color List
 
 export const ColorList = () => {
+    const [selected, setSelected] = useState<string>();
+
+    const handleSelect = useEventCallback((color?: string) => {
+        setSelected(color);
+    });
+
     return (
         <Paper elevation={4} style={{ display: 'inline-block' }}>
-            <MuiCustomColorList selectedIndex={1} />
+            <MuiCustomColorList selected={selected} onSelect={handleSelect} />
         </Paper>
     );
 };

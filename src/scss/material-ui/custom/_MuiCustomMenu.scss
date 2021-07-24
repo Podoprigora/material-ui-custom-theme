@@ -9,7 +9,7 @@
 
 .MuiCustomSubMenuItem {
     &:focus {
-        .MuiMenuItem-root {
+        & > .MuiMenuItem-root {
             background-color: $list-item-focus-visible-bg-color;
         }
     }

@@ -10,11 +10,12 @@ import {
     useEventCallback
 } from '@material-ui/core';
 
-interface MuiCustomSubMenuListProps extends MuiListProps {
+export interface MuiCustomSubMenuListProps extends MuiListProps {
     open: MuiPopperProps['open'];
     anchorEl: MuiPopperProps['anchorEl'];
     PopperProps?: Omit<MuiPopperProps, 'children' | 'open' | 'anchorEl'>;
     PaperProps?: MuiPaperProps;
+    MenuListComponent?: React.ReactElement | null;
     onClose?: () => void;
 }
 
@@ -25,6 +26,7 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
         children,
         PopperProps: PopperPropsProp,
         PaperProps: PaperPropsProp,
+        MenuListComponent,
         onClose,
         ...other
     } = props;
@@ -59,6 +61,20 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
         };
     }, [open, anchorEl, PopperPropsProp]);
 
+    let menuListElement: React.ReactElement | null = null;
+
+    if (MenuListComponent === undefined) {
+        menuListElement = (
+            <MenuList autoFocus onKeyDown={handleKeyDown} {...other}>
+                {children}
+            </MenuList>
+        );
+    } else if (React.isValidElement(MenuListComponent)) {
+        menuListElement = React.cloneElement(MenuListComponent, {
+            onKeyDown: handleKeyDown
+        });
+    }
+
     return (
         <Popper {...popperProps}>
             {({ TransitionProps }) => {
@@ -66,9 +82,7 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
                     <Fade {...TransitionProps} timeout={{ exit: 120, enter: 220 }}>
                         <div className="MuiMenu-root">
                             <Paper elevation={8} {...PaperPropsProp}>
-                                <MenuList {...other} autoFocus onKeyDown={handleKeyDown}>
-                                    {children}
-                                </MenuList>
+                                {menuListElement}
                             </Paper>
                         </div>
                     </Fade>
