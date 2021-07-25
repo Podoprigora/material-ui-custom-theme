@@ -7,13 +7,14 @@ import {
     PopperProps as MuiPopperProps,
     PaperProps as MuiPaperProps,
     Fade,
-    useEventCallback
+    useEventCallback,
+    useTheme
 } from '@material-ui/core';
 
 export interface MuiCustomSubMenuListProps extends MuiListProps {
     open: MuiPopperProps['open'];
     anchorEl: MuiPopperProps['anchorEl'];
-    PopperProps?: Omit<MuiPopperProps, 'children' | 'open' | 'anchorEl'>;
+    placement?: MuiPopperProps['placement'];
     PaperProps?: MuiPaperProps;
     MenuListComponent?: React.ReactElement | null;
     onClose?: () => void;
@@ -24,12 +25,14 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
         open,
         anchorEl,
         children,
-        PopperProps: PopperPropsProp,
+        placement = 'right-start',
         PaperProps: PaperPropsProp,
         MenuListComponent,
         onClose,
         ...other
     } = props;
+
+    const theme = useTheme();
 
     const handleKeyDown = useEventCallback((ev: React.KeyboardEvent) => {
         ev.stopPropagation();
@@ -41,7 +44,7 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
 
     const popperProps = useMemo<MuiPopperProps>(() => {
         return {
-            placement: 'right-start',
+            placement,
             modifiers: [
                 {
                     name: 'offset',
@@ -50,16 +53,13 @@ export const MuiCustomSubMenuList = (props: MuiCustomSubMenuListProps) => {
                     }
                 }
             ],
-            ...PopperPropsProp,
+            className: 'MuiCustomMenu',
+            style: { zIndex: theme.zIndex.modal },
             transition: true,
             open,
-            anchorEl,
-            disablePortal: true,
-            popperOptions: {
-                strategy: 'fixed'
-            }
+            anchorEl
         };
-    }, [open, anchorEl, PopperPropsProp]);
+    }, [open, anchorEl, placement, theme]);
 
     let menuListElement: React.ReactElement | null = null;
 

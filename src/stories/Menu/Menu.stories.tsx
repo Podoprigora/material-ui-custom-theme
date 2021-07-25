@@ -222,8 +222,7 @@ export const NestedMenu = () => {
                 <MuiCustomSubMenu
                     title="Switch Group"
                     MenuListProps={{
-                        PaperProps: { sx: { width: '100%', maxWidth: '30rem' } },
-                        PopperProps: { placement: 'right' }
+                        PaperProps: { sx: { width: '100%', maxWidth: '30rem' } }
                     }}
                 >
                     <MenuItem>Group 1</MenuItem>
