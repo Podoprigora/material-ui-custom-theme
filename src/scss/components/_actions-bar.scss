@@ -1,12 +1,22 @@
 .actions-bar {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(2rem, max-content));
-	grid-gap: $spacing-scale-6;
-	align-items: center;
-	justify-content: start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2rem, max-content));
+    grid-gap: $spacing-scale-6;
+    align-items: center;
+    justify-content: start;
 
-	&--direction-column {
-		grid-template-columns: none;
-		justify-items: start;
-	}
+    &--justifyEnd {
+        justify-content: end;
+    }
+
+    &--direction-column {
+        grid-template-columns: none;
+        justify-items: start;
+    }
+
+    @each $key, $spacing in $spacing-scale {
+        &--gap-#{$key} {
+            grid-gap: $spacing;
+        }
+    }
 }

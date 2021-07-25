@@ -1,10 +1,17 @@
-import { createTheme, Fade, Grow } from '@material-ui/core';
+import { createTheme, Grow, PopoverProps } from '@material-ui/core';
 
 declare module '@material-ui/core/Icon' {
     interface IconPropsSizeOverrides {
         xsmall: true;
     }
 }
+
+const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
+    TransitionComponent: Grow,
+    TransitionProps: { timeout: { exit: 120, enter: 220 } },
+    anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+    transformOrigin: { vertical: 'top', horizontal: 'left' }
+};
 
 export const theme = createTheme({
     components: {
@@ -63,12 +70,12 @@ export const theme = createTheme({
                 color: 'primary'
             }
         },
+        MuiPopover: {
+            defaultProps: MuiPopoverDefaultProps
+        },
         MuiMenu: {
             defaultProps: {
-                TransitionComponent: Grow,
-                TransitionProps: { timeout: { exit: 120, enter: 220 } },
-                anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                transformOrigin: { vertical: 'top', horizontal: 'left' },
+                ...MuiPopoverDefaultProps,
                 PaperProps: {
                     sx: { minWidth: '14rem' }
                 }

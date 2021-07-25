@@ -2,16 +2,27 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 
 import {
+    Avatar,
     Button,
     Divider,
+    Fade,
     Icon,
+    IconButton,
     ListItemIcon,
     ListItemText,
     Menu,
     MenuItem,
+    Popover,
+    Tooltip,
     useEventCallback
 } from '@material-ui/core';
-import { Check, ColorLensOutlined, KeyboardArrowDown, Sort } from '@material-ui/icons';
+import {
+    AccountCircleRounded,
+    Check,
+    ColorLensOutlined,
+    KeyboardArrowDown,
+    Sort
+} from '@material-ui/icons';
 
 import { MuiCustomColorList, MuiCustomMenu, MuiCustomSubMenu } from '@mui-custom';
 import {
@@ -23,6 +34,7 @@ import {
 } from 'material-ui-popup-state/hooks';
 
 import { CopySvg, Edit2Svg, Trash2Svg } from '../../assets/svg-icons/feather';
+import { FacebookSettingLinkedList } from '../List/Template';
 
 export default {
     title: 'mui-custom/Menu',
@@ -249,6 +261,46 @@ export const NestedMenu = () => {
                 <MenuItem>Go to File...</MenuItem>
                 <MenuItem>Go to Symbol in Workspace...</MenuItem>
             </MuiCustomMenu>
+        </div>
+    );
+};
+
+export const FacebookProfileMenu = () => {
+    const popupState = usePopupState({ variant: 'popover', popupId: 'facebookProfileMenu' });
+
+    return (
+        <div
+            style={{
+                height: '80rem'
+            }}
+        >
+            <div className="actions-bar actions-bar--justifyEnd actions-bar--gap-10">
+                <Button variant="outlined" color="inherit" disabled>
+                    Link 1
+                </Button>
+                <Button variant="outlined" color="inherit" disabled>
+                    Link 2
+                </Button>
+                <Tooltip title="Account setting" disableFocusListener>
+                    <IconButton
+                        {...bindToggle(popupState)}
+                        className="MuiIconButton-circular MuiIconButton-dense"
+                    >
+                        <Avatar>
+                            <AccountCircleRounded fontSize="large" />
+                        </Avatar>
+                    </IconButton>
+                </Tooltip>
+            </div>
+            <Popover
+                {...bindMenu(popupState)}
+                TransitionComponent={Fade}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                PaperProps={{ elevation: 4, sx: { width: '100%', maxWidth: '40rem' } }}
+            >
+                <FacebookSettingLinkedList />
+            </Popover>
         </div>
     );
 };

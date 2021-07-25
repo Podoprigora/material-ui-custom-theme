@@ -38,28 +38,16 @@ import {
     FolderOpenRounded,
     GroupsRounded,
     HelpOutlineRounded,
-    HelpRounded,
     InsertDriveFileOutlined,
     KeyboardArrowDownRounded,
     KeyboardArrowUpRounded,
     LocalOfferRounded,
-    LogoutRounded,
-    Nightlight,
     PeopleAltRounded,
-    Settings,
-    SettingsRounded,
-    SmsFailed
+    SettingsRounded
 } from '@material-ui/icons';
-import {
-    MuiCustomSimplebar,
-    MuiCustomSimplebarRef,
-    MuiCustomColorList,
-    MuiCustomLinkedList,
-    MuiCustomLinkedListGroup,
-    MuiCustomLinkedListLink
-} from '@mui-custom';
+import { MuiCustomSimplebar, MuiCustomSimplebarRef, MuiCustomColorList } from '@mui-custom';
 
-import { List, ListProps } from './Template';
+import { FacebookSettingLinkedList, List, ListProps } from './Template';
 import {
     InboxSvg,
     Trash2Svg,
@@ -906,157 +894,7 @@ export const ColorList = () => {
 export const LinkedList = () => {
     return (
         <Paper elevation={4} className="navigation-list-paper">
-            <MuiCustomLinkedList>
-                <MuiCustomLinkedListGroup
-                    MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
-                >
-                    <ListItemButton className="navigation-list__user">
-                        <ListItemAvatar>
-                            <Avatar src={UserpicImg} />
-                        </ListItemAvatar>
-                        <ListItemText
-                            disableTypography={false}
-                            primary="Podoprigora Alexandr"
-                            secondary="podoprigoraisv@gmail.com"
-                            className="u-text-truncate"
-                        />
-                    </ListItemButton>
-                    <Divider variant="middle" />
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <SmsFailed fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                            disableTypography={false}
-                            primary="Give Feedback"
-                            secondary="Help us improve the new Facebook"
-                        />
-                    </ListItemButton>
-                    <Divider variant="middle" />
-                    <MuiCustomLinkedListLink groupKey="setting" groupTitle="Setting &amp; Privacy">
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Setting &amp; Privacy" />
-                    </MuiCustomLinkedListLink>
-                    <MuiCustomLinkedListLink groupKey="help" groupTitle="Help &amp; Support">
-                        <ListItemAvatar>
-                            <Avatar>
-                                <HelpRounded fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Help &amp; Support" />
-                    </MuiCustomLinkedListLink>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Nightlight fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                            disableTypography={false}
-                            primary="Display &amp; Accessebility"
-                        />
-                    </ListItemButton>
-                    <Divider variant="middle" />
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <LogoutRounded fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Log Out" />
-                    </ListItemButton>
-                </MuiCustomLinkedListGroup>
-
-                <MuiCustomLinkedListGroup
-                    groupKey="setting"
-                    MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
-                >
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Settings" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Privacy Checkup" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Privacy Shortcuts" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Activity Log" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="News Feed Preferences" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Settings fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Language" />
-                    </ListItemButton>
-                </MuiCustomLinkedListGroup>
-
-                <MuiCustomLinkedListGroup
-                    groupKey="help"
-                    MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
-                >
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <HelpRounded fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Help Center" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <HelpRounded fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Support Inbox" />
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <HelpRounded fontSize="large" />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText disableTypography={false} primary="Report a Problem" />
-                    </ListItemButton>
-                </MuiCustomLinkedListGroup>
-            </MuiCustomLinkedList>
+            <FacebookSettingLinkedList />
         </Paper>
     );
 };

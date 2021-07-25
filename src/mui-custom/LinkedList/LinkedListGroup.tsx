@@ -42,6 +42,10 @@ export const MuiCustomLinkedListGroup = React.forwardRef<
 
     const handleKeyDown = useEventCallback((ev: React.KeyboardEvent<HTMLUListElement>) => {
         if (ev.key === 'Escape') {
+            if (groupKey) {
+                ev.stopPropagation();
+            }
+
             onCloseGroup();
         }
 
