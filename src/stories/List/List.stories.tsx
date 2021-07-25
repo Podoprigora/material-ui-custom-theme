@@ -8,7 +8,6 @@ import {
 } from 'react-window';
 
 import VirtualizedAutoSizer from 'react-virtualized-auto-sizer';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import {
     ListItem,
@@ -29,14 +28,12 @@ import {
     Badge,
     Collapse,
     Paper,
-    useEventCallback,
-    MenuList
+    useEventCallback
 } from '@material-ui/core';
 
 import {
     AccessTimeRounded,
     ApartmentRounded,
-    ArrowBack,
     BarChartRounded,
     FolderOpenRounded,
     GroupsRounded,
@@ -44,7 +41,6 @@ import {
     HelpRounded,
     InsertDriveFileOutlined,
     KeyboardArrowDownRounded,
-    KeyboardArrowRightRounded,
     KeyboardArrowUpRounded,
     LocalOfferRounded,
     LogoutRounded,
@@ -54,7 +50,14 @@ import {
     SettingsRounded,
     SmsFailed
 } from '@material-ui/icons';
-import { MuiCustomSimplebar, MuiCustomSimplebarRef, MuiCustomColorList } from '@mui-custom';
+import {
+    MuiCustomSimplebar,
+    MuiCustomSimplebarRef,
+    MuiCustomColorList,
+    MuiCustomLinkedList,
+    MuiCustomLinkedListGroup,
+    MuiCustomLinkedListLink
+} from '@mui-custom';
 
 import { List, ListProps } from './Template';
 import {
@@ -898,244 +901,162 @@ export const ColorList = () => {
     );
 };
 
-// Nested list (facebook setting menu)
+// Linked list (facebook setting menu)
 
-type FacebookSettingMenuActiveListKey = 'setting' | 'help' | 'display' | undefined;
-
-export const FacebookSettingMenu = () => {
-    const [activeList, setActiveList] = useState<FacebookSettingMenuActiveListKey>();
-
-    const handleListItemClick = (key?: FacebookSettingMenuActiveListKey) => () => {
-        setActiveList(key);
-    };
-
-    const bindListItemTrigger = (key?: FacebookSettingMenuActiveListKey) => {
-        return {
-            onClick: handleListItemClick(key)
-        } as const;
-    };
-
-    const isActiveList = (key?: FacebookSettingMenuActiveListKey) => {
-        return activeList === key;
-    };
-
+export const LinkedList = () => {
     return (
         <Paper elevation={4} className="navigation-list-paper">
-            <TransitionGroup component={null}>
-                {isActiveList() && (
-                    <CSSTransition
-                        classNames="navigation-list"
-                        timeout={{ enter: 150, exit: 0 }}
-                        unmountOnExit
-                    >
-                        <MenuList autoFocus className="navigation-list">
-                            <ListItemButton className="navigation-list__user">
-                                <ListItemAvatar>
-                                    <Avatar src={UserpicImg} />
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Podoprigora Alexandr"
-                                    secondary="podoprigoraisv@gmail.com"
-                                    className="u-text-truncate"
-                                />
-                            </ListItemButton>
-                            <Divider variant="middle" />
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <SmsFailed fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Give Feedback"
-                                    secondary="Help us improve the new Facebook"
-                                />
-                            </ListItemButton>
-                            <Divider variant="middle" />
-                            <ListItemButton {...bindListItemTrigger('setting')}>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Setting &amp; Privacy"
-                                />
-                                <ListItemIcon>
-                                    <KeyboardArrowRightRounded />
-                                </ListItemIcon>
-                            </ListItemButton>
-                            <ListItemButton {...bindListItemTrigger('help')}>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <HelpRounded fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Help &amp; Support"
-                                />
-                                <ListItemIcon>
-                                    <KeyboardArrowRightRounded />
-                                </ListItemIcon>
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Nightlight fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Display &amp; Accessebility"
-                                />
-                                {/* <ListItemIcon>
-                                    <KeyboardArrowRightRounded />
-                                </ListItemIcon> */}
-                            </ListItemButton>
-                            <Divider variant="middle" />
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <LogoutRounded fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Log Out" />
-                            </ListItemButton>
-                        </MenuList>
-                    </CSSTransition>
-                )}
+            <MuiCustomLinkedList>
+                <MuiCustomLinkedListGroup
+                    MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
+                >
+                    <ListItemButton className="navigation-list__user">
+                        <ListItemAvatar>
+                            <Avatar src={UserpicImg} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Podoprigora Alexandr"
+                            secondary="podoprigoraisv@gmail.com"
+                            className="u-text-truncate"
+                        />
+                    </ListItemButton>
+                    <Divider variant="middle" />
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <SmsFailed fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Give Feedback"
+                            secondary="Help us improve the new Facebook"
+                        />
+                    </ListItemButton>
+                    <Divider variant="middle" />
+                    <MuiCustomLinkedListLink groupKey="setting" groupTitle="Setting &amp; Privacy">
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Setting &amp; Privacy" />
+                    </MuiCustomLinkedListLink>
+                    <MuiCustomLinkedListLink groupKey="help" groupTitle="Help &amp; Support">
+                        <ListItemAvatar>
+                            <Avatar>
+                                <HelpRounded fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Help &amp; Support" />
+                    </MuiCustomLinkedListLink>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Nightlight fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography={false}
+                            primary="Display &amp; Accessebility"
+                        />
+                    </ListItemButton>
+                    <Divider variant="middle" />
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <LogoutRounded fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Log Out" />
+                    </ListItemButton>
+                </MuiCustomLinkedListGroup>
 
-                {isActiveList('setting') && (
-                    <CSSTransition
-                        classNames="navigation-list"
-                        timeout={{ enter: 150, exit: 0 }}
-                        unmountOnExit
-                    >
-                        <MenuList autoFocus className="navigation-list">
-                            <ListItem aria-disabled tabIndex={-1}>
-                                <ListItemIcon tabIndex={0}>
-                                    <IconButton {...bindListItemTrigger()}>
-                                        <ArrowBack fontSize="large" />
-                                    </IconButton>
-                                </ListItemIcon>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Setting &amp; Privacy"
-                                />
-                            </ListItem>
-                            <Divider className="u-margin-b-4" />
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Settings" />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Privacy Checkup" />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Privacy Shortcuts"
-                                />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Activity Log" />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="News Feed Preferences"
-                                />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Settings fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Language" />
-                            </ListItemButton>
-                        </MenuList>
-                    </CSSTransition>
-                )}
+                <MuiCustomLinkedListGroup
+                    groupKey="setting"
+                    MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
+                >
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Settings" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Privacy Checkup" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Privacy Shortcuts" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Activity Log" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="News Feed Preferences" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Settings fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Language" />
+                    </ListItemButton>
+                </MuiCustomLinkedListGroup>
 
-                {isActiveList('help') && (
-                    <CSSTransition
-                        classNames="navigation-list"
-                        timeout={{ enter: 150, exit: 0 }}
-                        unmountOnExit
-                    >
-                        <MenuList autoFocus className="navigation-list">
-                            <ListItem aria-disabled tabIndex={-1}>
-                                <ListItemIcon tabIndex={0}>
-                                    <IconButton {...bindListItemTrigger()}>
-                                        <ArrowBack fontSize="large" />
-                                    </IconButton>
-                                </ListItemIcon>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Help &amp; Support"
-                                />
-                            </ListItem>
-                            <Divider className="u-margin-b-4" />
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <HelpRounded fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Help Center" />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <HelpRounded fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText disableTypography={false} primary="Support Inbox" />
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <HelpRounded fontSize="large" />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    disableTypography={false}
-                                    primary="Report a Problem"
-                                />
-                            </ListItemButton>
-                        </MenuList>
-                    </CSSTransition>
-                )}
-            </TransitionGroup>
+                <MuiCustomLinkedListGroup
+                    groupKey="help"
+                    MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
+                >
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <HelpRounded fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Help Center" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <HelpRounded fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Support Inbox" />
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <HelpRounded fontSize="large" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText disableTypography={false} primary="Report a Problem" />
+                    </ListItemButton>
+                </MuiCustomLinkedListGroup>
+            </MuiCustomLinkedList>
         </Paper>
     );
 };

@@ -8,13 +8,6 @@
 }
 
 .navigation-list {
-    &,
-    & * {
-        &:focus {
-            outline: none;
-        }
-    }
-
     background-color: $white;
 
     &__user {
