@@ -183,9 +183,9 @@ $list-item-selected-hover-bg-color: rgba($color-primary, 0.08);
 $list-item-focus-visible-bg-color: rgba($black, 0.12);
 $list-subheader-min-height: 4rem;
 $list-item-multiline-text-line-height: 1.2;
-$list-item-multiline-text-primary-font-size: $font-size-xmedium;
+$list-item-multiline-text-primary-font-size: inherit;
 $list-item-multiline-text-primary-margin-bottom: $spacing-scale-3;
-$list-item-multiline-text-secondary-font-size: $font-size-medium;
+$list-item-multiline-text-secondary-font-size: inherit;
 $list-item-multiline-text-secondary-color: $color-text-note;
 
 // MuiMenu

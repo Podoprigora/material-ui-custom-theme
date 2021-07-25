@@ -1,6 +1,20 @@
 @use '../../scss/variables' as *;
 
+.navigation-list-paper {
+    position: relative;
+    width: 100%;
+    max-width: 40rem;
+    overflow: hidden;
+}
+
 .navigation-list {
+    &,
+    & * {
+        &:focus {
+            outline: none;
+        }
+    }
+
     background-color: $white;
 
     &__user {
@@ -20,10 +34,19 @@
         font-weight: $font-weight-strong;
     }
 
+    .MuiListItemButton,
+    .MuiListItem {
+        &-root {
+            margin: 0 $spacing-scale-4;
+        }
+
+        &-gutters {
+            padding: $spacing-scale-4 $spacing-scale-4;
+        }
+    }
+
     .MuiListItemButton {
         &-root {
-            padding-top: $spacing-scale-4;
-            padding-bottom: $spacing-scale-4;
             border-radius: $border-radius-lg;
 
             &:not(:last-of-type) {
@@ -78,7 +101,23 @@
             letter-spacing: 0.2px;
         }
         &-secondary {
+            font-size: $font-size-small;
             letter-spacing: 0.4px;
         }
+    }
+
+    // Transitions
+
+    &-enter {
+        opacity: 0;
+
+        &-active {
+            opacity: 1;
+            transition: all 0.15s linear;
+        }
+    }
+
+    &-exit {
+        display: none;
     }
 }
