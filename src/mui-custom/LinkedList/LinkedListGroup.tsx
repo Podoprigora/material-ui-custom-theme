@@ -8,8 +8,8 @@ import {
     ListItemIcon,
     IconButton,
     ListItemText,
-    Divider,
-    useEventCallback
+    useEventCallback,
+    List
 } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 
@@ -69,10 +69,15 @@ export const MuiCustomLinkedListGroup = React.forwardRef<
             {...TransitionProps}
             {...other}
         >
-            <MenuList {...MenuListPropsProp} onKeyDown={handleKeyDown} ref={forwardedRef}>
-                {activeItem && [
-                    <ListItem key="menu-list-header" aria-disabled tabIndex={-1}>
-                        <ListItemIcon tabIndex={0}>
+            <List disablePadding>
+                {activeItem && (
+                    <ListItem
+                        key="menu-list-header"
+                        aria-disabled
+                        tabIndex={-1}
+                        className="MuiLinkedListGroupHeader"
+                    >
+                        <ListItemIcon tabIndex={-1}>
                             <IconButton onClick={onCloseGroup}>
                                 <ArrowBack fontSize="large" />
                             </IconButton>
@@ -80,12 +85,17 @@ export const MuiCustomLinkedListGroup = React.forwardRef<
                         {activeItem?.title && (
                             <ListItemText disableTypography={false} primary={activeItem.title} />
                         )}
-                    </ListItem>,
-                    <Divider key="menu-list-divider" className="u-margin-b-4" />
-                ]}
-
-                {children}
-            </MenuList>
+                    </ListItem>
+                )}
+                <MenuList
+                    tabIndex={-1}
+                    {...MenuListPropsProp}
+                    onKeyDown={handleKeyDown}
+                    ref={forwardedRef}
+                >
+                    {children}
+                </MenuList>
+            </List>
         </TransitionComponent>
     );
 });

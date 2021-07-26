@@ -38,6 +38,14 @@
         }
     }
 
+    .MuiListItem {
+        &-root {
+            margin: 0;
+            padding-left: $spacing-scale-8;
+            padding-right: $spacing-scale-8;
+        }
+    }
+
     .MuiListItemButton {
         &-root {
             border-radius: $border-radius-lg;

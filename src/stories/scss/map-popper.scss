@@ -24,6 +24,7 @@
     }
 
     &__content {
+        position: relative;
         width: 100%;
         max-width: 32rem;
         padding: $spacing-scale-10;

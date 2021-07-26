@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { TransitionGroup } from 'react-transition-group';
-import FocusTrap from '@material-ui/core/Unstable_TrapFocus';
 
 import { MuiCustomLinkedListContext, MuiCustomLinkedListContextValue } from './LinkedListContext';
 import { MuiCustomLinkedListGroupItem } from './LinkedListTypes';
@@ -47,15 +46,13 @@ export const MuiCustomLinkedList = React.forwardRef<HTMLDivElement, MuiCustomLin
 
         return (
             <MuiCustomLinkedListContext.Provider value={contextValue}>
-                <FocusTrap open>
-                    <div
-                        {...other}
-                        className={clsx('MuiCustomLinkedList', className)}
-                        ref={forwardedRef}
-                    >
-                        <TransitionGroup component={null}>{children}</TransitionGroup>
-                    </div>
-                </FocusTrap>
+                <div
+                    {...other}
+                    className={clsx('MuiCustomLinkedList', className)}
+                    ref={forwardedRef}
+                >
+                    <TransitionGroup component={null}>{children}</TransitionGroup>
+                </div>
             </MuiCustomLinkedListContext.Provider>
         );
     }

@@ -297,7 +297,7 @@ export const FacebookProfileMenu = () => {
                 TransitionComponent={Fade}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                PaperProps={{ elevation: 4, sx: { width: '100%', maxWidth: '40rem' } }}
+                PaperProps={{ elevation: 4, sx: { width: '40rem' } }}
             >
                 <FacebookSettingLinkedList />
             </Popover>
