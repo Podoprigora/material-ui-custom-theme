@@ -1,10 +1,5 @@
 .MuiCustomLinkedList {
-    &,
-    & * {
-        &:focus {
-            outline: none;
-        }
-    }
+    @include disable-focus-outline;
 
     .MuiLinkedListGroupHeader {
         position: sticky;

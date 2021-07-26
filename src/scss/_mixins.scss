@@ -1,66 +1,75 @@
 @mixin clearfix {
-	&::after {
-		content: "";
-		display: table;
-		clear: both;
-	}
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
 }
 
 @mixin absolute-center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @mixin truncation {
-	display: block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @mixin disable-tap-highlight-color {
-	-webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@mixin disable-focus-outline {
+    &,
+    & * {
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
 // Breakpoints
 @mixin media-breakpoint-up($key, $offset: 0) {
-	$value: map-get($breakpoints, $key);
+    $value: map-get($breakpoints, $key);
 
-	@if $value != null {
-		@if $value != 0 {
-			@if $offset != 0 {
-				$value: $value + $offset / 16;
-			}
+    @if $value != null {
+        @if $value != 0 {
+            @if $offset != 0 {
+                $value: $value + $offset / 16;
+            }
 
-			@media only screen and (min-width: $value) {
-				@content;
-			}
-		} @else {
-			@content;
-		}
-	}
+            @media only screen and (min-width: $value) {
+                @content;
+            }
+        } @else {
+            @content;
+        }
+    }
 }
 
 @mixin media-breakpoint-down($key) {
-	$value: map-get($breakpoints, $key);
+    $value: map-get($breakpoints, $key);
 
-	@if $value != null {
-		@media only screen and (max-width: $value) {
-			@content;
-		}
-	}
+    @if $value != null {
+        @media only screen and (max-width: $value) {
+            @content;
+        }
+    }
 }
 
 @mixin media-hover {
-	@media (hover: hover) and (pointer: fine) {
-		@content;
-	}
+    @media (hover: hover) and (pointer: fine) {
+        @content;
+    }
 }
 
 @mixin media-not-hover {
-	@media (hover: none) {
-		@content;
-	}
+    @media (hover: none) {
+        @content;
+    }
 }
