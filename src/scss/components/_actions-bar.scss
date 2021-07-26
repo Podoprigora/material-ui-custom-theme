@@ -9,9 +9,13 @@
         justify-content: end;
     }
 
+    &--justifyStretch {
+        justify-content: stretch;
+    }
+
     &--direction-column {
         grid-template-columns: none;
-        justify-items: start;
+        align-items: start;
     }
 
     @each $key, $spacing in $spacing-scale {

@@ -199,7 +199,7 @@ export const FacebookSettingLinkedList = () => {
                 groupKey="display"
                 MenuListProps={{ autoFocus: true, className: 'navigation-list' }}
             >
-                <ListItemButton>
+                <ListItemButton tabIndex={-1}>
                     <ListItemAvatar>
                         <Avatar>
                             <Nightlight fontSize="large" />
@@ -211,10 +211,10 @@ export const FacebookSettingLinkedList = () => {
                         secondary="Adjust the appearance of Facebook to reduce glare and give your eyes a break."
                     />
                     <ListItemIcon>
-                        <Switch />
+                        <Switch color="secondary" tabIndex={0} />
                     </ListItemIcon>
                 </ListItemButton>
-                <ListItemButton>
+                <ListItemButton tabIndex={-1}>
                     <ListItemAvatar>
                         <Avatar>
                             <ListAltRounded fontSize="large" />
@@ -226,7 +226,7 @@ export const FacebookSettingLinkedList = () => {
                         secondary="Make your font size smaller so more content can fit on the screen."
                     />
                     <ListItemIcon>
-                        <Switch />
+                        <Switch color="secondary" tabIndex={0} />
                     </ListItemIcon>
                 </ListItemButton>
                 <MuiCustomLinkedListLink groupKey="display-keyboard" groupTitle="Keyboard">
@@ -251,7 +251,7 @@ export const FacebookSettingLinkedList = () => {
                     </ListItemAvatar>
                     <ListItemText disableTypography={false} primary="See All Keyboard Shortcuts" />
                 </ListItemButton>
-                <ListItemButton>
+                <ListItemButton tabIndex={-1}>
                     <ListItemAvatar>
                         <Avatar>
                             <StarsRounded fontSize="large" />
@@ -263,7 +263,7 @@ export const FacebookSettingLinkedList = () => {
                         secondary="Use single-character shortcuts to perform common actions."
                     />
                     <ListItemIcon>
-                        <Switch />
+                        <Switch color="secondary" tabIndex={0} />
                     </ListItemIcon>
                 </ListItemButton>
             </MuiCustomLinkedListGroup>

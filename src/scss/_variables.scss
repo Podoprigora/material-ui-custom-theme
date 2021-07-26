@@ -241,3 +241,20 @@ $badge-height: 2rem;
 $badge-border-radius: 1.2rem;
 $badge-dot-size: 0.8rem;
 $badge-box-shadow: 0 0 0 0.2rem $white;
+
+// MuiSwitch
+// 0px 2px 1px -1px rgb(0 0 0, 0.2), 0px 1px 1px 0px rgb(0 0 0, 0.14), 0px 1px 3px 0px rgb(0 0 0, 0.12);
+$switch-track-bg-color: $gray-lighten-2;
+$switch-track-box-shadow: inset 0 0.1rem 0.4rem -0.1rem rgba($black, 0.22);
+$switch-thumb-box-shadow: 0 2px 1px -1px rgb($black, 0.2), 0 1px 1px 0 rgb($black, 0.14),
+    0 1px 3px 0 rgb($black, 0.12);
+$switch-primary-thumb-color: $white;
+$switch-secondary-thumb-color: $white;
+$switch-disabled-opacity: 0.2;
+$switch-checked-track-opacity: 0.8;
+$switch-size-medium-width: 5rem;
+$switch-size-medium-height: 2.8rem;
+$switch-size-medium-thumb-size: 2rem;
+$switch-size-small-width: 4rem;
+$switch-size-small-height: 2rem;
+$switch-size-small-thumb-size: 1.6rem;
