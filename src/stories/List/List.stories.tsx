@@ -35,6 +35,7 @@ import {
     AccessTimeRounded,
     ApartmentRounded,
     BarChartRounded,
+    ChatBubbleOutlineRounded,
     FolderOpenRounded,
     GroupsRounded,
     HelpOutlineRounded,
@@ -603,7 +604,7 @@ export const NavigationList = () => {
                             primary="Wishlist"
                             secondary="Information about your favorite products"
                         />
-                        <ListItemText sx={{ flex: 'none', alignSelf: 'center' }}>
+                        <ListItemText className="MuiListItemBadge">
                             <Badge badgeContent={5} color="secondary" />
                         </ListItemText>
                     </ListItemButton>
@@ -677,7 +678,7 @@ export const NavigationList = () => {
                             primary="Message center"
                             secondary="Your messages and notifications"
                         />
-                        <ListItemText sx={{ alignSelf: 'center' }}>
+                        <ListItemText className="MuiListItemBadge">
                             <Badge badgeContent={100} color="secondary" />
                         </ListItemText>
                     </ListItemButton>
@@ -835,6 +836,15 @@ export const NestedNavigationList = () => {
                 subheader={<ListSubheader>Workspace</ListSubheader>}
                 className="nested-navigation-list"
             >
+                <ListItemButton {...getSelectedItemProps('messages')}>
+                    <ListItemIcon>
+                        <ChatBubbleOutlineRounded />
+                    </ListItemIcon>
+                    <ListItemText>Messages</ListItemText>
+                    <ListItemText className="MuiListItemBadge">
+                        <Badge badgeContent={100} />
+                    </ListItemText>
+                </ListItemButton>
                 <ListItemButton {...getSelectedItemProps('settings')}>
                     <ListItemIcon>
                         <SettingsRounded />

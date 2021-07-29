@@ -26,7 +26,7 @@ $color-secondary-border-color: #d9ebed;
 $color-text-note: $gray-darken-1;
 
 // Body
-$body-bg-color: $gray-lighten-5;
+$body-bg-color: $gray-lighten-3;
 $body-color: $gray-darken-4;
 
 // Border radius
@@ -34,7 +34,7 @@ $border-radius-sm: 0.4rem;
 $border-radius-lg: 1rem;
 $border-radius: $border-radius-lg;
 
-$border-color: rgba($black, 0.1);
+$border-color: $gray-lighten-3;
 
 // Box shadow
 $box-shadow-sm: 0 0.2rem 0.1rem -0.1rem rgba($black, 0.12), 0 0.1rem 0.1rem 0 rgba($black, 0.05),
@@ -238,12 +238,11 @@ $badge-secondary-color: $white;
 $badge-padding: 0 $spacing-scale-3;
 $badge-min-width: 2rem;
 $badge-height: 2rem;
-$badge-border-radius: 1.2rem;
+$badge-border-radius: $font-size-small;
 $badge-dot-size: 0.8rem;
 $badge-box-shadow: 0 0 0 0.2rem $white;
 
 // MuiSwitch
-// 0px 2px 1px -1px rgb(0 0 0, 0.2), 0px 1px 1px 0px rgb(0 0 0, 0.14), 0px 1px 3px 0px rgb(0 0 0, 0.12);
 $switch-track-bg-color: $gray-lighten-2;
 $switch-track-box-shadow: inset 0 0.1rem 0.4rem -0.1rem rgba($black, 0.22);
 $switch-thumb-box-shadow: 0 2px 1px -1px rgb($black, 0.2), 0 1px 1px 0 rgb($black, 0.14),

@@ -70,12 +70,6 @@
         & ~ & {
             margin-left: $list-padding-x;
         }
-
-        .MuiBadge-badge {
-            min-width: $list-item-icon-font-size;
-            height: $list-item-icon-font-size;
-            box-shadow: none;
-        }
     }
 
     &-inset {
@@ -145,5 +139,20 @@
     &-gutters {
         padding-left: $list-padding-x;
         padding-right: $list-padding-x;
+    }
+}
+
+// Custom classes
+
+.MuiListItemBadge {
+    flex: none;
+    align-self: center;
+
+    .MuiBadge-badge {
+        position: relative;
+        min-width: $list-item-icon-font-size;
+        height: $list-item-icon-font-size;
+        box-shadow: none;
+        transform: none;
     }
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Icon, IconProps } from '@material-ui/core';
+import { Icon, IconProps, Tooltip } from '@material-ui/core';
+import { EqualizerRounded, Favorite, Visibility } from '@material-ui/icons';
 import { GridSvg, ListSvg } from '../../assets/svg-icons/feather';
 import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps } from './Templete';
 
@@ -72,7 +73,7 @@ export const Exmaples = () => {
             <div className="actions-bar u-margin-b-6">
                 <Default size="small" color="standard" exclusive />
             </div>
-            <div className="actions-bar">
+            <div className="actions-bar u-margin-b-6">
                 <FiltersExample />
             </div>
         </>

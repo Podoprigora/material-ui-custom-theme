@@ -1,5 +1,18 @@
 @use 'sass:math';
 
+@mixin mui-switch-base-after($base-padding) {
+    &:after {
+        position: absolute;
+        content: '';
+        top: $base-padding;
+        bottom: $base-padding;
+        right: $base-padding;
+        left: $base-padding;
+        border-radius: 50%;
+        transition: box-shadow 0.2s ease;
+    }
+}
+
 .MuiSwitch {
     $this: &;
 
@@ -52,26 +65,17 @@
 
             padding: $switch-base-padding;
 
+            & + #{$this}-track {
+                border-radius: math.div($switch-size-medium-height, 2);
+            }
+
+            @include mui-switch-base-after($switch-base-padding);
+
             &.Mui-checked {
                 $switch-base-checked-translate-x: $switch-size-medium-width -
                     $switch-size-medium-thumb-size - ($switch-base-padding * 2);
 
                 transform: translateX($switch-base-checked-translate-x);
-            }
-
-            &:after {
-                position: absolute;
-                content: '';
-                top: $switch-base-padding;
-                bottom: $switch-base-padding;
-                right: $switch-base-padding;
-                left: $switch-base-padding;
-                border-radius: 50%;
-                transition: box-shadow 0.2s ease;
-            }
-
-            & + #{$this}-track {
-                border-radius: math.div($switch-size-medium-height, 2);
             }
         }
 
@@ -94,15 +98,17 @@
 
             padding: $switch-base-padding;
 
+            @include mui-switch-base-after($switch-base-padding);
+
+            & + #{$this}-track {
+                border-radius: math.div($switch-size-small-height, 2);
+            }
+
             &.Mui-checked {
                 $switch-base-checked-translate-x: $switch-size-small-width -
                     $switch-size-small-thumb-size - ($switch-base-padding * 2);
 
                 transform: translateX($switch-base-checked-translate-x);
-            }
-
-            & + #{$this}-track {
-                border-radius: math.div($switch-size-small-height, 2);
             }
         }
 
