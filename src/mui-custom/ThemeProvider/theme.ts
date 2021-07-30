@@ -73,6 +73,11 @@ export const theme = createTheme({
         MuiPopover: {
             defaultProps: MuiPopoverDefaultProps
         },
+        MuiTooltip: {
+            defaultProps: {
+                enterDelay: 500
+            }
+        },
         MuiMenu: {
             defaultProps: {
                 ...MuiPopoverDefaultProps,

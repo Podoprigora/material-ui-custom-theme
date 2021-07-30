@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Icon, IconProps, Tooltip } from '@material-ui/core';
-import { EqualizerRounded, Favorite, Visibility } from '@material-ui/icons';
-import { GridSvg, ListSvg } from '../../assets/svg-icons/feather';
+import { GridViewRounded, ViewComfyRounded, ViewListRounded } from '@material-ui/icons';
+
 import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps } from './Templete';
 
 export default {
@@ -15,24 +15,47 @@ export default {
 type DefaultStoryProps = ToggleButtonGroupProps & { iconFontSize?: IconProps['fontSize'] };
 
 export const Default: Story<DefaultStoryProps> = (args) => {
-    const { iconFontSize, ...other } = args;
+    const { iconFontSize, size, ...other } = args;
     const [selected, setSelected] = useState<string>('grid');
 
     const handleChange = (ev: React.MouseEvent, newValue: string) => {
         setSelected(newValue);
     };
 
+    const tooltipPopperConfig = useMemo(() => {
+        let offsetY = 8;
+
+        if (size === 'medium') {
+            offsetY = 4;
+        } else if (size === 'small') {
+            offsetY = 2;
+        }
+
+        return { modifiers: [{ name: 'offset', options: { offset: [0, offsetY] } }] };
+    }, [size]);
+
     return (
-        <ToggleButtonGroup {...other} value={selected} onChange={handleChange}>
+        <ToggleButtonGroup {...other} size={size} value={selected} onChange={handleChange}>
             <ToggleButton value="grid">
-                <Icon fontSize={iconFontSize}>
-                    <GridSvg />
-                </Icon>
+                <Tooltip title="Grid View" PopperProps={tooltipPopperConfig}>
+                    <Icon fontSize="large">
+                        <GridViewRounded />
+                    </Icon>
+                </Tooltip>
+            </ToggleButton>
+            <ToggleButton value="grid-dense">
+                <Tooltip title="Large Grid View" PopperProps={tooltipPopperConfig}>
+                    <Icon fontSize="large">
+                        <ViewComfyRounded />
+                    </Icon>
+                </Tooltip>
             </ToggleButton>
             <ToggleButton value="list">
-                <Icon fontSize={iconFontSize}>
-                    <ListSvg />
-                </Icon>
+                <Tooltip title="List View" PopperProps={tooltipPopperConfig}>
+                    <Icon fontSize="large">
+                        <ViewListRounded />
+                    </Icon>
+                </Tooltip>
             </ToggleButton>
         </ToggleButtonGroup>
     );
@@ -64,16 +87,10 @@ const FiltersExample = () => {
 export const Exmaples = () => {
     return (
         <>
-            <div className="actions-bar u-margin-b-6">
+            <div className="actions-bar actions-bar--direction-column actions-bar--gap-10">
                 <Default size="large" color="primary" exclusive />
-            </div>
-            <div className="actions-bar u-margin-b-6">
                 <Default size="medium" color="secondary" exclusive />
-            </div>
-            <div className="actions-bar u-margin-b-6">
-                <Default size="small" color="standard" exclusive />
-            </div>
-            <div className="actions-bar u-margin-b-6">
+                <Default size="small" color="primary" exclusive />
                 <FiltersExample />
             </div>
         </>
