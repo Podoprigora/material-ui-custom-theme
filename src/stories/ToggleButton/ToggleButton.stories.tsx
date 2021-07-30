@@ -87,7 +87,7 @@ const FiltersExample = () => {
 export const Exmaples = () => {
     return (
         <>
-            <div className="actions-bar actions-bar--direction-column actions-bar--gap-10">
+            <div className="stack stack--direction-column stack--gap-10">
                 <Default size="large" color="primary" exclusive />
                 <Default size="medium" color="secondary" exclusive />
                 <Default size="small" color="primary" exclusive />

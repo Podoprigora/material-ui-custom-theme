@@ -1,0 +1,42 @@
+.MuiInputBase {
+    &-root {
+        font-family: inherit;
+        font-size: $input-base-font-size;
+        font-weight: $input-base-font-weight;
+        letter-spacing: $input-base-letter-spacing;
+        line-height: $input-base-line-height;
+        color: $input-base-color;
+        padding: 0 $input-base-padding-x;
+        min-height: $input-base-min-height;
+        box-shadow: $input-base-box-shadow;
+        border-radius: $input-base-border-radius;
+        transition: box-shadow 0.2s ease;
+
+        &.Mui-focused {
+            box-shadow: $input-base-focused-box-shadow;
+        }
+    }
+
+    &-input {
+        padding: $input-base-padding-y 0;
+
+        &::placeholder {
+            opacity: $input-base-placeholder-opacity;
+        }
+    }
+}
+
+.MuiInputAdornment {
+    &-root {
+        color: $input-base-adornment-color;
+        font-size: $input-base-adornment-font-size;
+    }
+
+    &-positionStart {
+        margin-right: $input-base-padding-x - $spacing-scale-1;
+    }
+
+    &-positionEnd {
+        margin-left: $input-base-padding-x - $spacing-scale-1;
+    }
+}

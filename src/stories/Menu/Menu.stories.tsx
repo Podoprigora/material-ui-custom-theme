@@ -274,7 +274,7 @@ export const FacebookProfileMenu = () => {
                 height: '80rem'
             }}
         >
-            <div className="actions-bar actions-bar--justifyEnd actions-bar--gap-10">
+            <div className="stack stack--justifyEnd stack--gap-10">
                 <Button variant="outlined" color="inherit" disabled>
                     Link 1
                 </Button>

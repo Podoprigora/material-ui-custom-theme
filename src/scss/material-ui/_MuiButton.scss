@@ -63,6 +63,10 @@
             @extend #{$selector};
         }
 
+        .MuiIcon-root {
+            color: rgba($btn-color, 0.65);
+        }
+
         &Primary {
             $selector: &;
 
@@ -75,6 +79,10 @@
 
             &.Mui-disabled {
                 @extend #{$selector};
+            }
+
+            .MuiIcon-root {
+                color: currentColor;
             }
         }
 
@@ -91,10 +99,10 @@
             &.Mui-disabled {
                 @extend #{$selector};
             }
-        }
 
-        .MuiIcon-root {
-            color: rgba($btn-color, 0.65);
+            .MuiIcon-root {
+                color: currentColor;
+            }
         }
     }
 

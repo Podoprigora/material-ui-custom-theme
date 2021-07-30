@@ -33,7 +33,7 @@ Default.args = {
 export const Examples = () => {
     return (
         <>
-            <div className="actions-bar">
+            <div className="stack">
                 <Tooltip title="Add to favorite">
                     <IconButton size="large">
                         <FavoriteBorder />
@@ -50,7 +50,7 @@ export const Examples = () => {
                     </IconButton>
                 </Tooltip>
             </div>
-            <div className="actions-bar">
+            <div className="stack">
                 <IconButton size="large" disabled>
                     <FavoriteBorder />
                 </IconButton>
@@ -61,7 +61,7 @@ export const Examples = () => {
                     <FavoriteBorder />
                 </IconButton>
             </div>
-            <div className="actions-bar">
+            <div className="stack">
                 <IconButton size="large" color="secondary">
                     <FavoriteBorder />
                 </IconButton>
@@ -72,7 +72,7 @@ export const Examples = () => {
                     <FavoriteBorder />
                 </IconButton>
             </div>
-            <div className="actions-bar">
+            <div className="stack">
                 <IconButton size="large" color="secondary" disabled>
                     <FavoriteBorder />
                 </IconButton>
@@ -83,7 +83,7 @@ export const Examples = () => {
                     <FavoriteBorder />
                 </IconButton>
             </div>
-            <div className="actions-bar">
+            <div className="stack">
                 <Tooltip title="Add to favorite">
                     <IconButton size="large" color="primary">
                         <FavoriteBorder />
@@ -103,7 +103,7 @@ export const Examples = () => {
 
             {/* Custom icon */}
 
-            <div className="actions-bar">
+            <div className="stack">
                 <IconButton size="large" color="inherit">
                     <Icon>
                         <AnchorSvg />
@@ -153,7 +153,7 @@ export const Examples = () => {
 
             {/* Custom classes:  Dense */}
 
-            <div className="actions-bar">
+            <div className="stack">
                 <IconButton size="large" color="primary" className="MuiIconButton-dense">
                     <FavoriteBorder />
                 </IconButton>

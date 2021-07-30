@@ -26,7 +26,7 @@ export const Examples = () => {
         <>
             {/* Contained */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button variant="contained">Save product</Button>
                 <Button variant="contained" color="secondary">
                     Save product
@@ -38,7 +38,7 @@ export const Examples = () => {
 
             {/* Contained disabled */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button variant="contained" disabled>
                     Save product
                 </Button>
@@ -52,7 +52,7 @@ export const Examples = () => {
 
             {/* Outlined */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button variant="outlined">Save product</Button>
                 <Button variant="outlined" color="secondary">
                     Save product
@@ -64,7 +64,7 @@ export const Examples = () => {
 
             {/* Outlined disabled */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button variant="outlined" disabled>
                     Save product
                 </Button>
@@ -78,7 +78,7 @@ export const Examples = () => {
 
             {/* Text */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button variant="text">Save product</Button>
                 <Button variant="text" color="secondary">
                     Save product
@@ -90,7 +90,7 @@ export const Examples = () => {
 
             {/* Text disabled */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button variant="text" disabled>
                     Save product
                 </Button>
@@ -104,7 +104,7 @@ export const Examples = () => {
 
             {/* Sizes */}
 
-            <div className="actions-bar actions-bar--direction-column u-margin-b-10">
+            <div className="stack stack--direction-column u-margin-b-10">
                 <Button variant="contained" color="secondary" size="large">
                     Save product
                 </Button>
@@ -115,7 +115,7 @@ export const Examples = () => {
                     Save product
                 </Button>
             </div>
-            <div className="actions-bar actions-bar--direction-column u-margin-b-10">
+            <div className="stack stack--direction-column u-margin-b-10">
                 <Button
                     variant="contained"
                     color="secondary"
@@ -142,7 +142,7 @@ export const Examples = () => {
                     Save product
                 </Button>
             </div>
-            <div className="actions-bar actions-bar--direction-column u-margin-b-10">
+            <div className="stack stack--direction-column u-margin-b-10">
                 <Button
                     variant="outlined"
                     size="large"
@@ -161,7 +161,7 @@ export const Examples = () => {
 
             {/* Only Icon */}
 
-            <div className="actions-bar u-margin-b-10">
+            <div className="stack u-margin-b-10">
                 <Button
                     variant="text"
                     size="large"

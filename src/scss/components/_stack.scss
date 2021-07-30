@@ -1,4 +1,4 @@
-.actions-bar {
+.stack {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(2rem, max-content));
     grid-gap: $spacing-scale-6;
@@ -13,9 +13,23 @@
         justify-content: stretch;
     }
 
+    &--justifySelfStretch {
+        justify-self: stretch;
+    }
+
+    &--alignItemsEnd {
+        align-items: end;
+    }
+
+    &--justifyItemsStart {
+        justify-items: start;
+    }
+
     &--direction-column {
-        grid-template-columns: none;
+        grid-template-columns: 1fr;
+        justify-content: stretch;
         align-items: start;
+        justify-items: start;
     }
 
     @each $key, $spacing in $spacing-scale {
