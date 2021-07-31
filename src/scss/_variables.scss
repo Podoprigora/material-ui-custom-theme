@@ -9,6 +9,7 @@ $font-size-large: 2rem;
 $font-size: $font-size-medium;
 $font-weight: 400;
 $font-weight-strong: 500;
+$font-weight-thin: 300;
 $line-height: 1.4;
 
 $color-primary-light: #ae82a7;
@@ -266,10 +267,30 @@ $input-base-letter-spacing: 0.2px;
 $input-base-color: $body-color;
 $input-base-placeholder-opacity: 0.6;
 $input-base-padding-x: $btn-medium-padding-x;
-$input-base-padding-y: $spacing-scale-4;
+$input-base-padding-y: $spacing-scale-5 - 0.05rem;
+$input-base-min-height: $btn-medium-min-height;
 $input-base-box-shadow: 0 0 0 0.1rem $gray-lighten-3;
 $input-base-border-radius: $border-radius-sm;
 $input-base-focused-box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.8);
-$input-base-min-height: $btn-medium-min-height;
+$input-base-primary-focused-box-shadow: $input-base-focused-box-shadow;
+$input-base-secondary-focused-box-shadow: 0 0 0 0.2rem rgba($color-secondary, 0.8);
 $input-base-adornment-font-size: $icon-medium-font-size;
 $input-base-adornment-color: $gray;
+
+// MuiFormLabel
+$form-label-font-size: $font-size-small;
+$form-label-font-weight: 500;
+$form-label-line-height: 1.2;
+$form-label-color: $body-color;
+$form-label-letter-spacing: 0.6px;
+$form-label-max-width: 12rem;
+$form-label-align-top-margin: 0 0 $spacing-scale-4 $spacing-scale-1;
+$form-label-asterisk-color: $deep-orange-accent-3;
+
+// MuiFormHelperText
+$form-helper-text-font-size: $font-size-small;
+$form-helper-text-font-weight: $font-weight-thin;
+$form-helper-text-line-height: 1.2;
+$form-helper-text-letter-spacing: 0.4px;
+$form-helper-text-color: $gray;
+$form-helper-text-margin: $spacing-scale-3 0 0 $spacing-scale-1;
