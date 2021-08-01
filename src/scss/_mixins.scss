@@ -33,6 +33,23 @@
     }
 }
 
+/** 
+    Sources: 
+     - https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete
+     - https://stackoverflow.com/questions/55228377/remove-new-firefox-autofill-color
+*/
+@mixin input-autofill($bg-color, $font-family, $font-size, $font-weight) {
+    &:-webkit-autofill {
+        box-shadow: inset 0 0 0 100rem $bg-color;
+
+        &::first-line {
+            font-family: $font-family;
+            font-size: $font-size;
+            font-weight: $font-weight;
+        }
+    }
+}
+
 // Breakpoints
 @mixin media-breakpoint-up($key, $offset: 0) {
     $value: map-get($breakpoints, $key);

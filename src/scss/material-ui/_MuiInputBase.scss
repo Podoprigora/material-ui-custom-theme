@@ -7,11 +7,17 @@
         letter-spacing: $input-base-letter-spacing;
         line-height: $input-base-line-height;
         color: $input-base-color;
+        background-color: $input-base-bg-color;
         padding: 0 $input-base-padding-x;
         min-height: $input-base-min-height;
         box-shadow: $input-base-box-shadow;
         border-radius: $input-base-border-radius;
+
         transition: none;
+
+        & > * {
+            z-index: 1;
+        }
 
         &::before {
             position: absolute;
@@ -23,6 +29,7 @@
             border-radius: $input-base-border-radius;
             opacity: 0;
             transition: opacity 0.15s linear;
+            z-index: 0;
         }
 
         &.Mui-focused {
@@ -46,10 +53,18 @@
 
     &-input {
         padding: $input-base-padding-y 0;
+        filter: none;
 
         &::placeholder {
             opacity: $input-base-placeholder-opacity;
         }
+
+        @include input-autofill(
+            $input-base-bg-color,
+            $font-family,
+            $input-base-font-size,
+            $input-base-font-weight
+        );
     }
 }
 

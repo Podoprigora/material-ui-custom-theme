@@ -3,9 +3,11 @@ import {
     FormControl,
     FormHelperText,
     FormLabel,
+    TextField,
     Icon,
     IconButton,
     InputAdornment,
+    Input,
     InputBase,
     List,
     ListItemButton,
@@ -47,12 +49,7 @@ export const InputBaseExample: Story = () => {
                 >
                     Save changes
                 </Button>
-                <FormControl
-                    variant="outlined"
-                    required
-                    className="MuiFormControl-labelAlignTop"
-                    fullWidth
-                >
+                <FormControl required className="MuiFormControl-labelAlignTop" fullWidth>
                     <FormLabel htmlFor="email-input">Email</FormLabel>
                     <InputBase
                         id="email-input"
@@ -85,6 +82,7 @@ export const InputBaseExample: Story = () => {
                             <InputAdornment position="end">
                                 <IconButton
                                     size="small"
+                                    tabIndex={-1}
                                     className="MuiIconButton-dense MuiIconButton-circular"
                                     onMouseDown={(ev: React.MouseEvent) => {
                                         ev.preventDefault();
@@ -128,3 +126,15 @@ export const InputBaseExample: Story = () => {
     );
 };
 InputBaseExample.storyName = 'Input Base';
+
+// Filled Inputs
+export const FilledInputExample: Story = () => {
+    return <TextField id="filled-field-email" variant="standard" label="Email" required />;
+};
+FilledInputExample.storyName = 'Filled Input';
+
+// Outlined Inputs
+export const OutlinedInputExample: Story = () => {
+    return <TextField id="outlined-field-email" variant="outlined" label="Email" required />;
+};
+OutlinedInputExample.storyName = 'Outlined Input';

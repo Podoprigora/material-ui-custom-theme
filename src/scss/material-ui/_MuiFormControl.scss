@@ -13,16 +13,17 @@
     &-labelAlignLeft {
         display: grid;
         grid-template-columns: max-content 1fr;
+        grid-template-areas: 'label input';
         align-items: center;
         justify-items: stretch;
 
         & > * {
-            grid-column: 2;
+            grid-area: input;
         }
 
         .MuiFormLabel {
             &-root {
-                grid-column: 1;
+                grid-area: label;
                 margin-right: $input-base-padding-x;
                 width: $form-label-max-width;
             }

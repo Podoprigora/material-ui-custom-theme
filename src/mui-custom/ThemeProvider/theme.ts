@@ -85,6 +85,16 @@ export const theme = createTheme({
                     sx: { minWidth: '14rem' }
                 }
             }
+        },
+        MuiInput: {
+            defaultProps: {
+                disableUnderline: true
+            }
+        },
+        MuiFilledInput: {
+            defaultProps: {
+                disableUnderline: true
+            }
         }
     }
 });
