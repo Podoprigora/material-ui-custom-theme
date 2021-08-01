@@ -49,8 +49,14 @@ export const InputBaseExample: Story = () => {
                 >
                     Save changes
                 </Button>
-                <FormControl required className="MuiFormControl-labelAlignTop" fullWidth>
-                    <FormLabel htmlFor="email-input">Email</FormLabel>
+                <FormControl
+                    required
+                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
+                    fullWidth
+                >
+                    <FormLabel htmlFor="email-input" className="MuiCustomFormLabel">
+                        Email
+                    </FormLabel>
                     <InputBase
                         id="email-input"
                         type="email"
@@ -62,11 +68,18 @@ export const InputBaseExample: Story = () => {
                                 </Icon>
                             </InputAdornment>
                         }
+                        className="MuiCustomInputBase"
                     />
                     <FormHelperText>example@gmail.com</FormHelperText>
                 </FormControl>
-                <FormControl required fullWidth className="MuiFormControl-labelAlignTop">
-                    <FormLabel htmlFor="password-input">Password</FormLabel>
+                <FormControl
+                    required
+                    fullWidth
+                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
+                >
+                    <FormLabel htmlFor="password-input" className="MuiCustomFormLabel">
+                        Password
+                    </FormLabel>
                     <InputBase
                         id="password-input"
                         type="password"
@@ -94,10 +107,17 @@ export const InputBaseExample: Story = () => {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        className="MuiCustomInputBase"
                     />
                 </FormControl>
-                <FormControl color="secondary" className="MuiFormControl-labelAlignTop" fullWidth>
-                    <FormLabel htmlFor="placement-input">Location</FormLabel>
+                <FormControl
+                    color="secondary"
+                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
+                    fullWidth
+                >
+                    <FormLabel htmlFor="placement-input" className="MuiCustomFormLabel">
+                        Location
+                    </FormLabel>
                     <InputBase
                         id="placement-input"
                         type="text"
@@ -109,16 +129,24 @@ export const InputBaseExample: Story = () => {
                                 </Icon>
                             </InputAdornment>
                         }
+                        className="MuiCustomInputBase"
                     />
                     <FormHelperText>Example: 51.5091996,-0.1209507</FormHelperText>
                 </FormControl>
-                <FormControl color="secondary" fullWidth className="MuiFormControl-labelAlignTop">
-                    <FormLabel htmlFor="comment-input">Comment</FormLabel>
+                <FormControl
+                    color="secondary"
+                    fullWidth
+                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
+                >
+                    <FormLabel htmlFor="comment-input" className="MuiCustomFormLabel">
+                        Comment
+                    </FormLabel>
                     <InputBase
                         id="comment-input"
                         placeholder="Enter your comment"
                         multiline
                         minRows={4}
+                        className="MuiCustomInputBase"
                     />
                 </FormControl>
             </div>
@@ -127,11 +155,11 @@ export const InputBaseExample: Story = () => {
 };
 InputBaseExample.storyName = 'Input Base';
 
-// Filled Inputs
-export const FilledInputExample: Story = () => {
-    return <TextField id="filled-field-email" variant="standard" label="Email" required />;
+// Standard Inputs
+export const StandardInputExample: Story = () => {
+    return <TextField id="standard-field-email" variant="standard" label="Email" required />;
 };
-FilledInputExample.storyName = 'Filled Input';
+StandardInputExample.storyName = 'Standard Input';
 
 // Outlined Inputs
 export const OutlinedInputExample: Story = () => {

@@ -1,12 +1,14 @@
 @use "sass:math";
 
-.MuiFormControl {
+.MuiCustomFormControl {
     &-labelAlignTop {
         display: flex;
         flex-flow: column;
 
-        .MuiFormLabel-root {
-            margin: $form-label-align-top-margin;
+        .MuiFormLabel {
+            &-root {
+                margin: $form-label-align-top-margin;
+            }
         }
     }
 

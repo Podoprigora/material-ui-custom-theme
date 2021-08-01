@@ -14,13 +14,14 @@
 
 @import './MuiInputBase';
 @import './MuiFormLabel';
-@import './MuiFormControl';
 @import './MuiFormHelperText';
 
 @import './MuiList';
 @import './MuiMenu';
 
-// Custom components
 @import './custom/MuiCustomMenu';
 @import './custom/MuiCustomColorList';
 @import './custom/MuiCustomLinkedList';
+@import './custom/MuiCustomFormControl';
+@import './custom/MuiCustomFormLabel';
+@import './custom/MuiCustomInputBase';

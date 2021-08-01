@@ -270,7 +270,7 @@ $input-base-placeholder-opacity: 0.55;
 $input-base-padding-x: $btn-medium-padding-x;
 $input-base-padding-y: $spacing-scale-5 - 0.05rem;
 $input-base-min-height: $btn-medium-min-height;
-$input-base-box-shadow: 0 0 0 0.1rem $gray-lighten-3;
+$input-base-box-shadow: 0 0 0 0.1rem rgba($black, 0.14);
 $input-base-border-radius: $border-radius-sm;
 $input-base-focused-box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.8);
 $input-base-primary-focused-box-shadow: $input-base-focused-box-shadow;
