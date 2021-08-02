@@ -9,6 +9,8 @@
     }
 
     &-input {
+        font: inherit;
+
         &::placeholder {
             opacity: $input-base-placeholder-opacity;
         }

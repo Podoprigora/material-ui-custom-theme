@@ -36,7 +36,6 @@
 
         &.MuiInputBase-colorPrimary {
             &::before {
-                @debug &;
                 box-shadow: $input-base-primary-focused-box-shadow;
             }
         }
@@ -51,6 +50,17 @@
             &-root {
                 margin-bottom: $input-base-padding-y;
             }
+
+            &-positionEnd {
+                align-self: center;
+                margin: 0;
+            }
+        }
+
+        & ~ .MuiFormHelperText {
+            &-root {
+                margin-left: $input-base-padding-x;
+            }
         }
     }
 
@@ -64,25 +74,33 @@
     $this: &;
 
     &-root {
-        $_transform-offset-y: math.div(5.8rem, 2) - math.div($form-label-font-size * 0.85 * 1, 2);
+        $_transform-offset-y: math.div(5.8rem, 2) -
+            math.div($input-base-font-size * 0.86 * $input-base-line-height, 2);
         $_transform-offset-y: math.div(math.floor($_transform-offset-y * 10), 10);
 
         top: 0;
-        line-height: 1;
+        line-height: $input-base-line-height;
+        max-width: calc(100% - #{$input-base-padding-x} * 2);
         transform: translate3d($input-base-padding-x, $_transform-offset-y, 0);
+        transition: max-width 0.15s, transform 0.15s ease;
 
+        &#{$this}-shrink,
         &.Mui-focused,
         &.MuiFormLabel-filled {
+            line-height: math.div(math.floor($input-base-line-height * 0.86 * 10), 10) + 0.05;
+            max-width: calc(114% - #{$input-base-padding-x} * 2);
             transform: translate3d($input-base-padding-x, $input-base-padding-y, 0)
-                scale3d(0.85, 0.85, 1);
+                scale3d(0.86, 0.86, 1);
         }
 
-        &.MuiFormLabel-filled {
-            // opacity: 0.6;
-        }
+        & + .MuiInputBase {
+            &-root {
+                margin: 0;
+            }
 
-        & + .MuiInput-root {
-            margin: 0;
+            &-multiline {
+                padding-top: $_transform-offset-y + ($input-base-padding-y * 0.86);
+            }
         }
     }
 }

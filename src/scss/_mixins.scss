@@ -40,6 +40,7 @@
 */
 @mixin input-autofill($bg-color, $font-family, $font-size, $font-weight) {
     &:-webkit-autofill {
+        filter: none;
         box-shadow: inset 0 0 0 100rem $bg-color;
 
         &::first-line {

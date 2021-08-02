@@ -16,7 +16,7 @@ Default.args = {} as SwitchProps;
 
 export const Examples = () => {
     return (
-        <div className="stack stack--direction-column stack--justifyStretch stack--gap-8">
+        <div className="stack stack--direction-column stack--justify-items-stretch stack--gap-8">
             <div className="stack stack--gap-8">
                 <div className="stack stack--direction-column stack--gap-4">
                     <Default color="default" defaultChecked />

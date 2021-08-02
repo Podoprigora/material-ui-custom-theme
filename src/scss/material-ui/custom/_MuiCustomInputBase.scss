@@ -9,7 +9,6 @@
             min-height: $input-base-min-height;
             box-shadow: $input-base-box-shadow;
             border-radius: $input-base-border-radius;
-
             transition: none;
 
             & > * {
@@ -38,7 +37,6 @@
             & #{$this}-input {
                 padding: $input-base-padding-y 0;
                 height: auto;
-                filter: none;
 
                 &::placeholder {
                     opacity: $input-base-placeholder-opacity;

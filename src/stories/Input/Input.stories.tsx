@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from 'react';
 import {
     Button,
     FormControl,
@@ -12,13 +13,14 @@ import {
     List,
     ListItemButton,
     ListItemIcon,
-    ListItemText
+    ListItemText,
+    useEventCallback
 } from '@material-ui/core';
 import { InsertDriveFileOutlined } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import React from 'react';
 import {
     EyeOffSvg,
+    EyeSvg,
     InboxSvg,
     LockSvg,
     MapPinSvg,
@@ -31,24 +33,28 @@ export default {
     component: InputBase
 } as Meta;
 
+const usePasswordFieldVisible = () => {
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = useEventCallback(() => {
+        setPasswordVisible((prevState) => !prevState);
+    });
+
+    return useMemo(() => ({ isPasswordVisible, togglePasswordVisibility } as const), [
+        isPasswordVisible,
+        togglePasswordVisibility
+    ]);
+};
+
 export const CustomInput: Story = () => {
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordFieldVisible();
+
     return (
         <>
             <div
                 className="stack stack--direction-column stack--gap-10"
                 style={{ width: '100%', maxWidth: '40rem' }}
             >
-                <Button
-                    size="medium"
-                    variant="contained"
-                    startIcon={
-                        <Icon fontSize="large" color="inherit">
-                            <SaveSvg />
-                        </Icon>
-                    }
-                >
-                    Save changes
-                </Button>
                 <FormControl
                     required
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
@@ -82,7 +88,7 @@ export const CustomInput: Story = () => {
                     </FormLabel>
                     <InputBase
                         id="password-input"
-                        type="password"
+                        type={isPasswordVisible ? 'text' : 'password'}
                         placeholder="Enter password"
                         startAdornment={
                             <InputAdornment position="start">
@@ -100,10 +106,9 @@ export const CustomInput: Story = () => {
                                     onMouseDown={(ev: React.MouseEvent) => {
                                         ev.preventDefault();
                                     }}
+                                    onClick={togglePasswordVisibility}
                                 >
-                                    <Icon>
-                                        <EyeOffSvg />
-                                    </Icon>
+                                    <Icon>{isPasswordVisible ? <EyeSvg /> : <EyeOffSvg />}</Icon>
                                 </IconButton>
                             </InputAdornment>
                         }
@@ -122,9 +127,9 @@ export const CustomInput: Story = () => {
                         id="placement-input"
                         type="text"
                         placeholder="Enter coordinates"
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <Icon fontSize="small">
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <Icon>
                                     <MapPinSvg />
                                 </Icon>
                             </InputAdornment>
@@ -156,34 +161,66 @@ export const CustomInput: Story = () => {
 
 // Standard Inputs
 export const StandardInputExample: Story = () => {
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordFieldVisible();
+
     return (
-        <div className="stack stack--direction-column" style={{ maxWidth: '36rem' }}>
-            <TextField
-                id="standard-field-email"
-                variant="standard"
-                label="Email"
-                required
-                fullWidth
-                helperText="example@mail.com"
-            />
-            <TextField
-                id="standard-field-password"
-                variant="standard"
-                type="password"
-                label="Password"
-                required
-                fullWidth
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Icon>
-                                <LockSvg />
-                            </Icon>
-                        </InputAdornment>
-                    )
-                }}
-            />
-        </div>
+        <>
+            <div
+                className="stack stack--direction-column stack--gap-10"
+                style={{ maxWidth: '40rem' }}
+            >
+                <TextField
+                    id="standard-field-email"
+                    variant="standard"
+                    label="Email"
+                    required
+                    fullWidth
+                    helperText="example@mail.com"
+                />
+                <TextField
+                    id="standard-field-password"
+                    variant="standard"
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    label="Password"
+                    required
+                    fullWidth
+                    helperText="At least 8 characters long."
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    size="small"
+                                    tabIndex={-1}
+                                    className="MuiIconButton-dense MuiIconButton-circular"
+                                    onMouseDown={(ev: React.MouseEvent) => {
+                                        ev.preventDefault();
+                                    }}
+                                    onClick={togglePasswordVisibility}
+                                >
+                                    <Icon>{isPasswordVisible ? <EyeSvg /> : <EyeOffSvg />}</Icon>
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <TextField
+                    variant="standard"
+                    color="secondary"
+                    label="Long label text overflow. Molestias totam explicabo consequatur praesentium ratione nihil alias quam voluptas!"
+                    required
+                    fullWidth
+                />
+                <TextField
+                    variant="standard"
+                    color="secondary"
+                    label="Comment"
+                    placeholder="Leave your comment"
+                    multiline
+                    minRows={4}
+                    fullWidth
+                />
+            </div>
+        </>
     );
 };
 StandardInputExample.storyName = 'Standard Input';
