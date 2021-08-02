@@ -1,0 +1,88 @@
+@use "sass:math";
+
+.MuiInput {
+    &-root {
+        display: inline-flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: $input-base-padding-y $input-base-padding-x $input-base-padding-y;
+        border-radius: $input-base-border-radius;
+        box-shadow: $input-base-box-shadow;
+        min-height: 5.8rem;
+
+        & > * {
+            z-index: 1;
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: $input-base-border-radius;
+            opacity: 0;
+            transition: opacity 0.15s linear;
+            z-index: 0;
+        }
+
+        &.Mui-focused {
+            &::before {
+                opacity: 1;
+            }
+        }
+
+        &.MuiInputBase-colorPrimary {
+            &::before {
+                @debug &;
+                box-shadow: $input-base-primary-focused-box-shadow;
+            }
+        }
+
+        &.MuiInputBase-colorSecondary {
+            &::before {
+                box-shadow: $input-base-secondary-focused-box-shadow;
+            }
+        }
+
+        .MuiInputAdornment {
+            &-root {
+                margin-bottom: $input-base-padding-y;
+            }
+        }
+    }
+
+    &-input {
+        display: block;
+        padding: 0;
+    }
+}
+
+.MuiInputLabel {
+    $this: &;
+
+    &-root {
+        $_transform-offset-y: math.div(5.8rem, 2) - math.div($form-label-font-size * 0.85 * 1, 2);
+        $_transform-offset-y: math.div(math.floor($_transform-offset-y * 10), 10);
+
+        top: 0;
+        line-height: 1;
+        transform: translate3d($input-base-padding-x, $_transform-offset-y, 0);
+
+        &.Mui-focused,
+        &.MuiFormLabel-filled {
+            transform: translate3d($input-base-padding-x, $input-base-padding-y, 0)
+                scale3d(0.85, 0.85, 1);
+        }
+
+        &.MuiFormLabel-filled {
+            // opacity: 0.6;
+        }
+
+        & + .MuiInput-root {
+            margin: 0;
+        }
+    }
+}

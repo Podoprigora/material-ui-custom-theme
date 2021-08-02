@@ -31,7 +31,7 @@ export default {
     component: InputBase
 } as Meta;
 
-export const InputBaseExample: Story = () => {
+export const CustomInput: Story = () => {
     return (
         <>
             <div
@@ -153,11 +153,38 @@ export const InputBaseExample: Story = () => {
         </>
     );
 };
-InputBaseExample.storyName = 'Input Base';
 
 // Standard Inputs
 export const StandardInputExample: Story = () => {
-    return <TextField id="standard-field-email" variant="standard" label="Email" required />;
+    return (
+        <div className="stack stack--direction-column" style={{ maxWidth: '36rem' }}>
+            <TextField
+                id="standard-field-email"
+                variant="standard"
+                label="Email"
+                required
+                fullWidth
+                helperText="example@mail.com"
+            />
+            <TextField
+                id="standard-field-password"
+                variant="standard"
+                type="password"
+                label="Password"
+                required
+                fullWidth
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Icon>
+                                <LockSvg />
+                            </Icon>
+                        </InputAdornment>
+                    )
+                }}
+            />
+        </div>
+    );
 };
 StandardInputExample.storyName = 'Standard Input';
 
