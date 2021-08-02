@@ -225,6 +225,73 @@ export const StandardInputExample: Story = () => {
 };
 StandardInputExample.storyName = 'Standard Input';
 
+// Standard filled inputs
+
+export const StandardFilledInputExample: Story = () => {
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordFieldVisible();
+
+    return (
+        <>
+            <div
+                className="stack stack--direction-column stack--gap-10"
+                style={{ maxWidth: '40rem' }}
+            >
+                <TextField
+                    id="standard-field-email"
+                    variant="filled"
+                    label="Email"
+                    required
+                    fullWidth
+                    helperText="example@mail.com"
+                />
+                <TextField
+                    id="standard-field-password"
+                    variant="filled"
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    label="Password"
+                    required
+                    fullWidth
+                    helperText="At least 8 characters long."
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    size="small"
+                                    tabIndex={-1}
+                                    className="MuiIconButton-dense MuiIconButton-circular"
+                                    onMouseDown={(ev: React.MouseEvent) => {
+                                        ev.preventDefault();
+                                    }}
+                                    onClick={togglePasswordVisibility}
+                                >
+                                    <Icon>{isPasswordVisible ? <EyeSvg /> : <EyeOffSvg />}</Icon>
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <TextField
+                    variant="filled"
+                    color="secondary"
+                    label="Long label text overflow. Molestias totam explicabo consequatur praesentium ratione nihil alias quam voluptas!"
+                    required
+                    fullWidth
+                />
+                <TextField
+                    variant="filled"
+                    color="secondary"
+                    label="Comment"
+                    placeholder="Leave your comment"
+                    multiline
+                    minRows={4}
+                    fullWidth
+                />
+            </div>
+        </>
+    );
+};
+StandardFilledInputExample.storyName = 'Standard filled input';
+
 // Outlined Inputs
 export const OutlinedInputExample: Story = () => {
     return <TextField id="outlined-field-email" variant="outlined" label="Email" required />;

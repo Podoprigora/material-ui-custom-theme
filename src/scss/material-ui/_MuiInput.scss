@@ -1,11 +1,13 @@
 @use "sass:math";
 
-.MuiInput {
+.MuiInput,
+.MuiFilledInput {
     &-root {
         display: inline-flex;
         flex-flow: row nowrap;
         justify-content: flex-start;
         align-items: flex-end;
+        background-color: $input-base-bg-color;
         padding: $input-base-padding-y $input-base-padding-x $input-base-padding-y;
         border-radius: $input-base-border-radius;
         box-shadow: $input-base-box-shadow;
@@ -70,6 +72,42 @@
     }
 }
 
+.MuiFilledInput {
+    $this: &;
+
+    &-root {
+        background-color: $gray-lighten-5;
+        box-shadow: 0 0.2rem 0rem -0.1rem rgba($black, 0.14);
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: $gray-lighten-4;
+        }
+
+        &.Mui-focused {
+            background-color: $input-base-bg-color;
+
+            #{$this}-input {
+                @include input-autofill(
+                    $input-base-bg-color,
+                    $font-family,
+                    $input-base-font-size,
+                    $input-base-font-weight
+                );
+            }
+        }
+
+        #{$this}-input {
+            @include input-autofill(
+                $gray-lighten-5,
+                $font-family,
+                $input-base-font-size,
+                $input-base-font-weight
+            );
+        }
+    }
+}
+
 .MuiInputLabel {
     $this: &;
 
@@ -77,18 +115,23 @@
         $_transform-offset-y: math.div(5.8rem, 2) -
             math.div($input-base-font-size * 0.86 * $input-base-line-height, 2);
         $_transform-offset-y: math.div(math.floor($_transform-offset-y * 10), 10);
+        $_offset-x: $input-base-padding-x * 2;
 
         top: 0;
         line-height: $input-base-line-height;
-        max-width: calc(100% - #{$input-base-padding-x} * 2);
+        max-width: calc(100% - #{$_offset-x});
         transform: translate3d($input-base-padding-x, $_transform-offset-y, 0);
         transition: max-width 0.15s, transform 0.15s ease;
+        z-index: 1;
+        pointer-events: none;
 
         &#{$this}-shrink,
         &.Mui-focused,
         &.MuiFormLabel-filled {
+            $_offset-x: $input-base-padding-x * 2;
+
             line-height: math.div(math.floor($input-base-line-height * 0.86 * 10), 10) + 0.05;
-            max-width: calc(114% - #{$input-base-padding-x} * 2);
+            max-width: calc(114% - #{$_offset-x});
             transform: translate3d($input-base-padding-x, $input-base-padding-y, 0)
                 scale3d(0.86, 0.86, 1);
         }
