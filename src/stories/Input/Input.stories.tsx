@@ -16,7 +16,7 @@ import {
     ListItemText,
     useEventCallback
 } from '@material-ui/core';
-import { InsertDriveFileOutlined } from '@material-ui/icons';
+import { InsertDriveFileOutlined, Tag } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import {
     EyeOffSvg,
@@ -25,6 +25,7 @@ import {
     LockSvg,
     MapPinSvg,
     SaveSvg,
+    TagSvg,
     UserSvg
 } from '../../assets/svg-icons/feather';
 
@@ -211,6 +212,22 @@ export const StandardInputExample: Story = () => {
                     fullWidth
                 />
                 <TextField
+                    id="standard-field-no-label"
+                    variant="standard"
+                    fullWidth
+                    placeholder="No label"
+                    helperText="*** *** ****"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Icon>
+                                    <TagSvg />
+                                </Icon>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <TextField
                     variant="standard"
                     color="secondary"
                     label="Comment"
@@ -279,6 +296,21 @@ export const StandardFilledInputExample: Story = () => {
                 />
                 <TextField
                     variant="filled"
+                    fullWidth
+                    placeholder="No label"
+                    helperText="*** *** ****"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Icon>
+                                    <TagSvg />
+                                </Icon>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <TextField
+                    variant="filled"
                     color="secondary"
                     label="Comment"
                     placeholder="Leave your comment"
@@ -293,7 +325,7 @@ export const StandardFilledInputExample: Story = () => {
 StandardFilledInputExample.storyName = 'Standard filled input';
 
 // Outlined Inputs
-export const OutlinedInputExample: Story = () => {
-    return <TextField id="outlined-field-email" variant="outlined" label="Email" required />;
-};
-OutlinedInputExample.storyName = 'Outlined Input';
+// export const OutlinedInputExample: Story = () => {
+//     return <TextField id="outlined-field-email" variant="outlined" label="Email" required />;
+// };
+// OutlinedInputExample.storyName = 'Outlined Input';

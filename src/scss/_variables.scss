@@ -272,6 +272,8 @@ $input-base-padding-y: $spacing-scale-5 - 0.05rem;
 $input-base-min-height: $btn-medium-min-height;
 $input-base-box-shadow: 0 0 0 0.1rem rgba($black, 0.14);
 $input-base-border-radius: $border-radius-sm;
+$input-base-disable-hover: false; // true or false
+$input-base-hover-box-shadow: 0 0 0 0.1rem rgba($black, 0.4);
 $input-base-focused-box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.8);
 $input-base-primary-focused-box-shadow: $input-base-focused-box-shadow;
 $input-base-secondary-focused-box-shadow: 0 0 0 0.2rem rgba($color-secondary, 0.8);

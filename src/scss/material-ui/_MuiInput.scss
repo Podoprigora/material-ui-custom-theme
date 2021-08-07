@@ -6,12 +6,12 @@
         display: inline-flex;
         flex-flow: row nowrap;
         justify-content: flex-start;
-        align-items: flex-end;
+        align-items: center;
         background-color: $input-base-bg-color;
         padding: $input-base-padding-y $input-base-padding-x $input-base-padding-y;
         border-radius: $input-base-border-radius;
         box-shadow: $input-base-box-shadow;
-        min-height: 5.8rem;
+        min-height: 4rem;
 
         & > * {
             z-index: 1;
@@ -49,8 +49,13 @@
         }
 
         .MuiInputAdornment {
+            $this: &;
+
             &-root {
-                margin-bottom: $input-base-padding-y;
+                &:not(#{$this}-hiddenLabel) {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
             }
 
             &-positionEnd {
@@ -58,17 +63,23 @@
                 margin: 0;
             }
         }
-
-        & ~ .MuiFormHelperText {
-            &-root {
-                margin-left: $input-base-padding-x;
-            }
-        }
     }
 
     &-input {
         display: block;
         padding: 0;
+    }
+}
+
+.MuiInput {
+    &-root {
+        @if $input-base-disable-hover != true {
+            transition: box-shadow 0.15s linear;
+
+            &:hover:not(&.Mui-focused) {
+                box-shadow: $input-base-hover-box-shadow;
+            }
+        }
     }
 }
 
@@ -128,21 +139,35 @@
         &#{$this}-shrink,
         &.Mui-focused,
         &.MuiFormLabel-filled {
-            $_offset-x: $input-base-padding-x * 2;
+            $_max-width-percent: (2 - 0.86) * 100;
 
             line-height: math.div(math.floor($input-base-line-height * 0.86 * 10), 10) + 0.05;
-            max-width: calc(114% - #{$_offset-x});
+            max-width: calc(#{$_max-width-percent}% - #{$_offset-x});
             transform: translate3d($input-base-padding-x, $input-base-padding-y, 0)
                 scale3d(0.86, 0.86, 1);
         }
 
         & + .MuiInputBase {
             &-root {
+                align-items: flex-end;
                 margin: 0;
+                min-height: 5.8rem;
             }
 
             &-multiline {
                 padding-top: $_transform-offset-y + ($input-base-padding-y * 0.86);
+            }
+
+            .MuiInputAdornment {
+                &-root {
+                    margin-bottom: $input-base-padding-y;
+                }
+            }
+        }
+
+        & ~ .MuiFormHelperText {
+            &-root {
+                margin-left: $input-base-padding-x;
             }
         }
     }

@@ -9,7 +9,7 @@
             min-height: $input-base-min-height;
             box-shadow: $input-base-box-shadow;
             border-radius: $input-base-border-radius;
-            transition: none;
+            transition: box-shadow 0.15s linear;
 
             & > * {
                 z-index: 1;
@@ -28,9 +28,9 @@
                 z-index: 0;
             }
 
-            &.Mui-focused {
-                &::before {
-                    opacity: 1;
+            @if $input-base-disable-hover != true {
+                &:hover:not(&.Mui-focused) {
+                    box-shadow: $input-base-hover-box-shadow;
                 }
             }
 
@@ -52,14 +52,20 @@
         }
 
         &-colorPrimary {
-            &::before {
-                box-shadow: $input-base-primary-focused-box-shadow;
+            &.Mui-focused {
+                &::before {
+                    box-shadow: $input-base-primary-focused-box-shadow;
+                    opacity: 1;
+                }
             }
         }
 
         &-colorSecondary {
-            &::before {
-                box-shadow: $input-base-secondary-focused-box-shadow;
+            &.Mui-focused {
+                &::before {
+                    box-shadow: $input-base-secondary-focused-box-shadow;
+                    opacity: 1;
+                }
             }
         }
     }
