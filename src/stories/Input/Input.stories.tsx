@@ -332,14 +332,17 @@ export const OutlinedInputExample: Story = () => {
     return (
         <>
             <div
-                className="stack stack--direction-column stack--justify-items-stretch stack--gap-10"
+                className="stack stack--direction-column stack--justify-items-stretch stack--gap-12"
                 style={{ maxWidth: '40rem' }}
             >
                 <TextField
                     variant="outlined"
                     label="Email"
+                    // defaultValue="jonh.doe@email.com"
                     required
                     fullWidth
+                    // InputLabelProps={{ shrink: true }}
+                    // InputProps={{ notched: true }}
                     helperText="example@mail.com"
                 />
                 <TextField

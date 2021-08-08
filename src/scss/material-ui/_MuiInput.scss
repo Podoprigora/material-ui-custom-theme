@@ -132,7 +132,7 @@
         line-height: $input-base-line-height;
         max-width: calc(100% - #{$_offset-x});
         transform: translate3d($input-base-padding-x, $_transform-offset-y, 0);
-        transition: max-width 0.15s, transform 0.15s ease;
+        transition: max-width 0.16s ease-out, transform 0.16s ease-out;
         z-index: 1;
         pointer-events: none;
 

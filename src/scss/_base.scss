@@ -1,32 +1,32 @@
 *,
 *::after,
 *::before {
-	overflow-anchor: none;
-	box-sizing: inherit;
-	margin: 0;
-	padding: 0;
+    overflow-anchor: none;
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 html,
 body {
-	-webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
 }
 
 html {
-	font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 body {
-	box-sizing: border-box;
-	font-family: $font-family;
-	font-size: $font-size;
-	font-weight: $font-weight;
-	line-height: $line-height;
-	color: $body-color;
+    box-sizing: border-box;
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    color: $body-color;
 }
 
 svg {
-	fill: currentColor;
-	width: 1em;
-	height: 1em;
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
 }

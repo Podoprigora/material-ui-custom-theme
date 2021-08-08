@@ -44,7 +44,7 @@
 
     &-outlined {
         $_shrink-line-height: math.div(
-            math.floor($input-base-line-height * $input-standard-label-transform-scale * 10),
+            math.floor($input-base-line-height * $input-standard-label-transform-scale * 1.25 * 10),
             10
         );
         $_shrink-transform-offset-y: math.div($_shrink-line-height, 2);
@@ -55,9 +55,14 @@
 
         &#{$this}-shrink,
         &.Mui-focused {
-            line-height: $_shrink-line-height;
+            line-height: 1.25;
+            font-weight: $input-outlined-label-shrink-font-weight;
             transform: translate3d($input-base-padding-x, -#{$_shrink-transform-offset-y}rem, 0)
-                scale($input-standard-label-transform-scale);
+                scale3d(
+                    $input-standard-label-transform-scale,
+                    $input-standard-label-transform-scale,
+                    1
+                );
         }
 
         & + .MuiOutlinedInput {
@@ -68,6 +73,9 @@
                 min-height: $input-outlined-min-height;
 
                 #{$this}-notchedOutline {
+                    $_top-position: math.div($_shrink-line-height, -2) + 0.1rem;
+
+                    top: $_top-position;
                     padding: 0;
                     padding-left: $input-base-padding-x - $input-outlined-legend-spacing;
                     padding-right: $input-base-padding-x - $input-outlined-legend-spacing;
@@ -77,7 +85,7 @@
                         font-size: $input-base-font-size * $input-standard-label-transform-scale;
 
                         padding: 0;
-                        height: #{$_shrink-line-height}rem;
+                        height: 1.25rem;
 
                         span {
                             display: inline-block;
