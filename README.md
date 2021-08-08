@@ -1,4 +1,4 @@
-Custom theme for [Material-UI](https://material-ui.com/) by making use of SCSS.
+Custom theme for [material-ui](https://material-ui.com/) by making use of [sass](https://sass-lang.com/).
 
 # Demo
  

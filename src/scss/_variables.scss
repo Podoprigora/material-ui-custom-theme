@@ -260,6 +260,9 @@ $switch-size-small-height: 2rem;
 $switch-size-small-thumb-size: 1.6rem;
 
 // MuiInputBase
+$input-border-color: rgba($black, 0.14);
+$input-hover-border-color: rgba($black, 0.4);
+
 $input-base-font-size: $font-size-medium;
 $input-base-font-weight: $font-weight;
 $input-base-line-height: $line-height;
@@ -270,15 +273,28 @@ $input-base-placeholder-opacity: 0.65;
 $input-base-padding-x: $btn-medium-padding-x;
 $input-base-padding-y: $spacing-scale-5 - 0.05rem;
 $input-base-min-height: $btn-medium-min-height;
-$input-base-box-shadow: 0 0 0 0.1rem rgba($black, 0.14);
+$input-base-box-shadow: 0 0 0 0.1rem $input-border-color;
 $input-base-border-radius: $border-radius-sm;
 $input-base-disable-hover: false; // true or false
-$input-base-hover-box-shadow: 0 0 0 0.1rem rgba($black, 0.4);
+$input-base-hover-box-shadow: 0 0 0 0.1rem $input-hover-border-color;
 $input-base-focused-box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.8);
 $input-base-primary-focused-box-shadow: $input-base-focused-box-shadow;
 $input-base-secondary-focused-box-shadow: 0 0 0 0.2rem rgba($color-secondary, 0.8);
 $input-base-adornment-font-size: $icon-small-font-size;
 $input-base-adornment-color: rgba($input-base-color, 0.35);
+
+// MuiInput
+$input-standard-min-height: 5.8rem;
+$input-standard-label-transform-scale: 0.86;
+
+// MuiFilledInput
+$input-filled-box-shadow: 0 0.2rem 0rem -0.1rem $input-border-color;
+$input-filled-bg-color: $gray-lighten-5;
+$input-filled-hover-box-shadow: 0 0.2rem 0rem -0.1rem $input-hover-border-color;
+
+//MuiOutlinedInput
+$input-outlined-legend-spacing: $spacing-scale-3;
+$input-outlined-min-height: 4.8rem;
 
 // MuiFormLabel
 $form-label-font-size: $font-size-small;

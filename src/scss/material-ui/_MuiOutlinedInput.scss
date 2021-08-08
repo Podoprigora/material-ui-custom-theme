@@ -1,0 +1,100 @@
+@use "sass:math";
+
+.MuiOutlinedInput {
+    $this: &;
+
+    &-root {
+        align-items: center;
+        padding: $input-base-padding-y $input-base-padding-x $input-base-padding-y;
+        border-radius: $input-base-border-radius;
+        min-height: $input-base-min-height;
+
+        &:hover {
+            #{$this}-notchedOutline {
+                border-color: $input-hover-border-color;
+            }
+        }
+
+        &.MuiInputBase-colorPrimary.Mui-focused {
+            #{$this}-notchedOutline {
+                border-color: $color-primary;
+            }
+        }
+
+        &.MuiInputBase-colorSecondary.Mui-focused {
+            #{$this}-notchedOutline {
+                border-color: $color-secondary;
+            }
+        }
+    }
+
+    &-notchedOutline {
+        border-color: $input-border-color;
+        transition: border-color 0.15s linear;
+    }
+
+    &-input {
+        padding: 0;
+        height: auto;
+    }
+}
+
+.MuiInputLabel {
+    $this: &;
+
+    &-outlined {
+        $_shrink-line-height: math.div(
+            math.floor($input-base-line-height * $input-standard-label-transform-scale * 10),
+            10
+        );
+        $_shrink-transform-offset-y: math.div($_shrink-line-height, 2);
+        $_transform-offset-y: math.div($input-outlined-min-height, 2) -
+            math.div($input-base-font-size * $input-base-line-height, 2);
+
+        transform: translate3d($input-base-padding-x, $_transform-offset-y, 0);
+
+        &#{$this}-shrink,
+        &.Mui-focused {
+            line-height: $_shrink-line-height;
+            transform: translate3d($input-base-padding-x, -#{$_shrink-transform-offset-y}rem, 0)
+                scale($input-standard-label-transform-scale);
+        }
+
+        & + .MuiOutlinedInput {
+            $this: '.MuiOutlinedInput';
+
+            &-root {
+                align-items: center;
+                min-height: $input-outlined-min-height;
+
+                #{$this}-notchedOutline {
+                    padding: 0;
+                    padding-left: $input-base-padding-x - $input-outlined-legend-spacing;
+                    padding-right: $input-base-padding-x - $input-outlined-legend-spacing;
+
+                    legend {
+                        display: inline-block;
+                        font-size: $input-base-font-size * $input-standard-label-transform-scale;
+
+                        padding: 0;
+                        height: #{$_shrink-line-height}rem;
+
+                        span {
+                            display: inline-block;
+                            font-size: inherit;
+                            padding: 0 $input-outlined-legend-spacing;
+
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        & + .MuiInputBase {
+            &-multiline {
+                padding-top: $_transform-offset-y;
+            }
+        }
+    }
+}

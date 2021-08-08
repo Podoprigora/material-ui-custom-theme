@@ -23,14 +23,21 @@
                 right: 0;
                 bottom: 0;
                 border-radius: $input-base-border-radius;
+                box-shadow: $input-base-box-shadow;
                 opacity: 0;
-                transition: opacity 0.15s linear;
                 z-index: 0;
+                transition: opacity 0.15s linear;
             }
 
             @if $input-base-disable-hover != true {
                 &:hover:not(&.Mui-focused) {
                     box-shadow: $input-base-hover-box-shadow;
+                }
+            }
+
+            &.Mui-focused {
+                &::before {
+                    opacity: 1;
                 }
             }
 
@@ -52,20 +59,14 @@
         }
 
         &-colorPrimary {
-            &.Mui-focused {
-                &::before {
-                    box-shadow: $input-base-primary-focused-box-shadow;
-                    opacity: 1;
-                }
+            &::before {
+                box-shadow: $input-base-primary-focused-box-shadow;
             }
         }
 
         &-colorSecondary {
-            &.Mui-focused {
-                &::before {
-                    box-shadow: $input-base-secondary-focused-box-shadow;
-                    opacity: 1;
-                }
+            &::before {
+                box-shadow: $input-base-secondary-focused-box-shadow;
             }
         }
     }

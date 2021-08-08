@@ -34,7 +34,7 @@ export default {
     component: InputBase
 } as Meta;
 
-const usePasswordFieldVisible = () => {
+const usePasswordField = () => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = useEventCallback(() => {
@@ -48,7 +48,7 @@ const usePasswordFieldVisible = () => {
 };
 
 export const CustomInput: Story = () => {
-    const { isPasswordVisible, togglePasswordVisibility } = usePasswordFieldVisible();
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordField();
 
     return (
         <>
@@ -162,12 +162,12 @@ export const CustomInput: Story = () => {
 
 // Standard Inputs
 export const StandardInputExample: Story = () => {
-    const { isPasswordVisible, togglePasswordVisibility } = usePasswordFieldVisible();
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordField();
 
     return (
         <>
             <div
-                className="stack stack--direction-column stack--gap-10"
+                className="stack stack--direction-column stack--justify-items-stretch stack--gap-10"
                 style={{ maxWidth: '40rem' }}
             >
                 <TextField
@@ -245,16 +245,16 @@ StandardInputExample.storyName = 'Standard Input';
 // Standard filled inputs
 
 export const StandardFilledInputExample: Story = () => {
-    const { isPasswordVisible, togglePasswordVisibility } = usePasswordFieldVisible();
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordField();
 
     return (
         <>
             <div
-                className="stack stack--direction-column stack--gap-10"
+                className="stack stack--direction-column stack--justify-items-stretch stack--gap-10"
                 style={{ maxWidth: '40rem' }}
             >
                 <TextField
-                    id="standard-field-email"
+                    id="standard-filled-field-email"
                     variant="filled"
                     label="Email"
                     required
@@ -262,7 +262,7 @@ export const StandardFilledInputExample: Story = () => {
                     helperText="example@mail.com"
                 />
                 <TextField
-                    id="standard-field-password"
+                    id="standard-filled-field-password"
                     variant="filled"
                     type={isPasswordVisible ? 'text' : 'password'}
                     label="Password"
@@ -325,7 +325,81 @@ export const StandardFilledInputExample: Story = () => {
 StandardFilledInputExample.storyName = 'Standard filled input';
 
 // Outlined Inputs
-// export const OutlinedInputExample: Story = () => {
-//     return <TextField id="outlined-field-email" variant="outlined" label="Email" required />;
-// };
-// OutlinedInputExample.storyName = 'Outlined Input';
+
+export const OutlinedInputExample: Story = () => {
+    const { isPasswordVisible, togglePasswordVisibility } = usePasswordField();
+
+    return (
+        <>
+            <div
+                className="stack stack--direction-column stack--justify-items-stretch stack--gap-10"
+                style={{ maxWidth: '40rem' }}
+            >
+                <TextField
+                    variant="outlined"
+                    label="Email"
+                    required
+                    fullWidth
+                    helperText="example@mail.com"
+                />
+                <TextField
+                    variant="outlined"
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    label="Password"
+                    required
+                    fullWidth
+                    helperText="At least 8 characters long."
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    size="small"
+                                    tabIndex={-1}
+                                    className="MuiIconButton-dense MuiIconButton-circular"
+                                    onMouseDown={(ev: React.MouseEvent) => {
+                                        ev.preventDefault();
+                                    }}
+                                    onClick={togglePasswordVisibility}
+                                >
+                                    <Icon>{isPasswordVisible ? <EyeSvg /> : <EyeOffSvg />}</Icon>
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    color="secondary"
+                    label="Long label text overflow. Molestias totam explicabo consequatur praesentium ratione nihil alias quam voluptas!"
+                    required
+                    fullWidth
+                />
+                <TextField
+                    variant="outlined"
+                    fullWidth
+                    placeholder="No label"
+                    helperText="*** *** ****"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Icon>
+                                    <TagSvg />
+                                </Icon>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    color="secondary"
+                    label="Comment"
+                    placeholder="Leave your comment"
+                    multiline
+                    minRows={4}
+                    fullWidth
+                />
+            </div>
+        </>
+    );
+};
+OutlinedInputExample.storyName = 'Outlined Input';

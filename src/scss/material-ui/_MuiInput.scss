@@ -11,11 +11,7 @@
         padding: $input-base-padding-y $input-base-padding-x $input-base-padding-y;
         border-radius: $input-base-border-radius;
         box-shadow: $input-base-box-shadow;
-        min-height: 4rem;
-
-        & > * {
-            z-index: 1;
-        }
+        min-height: $input-base-min-height;
 
         &::before {
             position: absolute;
@@ -46,6 +42,10 @@
             &::before {
                 box-shadow: $input-base-secondary-focused-box-shadow;
             }
+        }
+
+        & > * {
+            z-index: 1;
         }
 
         .MuiInputAdornment {
@@ -87,12 +87,13 @@
     $this: &;
 
     &-root {
-        background-color: $gray-lighten-5;
-        box-shadow: 0 0.2rem 0rem -0.1rem rgba($black, 0.14);
-        transition: background-color 0.3s ease;
+        background-color: $input-filled-bg-color;
+        box-shadow: $input-filled-box-shadow;
+        transition: box-shadow 0.3s ease;
 
         &:hover {
-            background-color: $gray-lighten-4;
+            background-color: $input-filled-bg-color;
+            box-shadow: $input-filled-hover-box-shadow;
         }
 
         &.Mui-focused {
@@ -110,7 +111,7 @@
 
         #{$this}-input {
             @include input-autofill(
-                $gray-lighten-5,
+                $input-filled-bg-color,
                 $font-family,
                 $input-base-font-size,
                 $input-base-font-weight
@@ -123,9 +124,8 @@
     $this: &;
 
     &-root {
-        $_transform-offset-y: math.div(5.8rem, 2) -
-            math.div($input-base-font-size * 0.86 * $input-base-line-height, 2);
-        $_transform-offset-y: math.div(math.floor($_transform-offset-y * 10), 10);
+        $_transform-offset-y: math.div($input-standard-min-height, 2) -
+            math.div($input-base-font-size * $input-base-line-height, 2);
         $_offset-x: $input-base-padding-x * 2;
 
         top: 0;
@@ -139,23 +139,29 @@
         &#{$this}-shrink,
         &.Mui-focused,
         &.MuiFormLabel-filled {
-            $_max-width-percent: (2 - 0.86) * 100;
+            $_max-width-percent: (2 - $input-standard-label-transform-scale) * 100;
 
-            line-height: math.div(math.floor($input-base-line-height * 0.86 * 10), 10) + 0.05;
+            line-height: math.div(
+                    math.floor(
+                        $input-base-line-height * $input-standard-label-transform-scale * 10
+                    ),
+                    10
+                ) + 0.05;
             max-width: calc(#{$_max-width-percent}% - #{$_offset-x});
             transform: translate3d($input-base-padding-x, $input-base-padding-y, 0)
-                scale3d(0.86, 0.86, 1);
+                scale($input-standard-label-transform-scale);
         }
 
         & + .MuiInputBase {
             &-root {
                 align-items: flex-end;
                 margin: 0;
-                min-height: 5.8rem;
+                min-height: $input-standard-min-height;
             }
 
             &-multiline {
-                padding-top: $_transform-offset-y + ($input-base-padding-y * 0.86);
+                padding-top: $_transform-offset-y +
+                    ($input-base-padding-y * $input-standard-label-transform-scale);
             }
 
             .MuiInputAdornment {
