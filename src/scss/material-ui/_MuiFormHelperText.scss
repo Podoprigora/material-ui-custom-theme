@@ -12,5 +12,10 @@
             color: $form-helper-text-color;
             opacity: $input-disabled-opacity;
         }
+
+        &.Mui-error {
+            color: $color-error;
+            font-weight: $form-helper-text-error-font-weight;
+        }
     }
 }

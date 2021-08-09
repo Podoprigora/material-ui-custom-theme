@@ -13,6 +13,10 @@
         &.Mui-focused {
             opacity: 1;
         }
+
+        &.Mui-error {
+            color: $form-label-color;
+        }
     }
 
     &-asterisk {

@@ -32,6 +32,11 @@
             }
         }
 
+        &.Mui-error {
+            background-color: $input-base-bg-color;
+            box-shadow: $input-base-error-box-shadow;
+        }
+
         &.MuiInputBase-colorPrimary {
             &::before {
                 box-shadow: $input-base-primary-focused-box-shadow;
@@ -76,7 +81,7 @@
         @if $input-base-disable-hover != true {
             transition: box-shadow 0.15s linear;
 
-            &:hover:not(&.Mui-focused):not(&.Mui-disabled) {
+            &:hover:not(.Mui-focused):not(.Mui-disabled):not(.Mui-error) {
                 box-shadow: $input-base-hover-box-shadow;
             }
         }
@@ -91,7 +96,7 @@
         box-shadow: $input-filled-box-shadow;
         transition: box-shadow 0.3s ease;
 
-        &:hover:not(.Mui-disabled):not(.Mui-focused) {
+        &:hover:not(.Mui-disabled):not(.Mui-focused):not(.Mui-error) {
             background-color: $input-filled-bg-color;
             box-shadow: $input-filled-hover-box-shadow;
         }

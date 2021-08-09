@@ -9,7 +9,7 @@
         border-radius: $input-base-border-radius;
         min-height: $input-base-min-height;
 
-        &:hover:not(&.Mui-disabled) {
+        &:hover:not(.Mui-disabled):not(.Mui-focused):not(.Mui-error) {
             #{$this}-notchedOutline {
                 border-color: $input-hover-border-color;
             }
@@ -21,15 +21,21 @@
             }
         }
 
+        &.Mui-error {
+            #{$this}-notchedOutline {
+                border-color: $input-outlined-error-border-color;
+            }
+        }
+
         &.MuiInputBase-colorPrimary.Mui-focused {
             #{$this}-notchedOutline {
-                border-color: $color-primary;
+                border-color: $input-color-primary;
             }
         }
 
         &.MuiInputBase-colorSecondary.Mui-focused {
             #{$this}-notchedOutline {
-                border-color: $color-secondary;
+                border-color: $input-color-secondary;
             }
         }
     }

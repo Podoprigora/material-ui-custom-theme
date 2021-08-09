@@ -30,7 +30,7 @@
             }
 
             @if $input-base-disable-hover != true {
-                &:hover:not(&.Mui-focused):not(&.Mui-disabled) {
+                &:hover:not(.Mui-focused):not(.Mui-disabled):not(.Mui-error) {
                     box-shadow: $input-base-hover-box-shadow;
                 }
             }
@@ -39,6 +39,10 @@
                 &::before {
                     opacity: 1;
                 }
+            }
+
+            &.Mui-error {
+                box-shadow: $input-base-error-box-shadow;
             }
 
             & #{$this}-input {

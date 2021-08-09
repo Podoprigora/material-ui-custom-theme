@@ -27,6 +27,7 @@ import {
     MapPinSvg,
     SaveSvg,
     TagSvg,
+    ThumbsDownSvg,
     UserSvg
 } from '../../assets/svg-icons/feather';
 
@@ -180,6 +181,30 @@ export const CustomInput: Story = () => {
                     />
                     <FormHelperText>test note</FormHelperText>
                 </FormControl>
+                <FormControl
+                    error
+                    required
+                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
+                    fullWidth
+                >
+                    <FormLabel htmlFor="custom-error-input" className="MuiCustomFormLabel">
+                        Invalid field
+                    </FormLabel>
+                    <InputBase
+                        id="custom-error-input"
+                        placeholder="Placeholder"
+                        defaultValue="Lorem iposm"
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <Icon>
+                                    <ThumbsDownSvg />
+                                </Icon>
+                            </InputAdornment>
+                        }
+                        className="MuiCustomInputBase"
+                    />
+                    <FormHelperText>Some error message</FormHelperText>
+                </FormControl>
             </div>
         </>
     );
@@ -270,6 +295,16 @@ export const StandardInputExample: Story = () => {
                     required
                     fullWidth
                     helperText="test note"
+                />
+                <TextField
+                    id="standard-error-field"
+                    variant="standard"
+                    label="Invalid field"
+                    defaultValue="Lorem iposm"
+                    error
+                    required
+                    fullWidth
+                    helperText="Some error message"
                 />
             </div>
         </>
@@ -363,6 +398,16 @@ export const StandardFilledInputExample: Story = () => {
                     fullWidth
                     helperText="test note"
                 />
+                <TextField
+                    id="filled-error-field"
+                    variant="filled"
+                    label="Invalid field"
+                    defaultValue="Lorem iposm"
+                    error
+                    required
+                    fullWidth
+                    helperText="Some error message"
+                />
             </div>
         </>
     );
@@ -455,6 +500,16 @@ export const OutlinedInputExample: Story = () => {
                     required
                     fullWidth
                     helperText="test note"
+                />
+                <TextField
+                    id="outlined-error-field"
+                    variant="outlined"
+                    label="Invalid field"
+                    defaultValue="Lorem iposm"
+                    error
+                    required
+                    fullWidth
+                    helperText="Some error message"
                 />
             </div>
         </>

@@ -25,6 +25,7 @@ $color-secondary-dark: #19b6cb;
 $color-secondary-text: #fff;
 $color-secondary-border-color: #d9ebed;
 
+$color-error: $red-accent-4;
 $color-text-note: $gray-darken-1;
 
 // Body
@@ -264,6 +265,8 @@ $switch-size-small-thumb-size: 1.6rem;
 $input-border-color: rgba($black, 0.14);
 $input-hover-border-color: rgba($black, 0.4);
 $input-disabled-color: rgba($black, 0.13);
+$input-color-primary: rgba($color-primary, 0.8);
+$input-color-secondary: rgba($color-secondary, 0.8);
 $input-disabled-opacity: 0.5;
 
 $input-base-font-size: $font-size-medium;
@@ -280,10 +283,11 @@ $input-base-box-shadow: 0 0 0 0.1rem $input-border-color;
 $input-base-border-radius: $border-radius-sm;
 $input-base-disable-hover: false; // true or false
 $input-base-hover-box-shadow: 0 0 0 0.1rem $input-hover-border-color;
-$input-base-focused-box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.8);
+$input-base-focused-box-shadow: 0 0 0 0.2rem $input-color-primary;
 $input-base-disabled-box-shadow: 0 0 0 0.1rem $input-disabled-color;
+$input-base-error-box-shadow: 0 0 0 0.1rem rgba($color-error, 0.55);
 $input-base-primary-focused-box-shadow: $input-base-focused-box-shadow;
-$input-base-secondary-focused-box-shadow: 0 0 0 0.2rem rgba($color-secondary, 0.8);
+$input-base-secondary-focused-box-shadow: 0 0 0 0.2rem $input-color-secondary;
 $input-base-adornment-font-size: $icon-small-font-size;
 $input-base-adornment-color: rgba($input-base-color, 0.35);
 
@@ -300,6 +304,7 @@ $form-label-asterisk-color: $deep-orange-accent-3;
 // MuiFormHelperText
 $form-helper-text-font-size: $font-size-small;
 $form-helper-text-font-weight: $font-weight;
+$form-helper-text-error-font-weight: 300;
 $form-helper-text-line-height: 1.2;
 $form-helper-text-letter-spacing: 0.4px;
 $form-helper-text-color: rgba($input-base-color, $input-base-placeholder-opacity);
@@ -317,4 +322,5 @@ $input-filled-hover-box-shadow: 0 0.2rem 0rem -0.1rem $input-hover-border-color;
 //MuiOutlinedInput
 $input-outlined-legend-spacing: $spacing-scale-3;
 $input-outlined-label-shrink-font-weight: $form-label-font-weight;
+$input-outlined-error-border-color: rgba($color-error, 0.55);
 $input-outlined-min-height: 4.8rem;
