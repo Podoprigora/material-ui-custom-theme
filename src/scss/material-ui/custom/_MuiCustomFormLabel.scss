@@ -11,6 +11,10 @@
             color: $form-label-color;
             opacity: 1;
             transition: color 0.15s ease;
+
+            &.Mui-disabled {
+                opacity: $input-disabled-opacity;
+            }
         }
 
         &-colorPrimary {

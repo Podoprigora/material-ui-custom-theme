@@ -1,11 +1,13 @@
 import { createTheme, Grow, PopoverProps } from '@material-ui/core';
 
+// Modules
 declare module '@material-ui/core/Icon' {
     interface IconPropsSizeOverrides {
         xsmall: true;
     }
 }
 
+// Default props
 const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
     TransitionComponent: Grow,
     TransitionProps: { timeout: { exit: 120, enter: 220 } },
@@ -13,6 +15,7 @@ const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
     transformOrigin: { vertical: 'top', horizontal: 'left' }
 };
 
+// Theme
 export const theme = createTheme({
     components: {
         MuiButtonBase: {

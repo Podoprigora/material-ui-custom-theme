@@ -9,9 +9,15 @@
         border-radius: $input-base-border-radius;
         min-height: $input-base-min-height;
 
-        &:hover {
+        &:hover:not(&.Mui-disabled) {
             #{$this}-notchedOutline {
                 border-color: $input-hover-border-color;
+            }
+        }
+
+        &.Mui-disabled {
+            #{$this}-notchedOutline {
+                border-color: $input-disabled-color;
             }
         }
 

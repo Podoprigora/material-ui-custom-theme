@@ -263,6 +263,8 @@ $switch-size-small-thumb-size: 1.6rem;
 // MuiInputBase
 $input-border-color: rgba($black, 0.14);
 $input-hover-border-color: rgba($black, 0.4);
+$input-disabled-color: rgba($black, 0.13);
+$input-disabled-opacity: 0.5;
 
 $input-base-font-size: $font-size-medium;
 $input-base-font-weight: $font-weight;
@@ -279,6 +281,7 @@ $input-base-border-radius: $border-radius-sm;
 $input-base-disable-hover: false; // true or false
 $input-base-hover-box-shadow: 0 0 0 0.1rem $input-hover-border-color;
 $input-base-focused-box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.8);
+$input-base-disabled-box-shadow: 0 0 0 0.1rem $input-disabled-color;
 $input-base-primary-focused-box-shadow: $input-base-focused-box-shadow;
 $input-base-secondary-focused-box-shadow: 0 0 0 0.2rem rgba($color-secondary, 0.8);
 $input-base-adornment-font-size: $icon-small-font-size;

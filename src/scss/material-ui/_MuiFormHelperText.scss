@@ -7,5 +7,10 @@
         letter-spacing: $form-helper-text-letter-spacing;
         color: $form-helper-text-color;
         margin: $form-helper-text-margin;
+
+        &.Mui-disabled {
+            color: $form-helper-text-color;
+            opacity: $input-disabled-opacity;
+        }
     }
 }

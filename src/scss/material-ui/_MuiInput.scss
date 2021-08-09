@@ -76,7 +76,7 @@
         @if $input-base-disable-hover != true {
             transition: box-shadow 0.15s linear;
 
-            &:hover:not(&.Mui-focused) {
+            &:hover:not(&.Mui-focused):not(&.Mui-disabled) {
                 box-shadow: $input-base-hover-box-shadow;
             }
         }
@@ -91,7 +91,7 @@
         box-shadow: $input-filled-box-shadow;
         transition: box-shadow 0.3s ease;
 
-        &:hover {
+        &:hover:not(.Mui-disabled):not(.Mui-focused) {
             background-color: $input-filled-bg-color;
             box-shadow: $input-filled-hover-box-shadow;
         }
@@ -107,6 +107,10 @@
                     $input-base-font-weight
                 );
             }
+        }
+
+        &.Mui-disabled {
+            background-color: $input-filled-bg-color;
         }
 
         #{$this}-input {
@@ -150,6 +154,11 @@
             max-width: calc(#{$_max-width-percent}% - #{$_offset-x});
             transform: translate3d($input-base-padding-x, $input-base-padding-y, 0)
                 scale($input-standard-label-transform-scale);
+        }
+
+        &.Mui-disabled {
+            color: $form-label-color;
+            opacity: $input-disabled-opacity;
         }
 
         & + .MuiInputBase {

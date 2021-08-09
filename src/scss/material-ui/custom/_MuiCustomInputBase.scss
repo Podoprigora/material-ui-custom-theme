@@ -30,7 +30,7 @@
             }
 
             @if $input-base-disable-hover != true {
-                &:hover:not(&.Mui-focused) {
+                &:hover:not(&.Mui-focused):not(&.Mui-disabled) {
                     box-shadow: $input-base-hover-box-shadow;
                 }
             }

@@ -19,6 +19,7 @@ import {
 import { InsertDriveFileOutlined, Tag } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import {
+    CoffeeSvg,
     EyeOffSvg,
     EyeSvg,
     InboxSvg,
@@ -155,6 +156,30 @@ export const CustomInput: Story = () => {
                         className="MuiCustomInputBase"
                     />
                 </FormControl>
+                <FormControl
+                    disabled
+                    required
+                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
+                    fullWidth
+                >
+                    <FormLabel htmlFor="custom-disabled-input" className="MuiCustomFormLabel">
+                        Disabled
+                    </FormLabel>
+                    <InputBase
+                        id="custom-disabled-input"
+                        placeholder="Placeholder"
+                        defaultValue="Lorem iposm"
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <Icon>
+                                    <CoffeeSvg />
+                                </Icon>
+                            </InputAdornment>
+                        }
+                        className="MuiCustomInputBase"
+                    />
+                    <FormHelperText>test note</FormHelperText>
+                </FormControl>
             </div>
         </>
     );
@@ -235,6 +260,16 @@ export const StandardInputExample: Story = () => {
                     multiline
                     minRows={4}
                     fullWidth
+                />
+                <TextField
+                    id="standard-disabled-field"
+                    variant="standard"
+                    label="Disabled"
+                    defaultValue="Lorem iposm"
+                    disabled
+                    required
+                    fullWidth
+                    helperText="test note"
                 />
             </div>
         </>
@@ -318,6 +353,16 @@ export const StandardFilledInputExample: Story = () => {
                     minRows={4}
                     fullWidth
                 />
+                <TextField
+                    id="filled-disabled-field"
+                    variant="filled"
+                    label="Disabled"
+                    defaultValue="Lorem iposm"
+                    disabled
+                    required
+                    fullWidth
+                    helperText="test note"
+                />
             </div>
         </>
     );
@@ -400,6 +445,16 @@ export const OutlinedInputExample: Story = () => {
                     multiline
                     minRows={4}
                     fullWidth
+                />
+                <TextField
+                    id="outlined-disabled-field"
+                    variant="outlined"
+                    label="Disabled"
+                    defaultValue="Lorem iposm"
+                    disabled
+                    required
+                    fullWidth
+                    helperText="test note"
                 />
             </div>
         </>

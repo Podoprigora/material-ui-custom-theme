@@ -6,6 +6,12 @@
         letter-spacing: $input-base-letter-spacing;
         line-height: $input-base-line-height;
         color: $input-base-color;
+
+        &.Mui-disabled {
+            color: $input-base-color;
+            opacity: $input-disabled-opacity;
+            cursor: auto;
+        }
     }
 
     &-input {
@@ -13,6 +19,11 @@
 
         &::placeholder {
             opacity: $input-base-placeholder-opacity;
+        }
+
+        &.Mui-disabled {
+            -webkit-text-fill-color: inherit;
+            cursor: auto;
         }
 
         @include input-autofill(
