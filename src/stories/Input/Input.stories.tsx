@@ -11,7 +11,11 @@ import {
     useEventCallback
 } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { MuiCustomTextField, MuiCustomOriginalInput } from '@mui-custom';
+import {
+    MuiCustomTextField,
+    MuiCustomOriginalInput,
+    MuiCustomOriginalInputLabel
+} from '@mui-custom';
 
 import {
     CoffeeSvg,
@@ -73,9 +77,9 @@ export const OriginalInput: Story = () => {
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
                     fullWidth
                 >
-                    <FormLabel htmlFor="email-input" className="MuiCustomFormLabel">
+                    <MuiCustomOriginalInputLabel htmlFor="email-input">
                         Email
-                    </FormLabel>
+                    </MuiCustomOriginalInputLabel>
                     <MuiCustomOriginalInput
                         id="email-input"
                         type="email"
@@ -95,9 +99,9 @@ export const OriginalInput: Story = () => {
                     fullWidth
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
                 >
-                    <FormLabel htmlFor="password-input" className="MuiCustomFormLabel">
+                    <MuiCustomOriginalInputLabel htmlFor="password-input">
                         Password
-                    </FormLabel>
+                    </MuiCustomOriginalInputLabel>
                     <InputBase
                         id="password-input"
                         type={isPasswordVisible ? 'text' : 'password'}
@@ -132,9 +136,9 @@ export const OriginalInput: Story = () => {
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
                     fullWidth
                 >
-                    <FormLabel htmlFor="placement-input" className="MuiCustomFormLabel">
+                    <MuiCustomOriginalInputLabel htmlFor="placement-input">
                         Location
-                    </FormLabel>
+                    </MuiCustomOriginalInputLabel>
                     <InputBase
                         id="placement-input"
                         type="text"
@@ -155,9 +159,9 @@ export const OriginalInput: Story = () => {
                     fullWidth
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
                 >
-                    <FormLabel htmlFor="comment-input" className="MuiCustomFormLabel">
+                    <MuiCustomOriginalInputLabel htmlFor="comment-input">
                         Comment
-                    </FormLabel>
+                    </MuiCustomOriginalInputLabel>
                     <InputBase
                         id="comment-input"
                         placeholder="Enter your comment"
@@ -172,9 +176,9 @@ export const OriginalInput: Story = () => {
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
                     fullWidth
                 >
-                    <FormLabel htmlFor="custom-disabled-input" className="MuiCustomFormLabel">
+                    <MuiCustomOriginalInputLabel htmlFor="custom-disabled-input">
                         Disabled
-                    </FormLabel>
+                    </MuiCustomOriginalInputLabel>
                     <InputBase
                         id="custom-disabled-input"
                         placeholder="Placeholder"
@@ -196,9 +200,9 @@ export const OriginalInput: Story = () => {
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
                     fullWidth
                 >
-                    <FormLabel htmlFor="custom-error-input" className="MuiCustomFormLabel">
+                    <MuiCustomOriginalInputLabel htmlFor="custom-error-input">
                         Invalid field
-                    </FormLabel>
+                    </MuiCustomOriginalInputLabel>
                     <InputBase
                         id="custom-error-input"
                         placeholder="Placeholder"
