@@ -11,7 +11,7 @@ import {
     useEventCallback
 } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { MuiCustomTextField } from '@mui-custom';
+import { MuiCustomTextField, MuiCustomOriginalInput } from '@mui-custom';
 
 import {
     CoffeeSvg,
@@ -42,7 +42,7 @@ const usePasswordField = () => {
     ]);
 };
 
-export const CustomInput: Story = () => {
+export const OriginalInput: Story = () => {
     const { isPasswordVisible, togglePasswordVisibility } = usePasswordField();
 
     return (
@@ -76,7 +76,7 @@ export const CustomInput: Story = () => {
                     <FormLabel htmlFor="email-input" className="MuiCustomFormLabel">
                         Email
                     </FormLabel>
-                    <InputBase
+                    <MuiCustomOriginalInput
                         id="email-input"
                         type="email"
                         placeholder="Enter your email"
@@ -87,7 +87,6 @@ export const CustomInput: Story = () => {
                                 </Icon>
                             </InputAdornment>
                         }
-                        className="MuiCustomInputBase"
                     />
                     <FormHelperText>example@gmail.com</FormHelperText>
                 </FormControl>
@@ -125,7 +124,7 @@ export const CustomInput: Story = () => {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        className="MuiCustomInputBase"
+                        className="MuiCustomOriginalInput"
                     />
                 </FormControl>
                 <FormControl
@@ -147,7 +146,7 @@ export const CustomInput: Story = () => {
                                 </Icon>
                             </InputAdornment>
                         }
-                        className="MuiCustomInputBase"
+                        className="MuiCustomOriginalInput"
                     />
                     <FormHelperText>Example: 51.5091996,-0.1209507</FormHelperText>
                 </FormControl>
@@ -164,7 +163,7 @@ export const CustomInput: Story = () => {
                         placeholder="Enter your comment"
                         multiline
                         minRows={4}
-                        className="MuiCustomInputBase"
+                        className="MuiCustomOriginalInput"
                     />
                 </FormControl>
                 <FormControl
@@ -187,7 +186,7 @@ export const CustomInput: Story = () => {
                                 </Icon>
                             </InputAdornment>
                         }
-                        className="MuiCustomInputBase"
+                        className="MuiCustomOriginalInput"
                     />
                     <FormHelperText>test note</FormHelperText>
                 </FormControl>
@@ -211,7 +210,7 @@ export const CustomInput: Story = () => {
                                 </Icon>
                             </InputAdornment>
                         }
-                        className="MuiCustomInputBase"
+                        className="MuiCustomOriginalInput"
                     />
                     <FormHelperText>Some error message</FormHelperText>
                 </FormControl>
