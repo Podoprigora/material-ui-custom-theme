@@ -14,7 +14,8 @@ import { Meta, Story } from '@storybook/react/types-6-0';
 import {
     MuiCustomTextField,
     MuiCustomOriginalInput,
-    MuiCustomOriginalInputLabel
+    MuiCustomOriginalInputLabel,
+    MuiCustomFormControl
 } from '@mui-custom';
 
 import {
@@ -72,11 +73,7 @@ export const OriginalInput: Story = () => {
                         )
                     }}
                 /> */}
-                <FormControl
-                    required
-                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
-                    fullWidth
-                >
+                <MuiCustomFormControl required fullWidth>
                     <MuiCustomOriginalInputLabel htmlFor="email-input">
                         Email
                     </MuiCustomOriginalInputLabel>
@@ -93,12 +90,8 @@ export const OriginalInput: Story = () => {
                         }
                     />
                     <FormHelperText>example@gmail.com</FormHelperText>
-                </FormControl>
-                <FormControl
-                    required
-                    fullWidth
-                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
-                >
+                </MuiCustomFormControl>
+                <MuiCustomFormControl required fullWidth>
                     <MuiCustomOriginalInputLabel htmlFor="password-input">
                         Password
                     </MuiCustomOriginalInputLabel>
@@ -130,12 +123,8 @@ export const OriginalInput: Story = () => {
                         }
                         className="MuiCustomOriginalInput"
                     />
-                </FormControl>
-                <FormControl
-                    color="secondary"
-                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
-                    fullWidth
-                >
+                </MuiCustomFormControl>
+                <MuiCustomFormControl color="secondary" fullWidth>
                     <MuiCustomOriginalInputLabel htmlFor="placement-input">
                         Location
                     </MuiCustomOriginalInputLabel>
@@ -153,12 +142,8 @@ export const OriginalInput: Story = () => {
                         className="MuiCustomOriginalInput"
                     />
                     <FormHelperText>Example: 51.5091996,-0.1209507</FormHelperText>
-                </FormControl>
-                <FormControl
-                    color="secondary"
-                    fullWidth
-                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
-                >
+                </MuiCustomFormControl>
+                <MuiCustomFormControl color="secondary" fullWidth>
                     <MuiCustomOriginalInputLabel htmlFor="comment-input">
                         Comment
                     </MuiCustomOriginalInputLabel>
@@ -169,13 +154,8 @@ export const OriginalInput: Story = () => {
                         minRows={4}
                         className="MuiCustomOriginalInput"
                     />
-                </FormControl>
-                <FormControl
-                    disabled
-                    required
-                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
-                    fullWidth
-                >
+                </MuiCustomFormControl>
+                <MuiCustomFormControl disabled required fullWidth>
                     <MuiCustomOriginalInputLabel htmlFor="custom-disabled-input">
                         Disabled
                     </MuiCustomOriginalInputLabel>
@@ -193,13 +173,8 @@ export const OriginalInput: Story = () => {
                         className="MuiCustomOriginalInput"
                     />
                     <FormHelperText>test note</FormHelperText>
-                </FormControl>
-                <FormControl
-                    error
-                    required
-                    className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
-                    fullWidth
-                >
+                </MuiCustomFormControl>
+                <MuiCustomFormControl error required fullWidth>
                     <MuiCustomOriginalInputLabel htmlFor="custom-error-input">
                         Invalid field
                     </MuiCustomOriginalInputLabel>
@@ -217,7 +192,7 @@ export const OriginalInput: Story = () => {
                         className="MuiCustomOriginalInput"
                     />
                     <FormHelperText>Some error message</FormHelperText>
-                </FormControl>
+                </MuiCustomFormControl>
             </div>
         </>
     );

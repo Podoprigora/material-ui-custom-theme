@@ -10,13 +10,13 @@ export const MuiCustomOriginalInputLabel = React.forwardRef<
     HTMLLabelElement,
     MuiCustomOriginalInputLabelProps
 >(function MuiCustomOriginalInputLabel(props, forwardedRef) {
-    const { className, textJustify, ...other } = props;
+    const { className: classNameProp, textJustify, ...other } = props;
 
-    const classNames = useMemo(() => {
-        return clsx('MuiCustomOriginalInputLabel', className, {
+    const className = useMemo(() => {
+        return clsx('MuiCustomOriginalInputLabel', classNameProp, {
             'MuiCustomOriginalInputLabel-justifyEnd': textJustify === 'end'
         });
-    }, [textJustify, className]);
+    }, [classNameProp, textJustify]);
 
-    return <MuiFormLabel {...other} className={classNames} ref={forwardedRef} />;
+    return <MuiFormLabel {...other} className={className} ref={forwardedRef} />;
 });
