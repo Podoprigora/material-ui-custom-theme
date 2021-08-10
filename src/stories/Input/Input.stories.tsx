@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import {
-    Button,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -8,24 +7,18 @@ import {
     Icon,
     IconButton,
     InputAdornment,
-    Input,
     InputBase,
-    List,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
     useEventCallback
 } from '@material-ui/core';
-import { InsertDriveFileOutlined, Tag } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import { MuiCustomTextField } from '@mui-custom';
+
 import {
     CoffeeSvg,
     EyeOffSvg,
     EyeSvg,
-    InboxSvg,
     LockSvg,
     MapPinSvg,
-    SaveSvg,
     TagSvg,
     ThumbsDownSvg,
     UserSvg
@@ -58,6 +51,23 @@ export const CustomInput: Story = () => {
                 className="stack stack--direction-column stack--gap-10"
                 style={{ width: '100%', maxWidth: '40rem' }}
             >
+                {/* <MuiCustomTextField
+                    id="custom-email-field"
+                    label="Email"
+                    placeholder="Enter your email"
+                    required
+                    fullWidth
+                    helperText="example@gmail.com"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Icon>
+                                    <UserSvg />
+                                </Icon>
+                            </InputAdornment>
+                        )
+                    }}
+                /> */}
                 <FormControl
                     required
                     className="MuiCustomFormControl MuiCustomFormControl-labelAlignTop"
