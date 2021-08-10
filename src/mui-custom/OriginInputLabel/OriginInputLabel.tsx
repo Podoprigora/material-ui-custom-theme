@@ -4,13 +4,14 @@ import { FormLabel as MuiFormLabel, FormLabelProps as MuiFormLabelProps } from '
 
 export interface MuiCustomOriginalInputLabelProps extends MuiFormLabelProps {
     textJustify?: 'start' | 'end';
+    width?: string;
 }
 
 export const MuiCustomOriginalInputLabel = React.forwardRef<
     HTMLLabelElement,
     MuiCustomOriginalInputLabelProps
 >(function MuiCustomOriginalInputLabel(props, forwardedRef) {
-    const { className: classNameProp, textJustify, ...other } = props;
+    const { className: classNameProp, style: styleProp, width, textJustify, ...other } = props;
 
     const className = useMemo(() => {
         return clsx('MuiCustomOriginalInputLabel', classNameProp, {
@@ -18,5 +19,9 @@ export const MuiCustomOriginalInputLabel = React.forwardRef<
         });
     }, [classNameProp, textJustify]);
 
-    return <MuiFormLabel {...other} className={className} ref={forwardedRef} />;
+    const style = useMemo(() => {
+        return { ...styleProp, ...(width && { width }) };
+    }, [styleProp, width]);
+
+    return <MuiFormLabel {...other} className={className} style={style} ref={forwardedRef} />;
 });
