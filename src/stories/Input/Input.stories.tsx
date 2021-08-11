@@ -1,6 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { Icon, IconButton, InputAdornment, InputBase, useEventCallback } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import NumberFormat, { NumberFormatProps } from 'react-number-format';
+
+import {
+    Icon,
+    IconButton,
+    InputAdornment,
+    InputBase,
+    InputBaseComponentProps,
+    useEventCallback
+} from '@material-ui/core';
 import { MuiCustomTextField } from '@mui-custom';
 
 import {
@@ -483,3 +492,166 @@ export const OutlinedInputExample: Story = () => {
     );
 };
 OutlinedInputExample.storyName = 'Outlined Input';
+
+// Number Format
+
+const PriceGBRNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
+    function PriceGBRNumberFormatInput(props, forwardedRef) {
+        const numberFormatProps = props as NumberFormatProps;
+
+        return (
+            <NumberFormat
+                {...numberFormatProps}
+                getInputRef={forwardedRef}
+                thousandSeparator=","
+                decimalSeparator="."
+                prefix="£"
+                isNumericString
+            />
+        );
+    }
+);
+
+const PriceUSDNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
+    function PriceUSDNumberFormatInput(props, forwardedRef) {
+        const numberFormatProps = props as NumberFormatProps;
+
+        return (
+            <NumberFormat
+                {...numberFormatProps}
+                getInputRef={forwardedRef}
+                thousandSeparator=","
+                decimalSeparator="."
+                prefix="$"
+                isNumericString
+            />
+        );
+    }
+);
+
+const CreditCardNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
+    function CreditCardNumberFormatInput(props, forwardedRef) {
+        const numberFormatProps = props as NumberFormatProps;
+
+        return (
+            <NumberFormat
+                {...numberFormatProps}
+                getInputRef={forwardedRef}
+                format="#### #### #### ####"
+                mask="_"
+                allowEmptyFormatting={false}
+            />
+        );
+    }
+);
+
+const CreditCardExpiryNumberFormatInput = React.forwardRef<
+    HTMLInputElement,
+    InputBaseComponentProps
+>(function CreditCardExpiryNumberFormatInput(props, forwardedRef) {
+    const numberFormatProps = props as NumberFormatProps;
+
+    return (
+        <NumberFormat
+            {...numberFormatProps}
+            getInputRef={forwardedRef}
+            format="##/##"
+            placeholder="MM/YY"
+            mask={['M', 'M', 'Y', 'Y']}
+        />
+    );
+});
+
+const CreditCardCvcNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
+    function CreditCardCvcNumberFormatInput(props, forwardedRef) {
+        const numberFormatProps = props as NumberFormatProps;
+
+        return <NumberFormat {...numberFormatProps} getInputRef={forwardedRef} format="###" />;
+    }
+);
+
+const PhoneNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
+    function PhoneNumberFormatInput(props, forwardedRef) {
+        const numberFormatProps = props as NumberFormatProps;
+
+        return (
+            <NumberFormat
+                {...numberFormatProps}
+                getInputRef={forwardedRef}
+                format="+1 (###) ###-####"
+                placeholder="+1 (___) ___-____"
+                mask="_"
+                allowEmptyFormatting={false}
+            />
+        );
+    }
+);
+
+export const NumberFormatExamples: Story = () => {
+    return (
+        <div
+            className="stack stack--direction-column stack--justify-items-stretch stack--gap-10"
+            style={{ maxWidth: '40rem' }}
+        >
+            <MuiCustomTextField
+                variant="outlined"
+                id="number-format-price-usd-field"
+                label="Price USD"
+                fullWidth
+                InputProps={{
+                    inputComponent: PriceUSDNumberFormatInput
+                }}
+            />
+            <MuiCustomTextField
+                variant="outlined"
+                id="number-format-price-gbr-field"
+                label="Price GBR"
+                fullWidth
+                InputProps={{
+                    inputComponent: PriceGBRNumberFormatInput
+                }}
+            />
+            <div className="stack stack--justify-items-stretch stack--gap-6">
+                <MuiCustomTextField
+                    variant="outlined"
+                    id="number-format-card-number-field"
+                    label="Credit card number"
+                    fullWidth
+                    InputProps={{
+                        inputComponent: CreditCardNumberFormatInput
+                    }}
+                />
+                <MuiCustomTextField
+                    variant="outlined"
+                    id="number-format-card-expiry-field"
+                    label="Expires"
+                    fullWidth
+                    style={{ maxWidth: '10rem' }}
+                    InputProps={{
+                        inputComponent: CreditCardExpiryNumberFormatInput
+                    }}
+                />
+                <MuiCustomTextField
+                    variant="outlined"
+                    id="number-format-card-cvc-field"
+                    label="CVC"
+                    fullWidth
+                    style={{ maxWidth: '8rem' }}
+                    InputProps={{
+                        inputComponent: CreditCardCvcNumberFormatInput
+                    }}
+                />
+            </div>
+            <MuiCustomTextField
+                variant="outlined"
+                id="number-format-phone-field"
+                label="Phone"
+                fullWidth
+                InputProps={{
+                    inputComponent: PhoneNumberFormatInput
+                }}
+            />
+        </div>
+    );
+};
+NumberFormatExamples.storyName = 'Number Format';
