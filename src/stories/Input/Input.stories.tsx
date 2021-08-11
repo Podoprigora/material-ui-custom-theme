@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
+import { Elements, CardNumberElement } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import {
     Icon,
@@ -10,7 +12,7 @@ import {
     InputBaseComponentProps,
     useEventCallback
 } from '@material-ui/core';
-import { MuiCustomTextField } from '@mui-custom';
+import { MuiCustomTextField, MuiCustomTextFieldProps } from '@mui-custom';
 
 import {
     CoffeeSvg,
@@ -497,11 +499,9 @@ OutlinedInputExample.storyName = 'Outlined Input';
 
 const PriceGBRNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
     function PriceGBRNumberFormatInput(props, forwardedRef) {
-        const numberFormatProps = props as NumberFormatProps;
-
         return (
             <NumberFormat
-                {...numberFormatProps}
+                {...(props as unknown)}
                 getInputRef={forwardedRef}
                 thousandSeparator=","
                 decimalSeparator="."
@@ -514,11 +514,9 @@ const PriceGBRNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseCo
 
 const PriceUSDNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
     function PriceUSDNumberFormatInput(props, forwardedRef) {
-        const numberFormatProps = props as NumberFormatProps;
-
         return (
             <NumberFormat
-                {...numberFormatProps}
+                {...(props as unknown)}
                 getInputRef={forwardedRef}
                 thousandSeparator=","
                 decimalSeparator="."
@@ -531,11 +529,9 @@ const PriceUSDNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseCo
 
 const CreditCardNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
     function CreditCardNumberFormatInput(props, forwardedRef) {
-        const numberFormatProps = props as NumberFormatProps;
-
         return (
             <NumberFormat
-                {...numberFormatProps}
+                {...(props as unknown)}
                 getInputRef={forwardedRef}
                 format="#### #### #### ####"
                 mask="_"
@@ -549,11 +545,9 @@ const CreditCardExpiryNumberFormatInput = React.forwardRef<
     HTMLInputElement,
     InputBaseComponentProps
 >(function CreditCardExpiryNumberFormatInput(props, forwardedRef) {
-    const numberFormatProps = props as NumberFormatProps;
-
     return (
         <NumberFormat
-            {...numberFormatProps}
+            {...(props as unknown)}
             getInputRef={forwardedRef}
             format="##/##"
             placeholder="MM/YY"
@@ -564,19 +558,15 @@ const CreditCardExpiryNumberFormatInput = React.forwardRef<
 
 const CreditCardCvcNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
     function CreditCardCvcNumberFormatInput(props, forwardedRef) {
-        const numberFormatProps = props as NumberFormatProps;
-
-        return <NumberFormat {...numberFormatProps} getInputRef={forwardedRef} format="###" />;
+        return <NumberFormat {...(props as unknown)} getInputRef={forwardedRef} format="###" />;
     }
 );
 
 const PhoneNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
     function PhoneNumberFormatInput(props, forwardedRef) {
-        const numberFormatProps = props as NumberFormatProps;
-
         return (
             <NumberFormat
-                {...numberFormatProps}
+                {...(props as unknown)}
                 getInputRef={forwardedRef}
                 format="+1 (###) ###-####"
                 placeholder="+1 (___) ___-____"
@@ -655,3 +645,60 @@ export const NumberFormatExamples: Story = () => {
     );
 };
 NumberFormatExamples.storyName = 'Number Format';
+
+// Stripe examples
+// Sources:
+// https://github.com/mui-org/material-ui/issues/16037
+// https://stripe.com/docs/stripe-js/react
+
+type StripeElement = typeof CardNumberElement;
+
+interface StripeTextFieldProps<T extends StripeElement>
+    extends Omit<MuiCustomTextFieldProps, 'InputProps' | 'onChange'> {
+    onChange?: React.ComponentProps<T>['onChange'];
+    InputProps?: React.ComponentProps<T>;
+}
+
+const StripeTextField = React.forwardRef<HTMLDivElement, MuiCustomTextFieldProps>(
+    function StripeTextField(props, forwardedRef) {
+        return (
+            <MuiCustomTextField
+                {...(props as unknown)}
+                InputLabelProps={{ shrink: true }}
+                InputProps={{
+                    components: {
+                        Input: CardNumberElement
+                    }
+                }}
+                ref={forwardedRef}
+            />
+        );
+    }
+);
+
+const stripePromise = loadStripe(
+    'pk_test_51JNGkGFXIXQflH51jVAXNbge3weW7w8AFLN0LkM3Uev4hyJ7yMgavNamWahbKTDkQhD5NJZUJDQILPKu10N2VH3700PXaHO7Kb'
+);
+
+export const StripeExamples: Story = () => {
+    return (
+        <div className="stack stack--direction-column stack--gap-10">
+            <StripeTextField
+                id="stripe-card-number-field"
+                variant="outlined"
+                label="Card number"
+                required
+                fullWidth
+            />
+        </div>
+    );
+};
+StripeExamples.decorators = [
+    (StoryComponent) => {
+        return (
+            <Elements stripe={stripePromise}>
+                <StoryComponent />
+            </Elements>
+        );
+    }
+];
