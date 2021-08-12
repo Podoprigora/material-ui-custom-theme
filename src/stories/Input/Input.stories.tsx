@@ -1,8 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useImperativeHandle } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import NumberFormat, { NumberFormatProps } from 'react-number-format';
-import { Elements, CardNumberElement } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import NumberFormat from 'react-number-format';
+import {
+    Elements,
+    CardNumberElement,
+    CardExpiryElement,
+    CardCvcElement
+} from '@stripe/react-stripe-js';
+import { loadStripe, StripeElementChangeEvent } from '@stripe/stripe-js';
 
 import {
     Icon,
@@ -650,53 +655,211 @@ NumberFormatExamples.storyName = 'Number Format';
 // Sources:
 // https://github.com/mui-org/material-ui/issues/16037
 // https://stripe.com/docs/stripe-js/react
+// https://stripe.com/docs/js/elements_object/create_element?type=cardNumber#elements_create-options
+// https://stackoverflow.com/questions/43824382/custom-font-src-with-stripe
 
-type StripeElement = typeof CardNumberElement;
+type StripeElement = typeof CardNumberElement | typeof CardExpiryElement | typeof CardCvcElement;
 
 interface StripeTextFieldProps<T extends StripeElement>
-    extends Omit<MuiCustomTextFieldProps, 'InputProps' | 'onChange'> {
+    extends Omit<MuiCustomTextFieldProps, 'inputProps' | 'inputComponent' | 'onChange'> {
+    stripeElement?: T;
+    inputProps?: React.ComponentProps<T>;
+    labelErrorMessage?: string;
     onChange?: React.ComponentProps<T>['onChange'];
-    InputProps?: React.ComponentProps<T>;
 }
 
-const StripeTextField = React.forwardRef<HTMLDivElement, MuiCustomTextFieldProps>(
-    function StripeTextField(props, forwardedRef) {
-        return (
-            <MuiCustomTextField
-                {...(props as unknown)}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                    components: {
-                        Input: CardNumberElement
+const StripeInput = React.forwardRef<unknown, InputBaseComponentProps>(function StripeInput(
+    props,
+    forwardedRef
+) {
+    const { component: Component, options, ...other } = props;
+    const [mountNode, setMountNode] = useState<HTMLElement | null>(null);
+
+    useImperativeHandle(forwardedRef, () => ({ focus: () => mountNode?.focus() }), [mountNode]);
+
+    return (
+        <Component
+            onReady={setMountNode}
+            options={{
+                ...options,
+                style: {
+                    base: {
+                        color: '#212121',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        fontFamily: 'Poppins, Arial, sans-serif, monospace'
+                    },
+                    invalid: {
+                        color: '#212121'
                     }
-                }}
-                ref={forwardedRef}
+                }
+            }}
+            {...other}
+        />
+    );
+});
+
+const StripeTextField = function StripeTextField<T extends StripeElement>(
+    props: StripeTextFieldProps<T>
+) {
+    const {
+        stripeElement,
+        error,
+        labelErrorMessage,
+        helperText,
+        inputProps,
+        InputProps,
+        ...other
+    } = props;
+
+    return (
+        <MuiCustomTextField
+            {...(other as unknown)}
+            InputProps={{
+                ...InputProps,
+                inputProps: {
+                    ...(inputProps as Record<string, unknown>),
+                    ...InputProps?.inputProps,
+                    component: stripeElement
+                },
+                inputComponent: StripeInput
+            }}
+            error={error}
+            helperText={error ? labelErrorMessage : helperText}
+        />
+    );
+};
+
+const StripeCardNumberTextField = (props: StripeTextFieldProps<typeof CardNumberElement>) => {
+    const { inputProps, ...other } = props;
+
+    return (
+        <StripeTextField
+            {...other}
+            stripeElement={CardNumberElement}
+            inputProps={{
+                options: {
+                    placeholder: '',
+                    showIcon: true,
+                    iconStyle: 'default'
+                },
+                ...inputProps
+            }}
+        />
+    );
+};
+
+const StripeCardExpiryTextField = (props: StripeTextFieldProps<typeof CardExpiryElement>) => {
+    const { inputProps, ...other } = props;
+
+    return <StripeTextField {...other} stripeElement={CardExpiryElement} />;
+};
+
+const StripeCardCvcTextField = (props: StripeTextFieldProps<typeof CardCvcElement>) => {
+    const { inputProps, ...other } = props;
+
+    return <StripeTextField {...other} stripeElement={CardCvcElement} />;
+};
+
+interface StripeFieldsState {
+    cardNumberComplete: boolean;
+    cardExpiryComplete: boolean;
+    cardCvcComplete: boolean;
+    cardNumberError?: string;
+    cardExpiryError?: string;
+    cardCvcError?: string;
+}
+
+export const StripeExamples: Story = () => {
+    const [fields, setFields] = useState<StripeFieldsState>({
+        cardNumberComplete: false,
+        cardExpiryComplete: false,
+        cardCvcComplete: false,
+        cardNumberError: '',
+        cardExpiryError: '',
+        cardCvcError: ''
+    });
+
+    const handleFieldChange = (fieldCompleted: string, fieldError: string) => (
+        ev: StripeElementChangeEvent
+    ) => {
+        const { complete, error } = ev;
+
+        setFields((prevState) => {
+            return {
+                ...prevState,
+                [fieldCompleted]: complete,
+                [fieldError]: error?.message
+            };
+        });
+    };
+
+    const { cardNumberError, cardExpiryError, cardCvcError } = fields;
+
+    return (
+        <div
+            className="stack stack--direction-column stack--justify-items-stretch stack--gap-10"
+            style={{ maxWidth: '40rem' }}
+        >
+            <StripeCardNumberTextField
+                variant="outlined"
+                label="Card number"
+                InputLabelProps={{ shrink: true }}
+                fullWidth
+                required
+                error={!!cardNumberError}
+                labelErrorMessage={cardNumberError}
+                onChange={handleFieldChange('cardNumberCompleted', 'cardNumberError')}
             />
-        );
-    }
-);
+            <div
+                className="stack stack--justify-stretch stack--align-items-start stack--gap-10"
+                style={{
+                    gridTemplateColumns: 'minmax(auto, 1fr) minmax(auto, 1fr)'
+                }}
+            >
+                <StripeCardExpiryTextField
+                    variant="outlined"
+                    label="Expiries"
+                    InputLabelProps={{ shrink: true }}
+                    fullWidth
+                    required
+                    error={!!cardExpiryError}
+                    labelErrorMessage={cardExpiryError}
+                    onChange={handleFieldChange('cardExpiryCompleted', 'cardExpiryError')}
+                />
+                <StripeCardCvcTextField
+                    variant="outlined"
+                    label="CVC"
+                    InputLabelProps={{ shrink: true }}
+                    fullWidth
+                    required
+                    error={!!cardCvcError}
+                    labelErrorMessage={cardCvcError}
+                    onChange={handleFieldChange('cardCvcCompleted', 'cardCvcError')}
+                />
+            </div>
+        </div>
+    );
+};
 
 const stripePromise = loadStripe(
     'pk_test_51JNGkGFXIXQflH51jVAXNbge3weW7w8AFLN0LkM3Uev4hyJ7yMgavNamWahbKTDkQhD5NJZUJDQILPKu10N2VH3700PXaHO7Kb'
 );
 
-export const StripeExamples: Story = () => {
-    return (
-        <div className="stack stack--direction-column stack--gap-10">
-            <StripeTextField
-                id="stripe-card-number-field"
-                variant="outlined"
-                label="Card number"
-                required
-                fullWidth
-            />
-        </div>
-    );
-};
 StripeExamples.decorators = [
     (StoryComponent) => {
         return (
-            <Elements stripe={stripePromise}>
+            <Elements
+                stripe={stripePromise}
+                options={{
+                    fonts: [
+                        {
+                            cssSrc:
+                                'https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap'
+                        }
+                    ]
+                }}
+            >
                 <StoryComponent />
             </Elements>
         );
