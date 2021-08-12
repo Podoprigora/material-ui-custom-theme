@@ -687,7 +687,11 @@ const StripeInput = React.forwardRef<unknown, InputBaseComponentProps>(function 
                         color: '#212121',
                         fontSize: '14px',
                         fontWeight: '500',
-                        fontFamily: 'Poppins, Arial, sans-serif, monospace'
+                        fontFamily: 'Poppins, Arial, sans-serif, monospace',
+                        '::placeholder': {
+                            fontWeight: '400',
+                            color: 'rgba(0, 0, 0, .58)'
+                        }
                     },
                     invalid: {
                         color: '#212121'
@@ -770,7 +774,7 @@ interface StripeFieldsState {
     cardCvcError?: string;
 }
 
-export const StripeExamples: Story = () => {
+export const StripeElements: Story = () => {
     const [fields, setFields] = useState<StripeFieldsState>({
         cardNumberComplete: false,
         cardExpiryComplete: false,
@@ -846,7 +850,7 @@ const stripePromise = loadStripe(
     'pk_test_51JNGkGFXIXQflH51jVAXNbge3weW7w8AFLN0LkM3Uev4hyJ7yMgavNamWahbKTDkQhD5NJZUJDQILPKu10N2VH3700PXaHO7Kb'
 );
 
-StripeExamples.decorators = [
+StripeElements.decorators = [
     (StoryComponent) => {
         return (
             <Elements
@@ -855,7 +859,7 @@ StripeExamples.decorators = [
                     fonts: [
                         {
                             cssSrc:
-                                'https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap'
+                                'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap'
                         }
                     ]
                 }}
