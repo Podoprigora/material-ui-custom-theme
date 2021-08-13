@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Meta } from '@storybook/react/types-6-0';
+import _throttle from 'lodash/throttle';
 
 import {
     IconButton,
@@ -11,7 +12,8 @@ import {
     ListItemText,
     ListItemIcon,
     Divider,
-    MenuList
+    MenuList,
+    useEventCallback
 } from '@material-ui/core';
 import { BorderClear, KeyboardArrowRight } from '@material-ui/icons';
 import { MoreVerticalSvg, UserSvg } from '../../assets/svg-icons/feather';
@@ -25,17 +27,27 @@ export const MouseHoverExample = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>();
     const [open, setOpen] = useState(false);
 
-    const handleToggleOpen = useCallback(() => {
-        setOpen((prevState) => !prevState);
+    const handleMouseEnter = useMemo(() => {
+        return _throttle(
+            () => {
+                setOpen(true);
+            },
+            166,
+            { leading: true, trailing: false }
+        );
     }, []);
+
+    const handleMouseLeave = useEventCallback(() => {
+        setOpen(false);
+    });
 
     return (
         <>
             <IconButton
                 className="MuiIconButton-dense MuiIconButton-circular"
-                onMouseEnter={handleToggleOpen}
-                onMouseLeave={handleToggleOpen}
                 style={{ marginLeft: '10rem' }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 ref={setAnchorEl}
             >
                 <Avatar variant="circular" className="MuiAvatar-colorPrimary">

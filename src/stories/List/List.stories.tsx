@@ -446,7 +446,7 @@ const VirtualizedListItem = React.memo((props: VirtualizedListItemProps) => {
     const { data, style, index } = props;
     const { items = [], selected, onSelect } = data;
     const { code, label, phone } = items[index] || {};
-    const checked = !!selected.find((item) => item === index);
+    const checked = selected.indexOf(index) !== -1;
 
     const handleCheckboxChange = useCallback(() => {
         onSelect(index);

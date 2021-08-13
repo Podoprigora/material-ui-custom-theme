@@ -147,6 +147,8 @@
 .MuiListItemBadge {
     flex: none;
     align-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
 
     .MuiBadge-badge {
         position: relative;
