@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import {
@@ -13,17 +13,60 @@ import {
     useEventCallback,
     InputAdornment,
     useTheme,
-    ListSubheader
+    ListSubheader,
+    Paper,
+    SelectProps,
+    MenuProps,
+    PaperProps
 } from '@material-ui/core';
 import { FiberManualRecordRounded, LabelRounded } from '@material-ui/icons';
 
-import { MuiCustomTextField } from '@mui-custom';
+import { MuiCustomSimplebar, MuiCustomSimplebarRef, MuiCustomTextField } from '@mui-custom';
 import { TagSvg } from '../../assets/svg-icons/feather';
 
 export default {
     title: 'mui-custom/Select',
     component: Select
 } as Meta;
+
+interface MenuPaperWithCustomScrollbarProps extends PaperProps {
+    component?: React.ElementType;
+    maxHeight?: string;
+}
+
+const MenuPaperWithCustomScrollbar = React.forwardRef<
+    HTMLDivElement,
+    MenuPaperWithCustomScrollbarProps
+>((props, forwardedRef) => {
+    const { children, maxHeight, ...other } = props;
+    const [scrollbarRef, setScrollbarRef] = useState<MuiCustomSimplebarRef>(null);
+    const focusedElementRef = useRef<HTMLElement>();
+
+    const handleFocus = (ev: React.FocusEvent) => {
+        if (ev.target) {
+            focusedElementRef.current = ev.target as HTMLElement;
+        }
+    };
+
+    useEffect(() => {
+        if (scrollbarRef && focusedElementRef.current) {
+            focusedElementRef.current.scrollIntoView({ block: 'center', inline: 'center' });
+        }
+    }, [scrollbarRef]);
+
+    return (
+        <Paper {...other} ref={forwardedRef}>
+            <MuiCustomSimplebar
+                autoHide={false}
+                style={{ maxHeight }}
+                ref={setScrollbarRef}
+                onFocus={handleFocus}
+            >
+                {children}
+            </MuiCustomSimplebar>
+        </Paper>
+    );
+});
 
 const labelsData: { id: number; name: string; color?: string; group?: string }[] = [
     { id: 1, name: 'Important', color: '#36B4C4', group: 'Default' },
@@ -55,13 +98,17 @@ export const Default: Story = () => {
         return <span className="u-text-truncate">{selectedItem?.name}</span>;
     };
 
-    const selectProps: TextFieldProps['SelectProps'] = {
+    const selectProps: TextFieldProps['SelectProps'] & {
+        MenuProps?: { PaperProps?: MenuPaperWithCustomScrollbarProps };
+    } = {
         renderValue,
         displayEmpty: true,
         placeholder: 'Select label',
         MenuProps: {
             ...muiTheme.components?.MuiSelect?.defaultProps?.MenuProps,
             PaperProps: {
+                component: MenuPaperWithCustomScrollbar,
+                maxHeight: '34rem',
                 sx: { width: '100%', maxWidth: '24rem', marginTop: '.2rem' }
             }
         }
