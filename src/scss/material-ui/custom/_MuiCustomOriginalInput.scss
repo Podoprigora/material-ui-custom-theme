@@ -45,7 +45,7 @@
                 box-shadow: $input-base-error-box-shadow;
             }
 
-            & #{$this}-input {
+            & #{$this}-input:not([role='button']) {
                 padding: $input-base-padding-y 0;
                 height: auto;
 

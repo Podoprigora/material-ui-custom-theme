@@ -26,7 +26,7 @@ $color-secondary-text: #fff;
 $color-secondary-border-color: #d9ebed;
 
 $color-error: $red-accent-4;
-$color-text-note: $gray-darken-1;
+$color-text-note: $gray;
 
 // Body
 $body-bg-color: $gray-lighten-3;
@@ -179,7 +179,7 @@ $toggle-btn-secondary-selected-box-shadow: inset 0 0 0 0.2rem rgba($color-second
 // MuiList
 $list-padding-y: $spacing-scale-4;
 $list-padding-x: $spacing-scale-8;
-$list-item-line-height: $btn-line-height;
+$list-item-line-height: 1.4;
 $list-item-icon-font-size: $icon-large-font-size;
 $list-item-selected-bg-color: rgba($color-primary, 0.12);
 $list-item-selected-hover-bg-color: rgba($color-primary, 0.08);

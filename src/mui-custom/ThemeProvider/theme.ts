@@ -1,4 +1,6 @@
 import { createTheme, Grow, PopoverProps } from '@material-ui/core';
+import React from 'react';
+import { ChevronDownSvg } from '../../assets/svg-icons/feather';
 
 // Modules
 declare module '@material-ui/core/Icon' {
@@ -97,6 +99,17 @@ export const theme = createTheme({
         MuiFilledInput: {
             defaultProps: {
                 disableUnderline: true
+            }
+        },
+        MuiSelect: {
+            defaultProps: {
+                IconComponent: ChevronDownSvg as React.ElementType,
+                MenuProps: {
+                    ...MuiPopoverDefaultProps,
+                    PaperProps: {
+                        sx: { marginTop: '.2rem' }
+                    }
+                }
             }
         }
     }
