@@ -11,7 +11,8 @@ import {
     InputAdornment,
     useTheme,
     ListSubheader,
-    InputBaseComponentProps
+    InputBaseComponentProps,
+    useMediaQuery
 } from '@material-ui/core';
 import { LabelRounded } from '@material-ui/icons';
 
@@ -254,11 +255,18 @@ const YearField = (props: MuiCustomTextFieldProps) => {
 };
 
 export const BirthdaySelect: Story = () => {
+    const isMatchMaxWidth = useMediaQuery('(max-width: 500px)');
+    let gridTemplateColumns = 'minmax(16rem, 1fr) repeat(2, minmax(10rem, 1fr))';
+
+    if (isMatchMaxWidth) {
+        gridTemplateColumns = 'repeat(auto-fit, minmax(14rem, 1fr))';
+    }
+
     return (
         <div
             className="stack stack--justify-items-stretch stack--align-items-end stack--gap-6"
             style={{
-                gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))',
+                gridTemplateColumns,
                 maxWidth: '40rem'
             }}
         >

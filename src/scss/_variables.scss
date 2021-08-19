@@ -26,7 +26,7 @@ $color-secondary-text: #fff;
 $color-secondary-border-color: #d9ebed;
 
 $color-error: $red-accent-4;
-$color-text-note: $gray;
+$color-text-note: rgba($gray-darken-4, 0.6);
 
 // Body
 $body-bg-color: $gray-lighten-3;
@@ -196,11 +196,11 @@ $menu-item-min-height: 3.8rem;
 $menu-paper-box-shadow: map-get($paper-elevations, 4);
 
 // Simplebar
-$simplebar-track-size: 1.1rem;
+$simplebar-track-size: 1rem;
 $simplebar-scrollbar-min-size: 1rem;
-$simplebar-scrollbar-bg-color: $icon-color;
-$simplebar-scrollbar-opacity: 0.5;
-$simplebar-scrollbar-hover-opacity: 0.5;
+$simplebar-scrollbar-bg-color: $gray;
+$simplebar-scrollbar-opacity: 0.4;
+$simplebar-scrollbar-hover-opacity: 0.4;
 
 // Popper
 $popper-arrow-size: 1.2rem !default;
@@ -275,7 +275,7 @@ $input-base-line-height: $line-height;
 $input-base-letter-spacing: 0.2px;
 $input-base-color: $body-color;
 $input-base-bg-color: $white;
-$input-base-placeholder-opacity: 0.65;
+$input-base-placeholder-opacity: 0.6;
 $input-base-padding-x: $btn-medium-padding-x;
 $input-base-padding-y: $spacing-scale-5 - 0.05rem;
 $input-base-min-height: $btn-medium-min-height;
