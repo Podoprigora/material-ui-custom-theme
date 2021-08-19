@@ -68,13 +68,11 @@ export const MouseHoverExample = () => {
                     pointerEvents: 'none',
                     margin: '1rem'
                 }}
+                PaperProps={{ sx: { width: '100%', maxWidth: '30rem', padding: '1.6rem' } }}
             >
-                <div style={{ width: '100%', maxWidth: '30rem', padding: '1.6rem' }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus natus
-                    tempore! Repellendus ea odio vero quaerat numquam optio voluptas neque
-                    reiciendis, veritatis accusantium facere provident ipsum. Ratione, numquam
-                    fugit!
-                </div>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus natus tempore!
+                Repellendus ea odio vero quaerat numquam optio voluptas neque reiciendis, veritatis
+                accusantium facere provident ipsum. Ratione, numquam fugit!
             </Popover>
         </>
     );

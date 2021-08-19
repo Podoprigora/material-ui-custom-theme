@@ -11,13 +11,17 @@ declare module '@material-ui/core/Icon' {
 }
 
 // Default props
-const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> & {
-    PaperProps?: MuiCustomPaperSimplebarProps;
-} = {
+const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
     TransitionComponent: Grow,
     TransitionProps: { timeout: { exit: 120, enter: 220 } },
     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-    transformOrigin: { vertical: 'top', horizontal: 'left' },
+    transformOrigin: { vertical: 'top', horizontal: 'left' }
+};
+
+const MuiMenuPopoverDefaultProps: typeof MuiPopoverDefaultProps & {
+    PaperProps?: MuiCustomPaperSimplebarProps;
+} = {
+    ...MuiPopoverDefaultProps,
     PaperProps: {
         component: MuiCustomPaperSimplebar,
         maxHeight: '32rem'
@@ -92,9 +96,9 @@ export const theme = createTheme({
         },
         MuiMenu: {
             defaultProps: {
-                ...MuiPopoverDefaultProps,
+                ...MuiMenuPopoverDefaultProps,
                 PaperProps: {
-                    ...MuiPopoverDefaultProps.PaperProps,
+                    ...MuiMenuPopoverDefaultProps.PaperProps,
                     sx: { minWidth: '14rem' }
                 }
             }
@@ -113,9 +117,9 @@ export const theme = createTheme({
             defaultProps: {
                 IconComponent: ChevronDownSvg as React.ElementType,
                 MenuProps: {
-                    ...MuiPopoverDefaultProps,
+                    ...MuiMenuPopoverDefaultProps,
                     PaperProps: {
-                        ...MuiPopoverDefaultProps.PaperProps,
+                        ...MuiMenuPopoverDefaultProps.PaperProps,
                         sx: { marginTop: '.2rem' }
                     }
                 }

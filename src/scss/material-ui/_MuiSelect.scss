@@ -24,8 +24,6 @@
 
         &.MuiInput-root {
             #{$this}-select {
-                padding-top: $input-base-padding-y * 2;
-
                 &:focus {
                     background-color: transparent;
                 }

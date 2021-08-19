@@ -1,24 +1,16 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import clsx from 'clsx';
 
 import {
-    TextField,
     Select,
     MenuItem,
-    ListItemButton,
     ListItemText,
     ListItemIcon,
-    Icon,
     TextFieldProps,
     useEventCallback,
     InputAdornment,
     useTheme,
     ListSubheader,
-    Paper,
-    SelectProps,
-    MenuProps,
-    PaperProps,
     InputBaseComponentProps
 } from '@material-ui/core';
 import { LabelRounded } from '@material-ui/icons';
@@ -55,13 +47,9 @@ export const LabelsSelect: Story = () => {
     const selectedItem = useMemo(() => labelsData.find((item) => item.id === selected), [selected]);
 
     const handleChange = useEventCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
-        const value = ev.target.value;
+        const value = ev.target.value ? parseInt(ev.target.value, 10) : '';
 
-        if (!value) {
-            setSelected('');
-        } else {
-            setSelected(parseInt(ev.target.value, 10));
-        }
+        setSelected(value);
     });
 
     const renderValue = (): React.ReactNode => {
@@ -172,7 +160,7 @@ const DaysSelectField = (props: MuiCustomTextFieldProps) => {
             return <span className="u-text-note">Day</span>;
         }
 
-        return <span>{String(value)}</span>;
+        return <span className="u-text-truncate">{String(value)}</span>;
     };
 
     return (
@@ -203,7 +191,7 @@ const MonthSelectField = (props: MuiCustomTextFieldProps) => {
             return <span className="u-text-note">Month</span>;
         }
 
-        return <span>{String(value)}</span>;
+        return <span className="u-text-truncate">{String(value)}</span>;
     };
 
     return (
@@ -270,13 +258,13 @@ export const BirthdaySelect: Story = () => {
         <div
             className="stack stack--justify-items-stretch stack--align-items-end stack--gap-6"
             style={{
-                gridTemplateColumns: 'minmax(4rem, 16rem) minmax(4rem, 10rem) minmax(6rem, 1fr)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))',
                 maxWidth: '40rem'
             }}
         >
-            <MonthSelectField fullWidth />
-            <DaysSelectField fullWidth />
-            <YearField fullWidth />
+            <MonthSelectField />
+            <DaysSelectField />
+            <YearField />
         </div>
     );
 };
