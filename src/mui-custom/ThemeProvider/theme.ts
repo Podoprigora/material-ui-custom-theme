@@ -1,4 +1,5 @@
 import { createTheme, Grow, PopoverProps } from '@material-ui/core';
+import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
 import React from 'react';
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
 
@@ -10,11 +11,17 @@ declare module '@material-ui/core/Icon' {
 }
 
 // Default props
-const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
+const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> & {
+    PaperProps?: MuiCustomPaperSimplebarProps;
+} = {
     TransitionComponent: Grow,
     TransitionProps: { timeout: { exit: 120, enter: 220 } },
     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-    transformOrigin: { vertical: 'top', horizontal: 'left' }
+    transformOrigin: { vertical: 'top', horizontal: 'left' },
+    PaperProps: {
+        component: MuiCustomPaperSimplebar,
+        maxHeight: '32rem'
+    }
 };
 
 // Theme
@@ -87,6 +94,7 @@ export const theme = createTheme({
             defaultProps: {
                 ...MuiPopoverDefaultProps,
                 PaperProps: {
+                    ...MuiPopoverDefaultProps.PaperProps,
                     sx: { minWidth: '14rem' }
                 }
             }
@@ -107,6 +115,7 @@ export const theme = createTheme({
                 MenuProps: {
                     ...MuiPopoverDefaultProps,
                     PaperProps: {
+                        ...MuiPopoverDefaultProps.PaperProps,
                         sx: { marginTop: '.2rem' }
                     }
                 }

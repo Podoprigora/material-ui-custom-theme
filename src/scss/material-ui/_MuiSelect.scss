@@ -20,6 +20,16 @@
         #{$this}-select.MuiInputBase-input {
             padding-right: $input-base-padding-x + $input-base-adornment-font-size;
         }
+
+        &.MuiInput-root {
+            #{$this}-select {
+                padding-top: $input-base-padding-y * 2;
+
+                &:focus {
+                    background-color: transparent;
+                }
+            }
+        }
     }
 
     &-select {

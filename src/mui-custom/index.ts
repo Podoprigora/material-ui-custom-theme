@@ -1,4 +1,5 @@
 export * from './Simplebar';
+export * from './PaperSimplebar';
 export * from './Menu';
 export * from './ColorList';
 export * from './LinkedList';

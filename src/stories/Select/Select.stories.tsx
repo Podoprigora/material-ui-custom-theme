@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import clsx from 'clsx';
 
 import {
     TextField,
@@ -19,54 +20,16 @@ import {
     MenuProps,
     PaperProps
 } from '@material-ui/core';
-import { FiberManualRecordRounded, LabelRounded } from '@material-ui/icons';
+import { LabelRounded } from '@material-ui/icons';
 
-import { MuiCustomSimplebar, MuiCustomSimplebarRef, MuiCustomTextField } from '@mui-custom';
-import { TagSvg } from '../../assets/svg-icons/feather';
+import { MuiCustomPaperSimplebarProps, MuiCustomTextField } from '@mui-custom';
 
 export default {
     title: 'mui-custom/Select',
     component: Select
 } as Meta;
 
-interface MenuPaperWithCustomScrollbarProps extends PaperProps {
-    component?: React.ElementType;
-    maxHeight?: string;
-}
-
-const MenuPaperWithCustomScrollbar = React.forwardRef<
-    HTMLDivElement,
-    MenuPaperWithCustomScrollbarProps
->((props, forwardedRef) => {
-    const { children, maxHeight, ...other } = props;
-    const [scrollbarRef, setScrollbarRef] = useState<MuiCustomSimplebarRef>(null);
-    const focusedElementRef = useRef<HTMLElement>();
-
-    const handleFocus = (ev: React.FocusEvent) => {
-        if (ev.target) {
-            focusedElementRef.current = ev.target as HTMLElement;
-        }
-    };
-
-    useEffect(() => {
-        if (scrollbarRef && focusedElementRef.current) {
-            focusedElementRef.current.scrollIntoView({ block: 'center', inline: 'center' });
-        }
-    }, [scrollbarRef]);
-
-    return (
-        <Paper {...other} ref={forwardedRef}>
-            <MuiCustomSimplebar
-                autoHide={false}
-                style={{ maxHeight }}
-                ref={setScrollbarRef}
-                onFocus={handleFocus}
-            >
-                {children}
-            </MuiCustomSimplebar>
-        </Paper>
-    );
-});
+// Labels Select
 
 const labelsData: { id: number; name: string; color?: string; group?: string }[] = [
     { id: 1, name: 'Important', color: '#36B4C4', group: 'Default' },
@@ -79,15 +42,20 @@ const labelsData: { id: number; name: string; color?: string; group?: string }[]
     { id: 8, name: 'Custom 4', group: 'Custom' }
 ];
 
-export const Default: Story = () => {
+export const LabelsSelect: Story = () => {
     const [selected, setSelected] = useState<number | string>('');
     const muiTheme = useTheme();
 
     const selectedItem = useMemo(() => labelsData.find((item) => item.id === selected), [selected]);
 
     const handleChange = useEventCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(ev.target.value, 10);
-        setSelected(value);
+        const value = ev.target.value;
+
+        if (!value) {
+            setSelected('');
+        } else {
+            setSelected(parseInt(ev.target.value, 10));
+        }
     });
 
     const renderValue = (): React.ReactNode => {
@@ -99,17 +67,15 @@ export const Default: Story = () => {
     };
 
     const selectProps: TextFieldProps['SelectProps'] & {
-        MenuProps?: { PaperProps?: MenuPaperWithCustomScrollbarProps };
+        MenuProps?: { PaperProps?: MuiCustomPaperSimplebarProps };
     } = {
         renderValue,
         displayEmpty: true,
-        placeholder: 'Select label',
         MenuProps: {
             ...muiTheme.components?.MuiSelect?.defaultProps?.MenuProps,
             PaperProps: {
-                component: MenuPaperWithCustomScrollbar,
-                maxHeight: '34rem',
-                sx: { width: '100%', maxWidth: '24rem', marginTop: '.2rem' }
+                ...muiTheme.components?.MuiSelect?.defaultProps?.MenuProps?.PaperProps,
+                maxWidth: '24rem'
             }
         }
     };
@@ -123,7 +89,11 @@ export const Default: Story = () => {
     };
 
     return (
-        <div className="stack stack--direction-column stack--gap-10" style={{ maxWidth: '20rem' }}>
+        <div
+            style={{
+                maxWidth: '20rem'
+            }}
+        >
             <MuiCustomTextField
                 variant="outlined"
                 label="Filter by label"
@@ -135,7 +105,7 @@ export const Default: Story = () => {
                 SelectProps={selectProps}
                 onChange={handleChange}
             >
-                <MenuItem value={-1}>
+                <MenuItem value="">
                     <ListItemText inset className="u-text-note">
                         None
                     </ListItemText>
@@ -148,7 +118,9 @@ export const Default: Story = () => {
                                 item.group !== labelsData[index - 1].group));
 
                     const groupElement = shouldRenderGroup ? (
-                        <ListSubheader className="u-text-note">{item.group}</ListSubheader>
+                        <ListSubheader disableSticky className="u-text-note">
+                            {item.group}
+                        </ListSubheader>
                     ) : null;
 
                     return [

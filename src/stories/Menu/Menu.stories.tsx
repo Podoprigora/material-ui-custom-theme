@@ -24,7 +24,13 @@ import {
     Sort
 } from '@material-ui/icons';
 
-import { MuiCustomColorList, MuiCustomMenu, MuiCustomSubMenu } from '@mui-custom';
+import {
+    MuiCustomColorList,
+    MuiCustomMenu,
+    MuiCustomPaperSimplebar,
+    MuiCustomPaperSimplebarProps,
+    MuiCustomSubMenu
+} from '@mui-custom';
 import {
     usePopupState,
     bindTrigger,
@@ -152,6 +158,13 @@ export const SelectedMenu = () => {
         });
     }, [selectedOption, handlePopupClose]);
 
+    const menuPaperProps = useMemo<MuiCustomPaperSimplebarProps>(() => {
+        return {
+            component: MuiCustomPaperSimplebar,
+            maxWidth: '24rem'
+        };
+    }, []);
+
     return (
         <>
             <Button
@@ -173,10 +186,7 @@ export const SelectedMenu = () => {
             >
                 <span className="u-text-strong">{buttonText}</span>
             </Button>
-            <Menu
-                PaperProps={{ sx: { width: '100%', maxWidth: '20rem' } }}
-                {...bindMenu(popupState)}
-            >
+            <Menu PaperProps={menuPaperProps} {...bindMenu(popupState)}>
                 {items}
             </Menu>
         </>
@@ -268,6 +278,14 @@ export const NestedMenu = () => {
 export const FacebookProfileMenu = () => {
     const popupState = usePopupState({ variant: 'popover', popupId: 'facebookProfileMenu' });
 
+    const paperProps = useMemo<MuiCustomPaperSimplebarProps>(() => {
+        return {
+            component: MuiCustomPaperSimplebar,
+            maxWidth: '40rem',
+            elevation: 4
+        };
+    }, []);
+
     return (
         <div
             style={{
@@ -297,7 +315,7 @@ export const FacebookProfileMenu = () => {
                 TransitionComponent={Fade}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                PaperProps={{ elevation: 4, sx: { width: '40rem' } }}
+                PaperProps={paperProps}
             >
                 <FacebookSettingLinkedList />
             </Popover>

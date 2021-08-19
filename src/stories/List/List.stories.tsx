@@ -284,9 +284,7 @@ export const LocationsList = () => {
                 const scrolledElement = scrollbarRef.getScrollElement();
                 const topPos = scrolledElement.scrollTop;
 
-                scrolledElement.scrollTo({
-                    top: topPos + offset
-                });
+                scrolledElement.scrollTop = topPos + offset;
             }
         },
         [scrollbarRef]
