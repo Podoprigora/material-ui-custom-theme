@@ -4,6 +4,7 @@
     &-root {
         position: relative;
         padding: 0;
+        min-width: $select-min-width;
 
         &.MuiInputBase-adornedStart {
             padding-left: $input-base-padding-x;

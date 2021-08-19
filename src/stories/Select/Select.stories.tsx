@@ -18,11 +18,17 @@ import {
     Paper,
     SelectProps,
     MenuProps,
-    PaperProps
+    PaperProps,
+    InputBaseComponentProps
 } from '@material-ui/core';
 import { LabelRounded } from '@material-ui/icons';
 
-import { MuiCustomPaperSimplebarProps, MuiCustomTextField } from '@mui-custom';
+import {
+    MuiCustomPaperSimplebarProps,
+    MuiCustomTextField,
+    MuiCustomTextFieldProps
+} from '@mui-custom';
+import NumberFormat, { NumberFormatValues } from 'react-number-format';
 
 export default {
     title: 'mui-custom/Select',
@@ -134,6 +140,143 @@ export const LabelsSelect: Story = () => {
                     ];
                 })}
             </MuiCustomTextField>
+        </div>
+    );
+};
+
+// Birthday select
+
+const daysItems = Array.from({ length: 31 }, (_, index) => {
+    const item = String(index + 1);
+    return item.padStart(2, '0');
+});
+
+const monthsItems = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
+
+const DaysSelectField = (props: MuiCustomTextFieldProps) => {
+    const renderValue = (value: unknown) => {
+        if (!value) {
+            return <span className="u-text-note">Day</span>;
+        }
+
+        return <span>{String(value)}</span>;
+    };
+
+    return (
+        <MuiCustomTextField
+            select
+            variant="original"
+            defaultValue=""
+            SelectProps={{ renderValue, displayEmpty: true }}
+            {...props}
+        >
+            <MenuItem value="">
+                <ListItemText className="u-text-note">None</ListItemText>
+            </MenuItem>
+            {daysItems.map((item, index) => {
+                return (
+                    <MenuItem key={index} value={item}>
+                        {item}
+                    </MenuItem>
+                );
+            })}
+        </MuiCustomTextField>
+    );
+};
+
+const MonthSelectField = (props: MuiCustomTextFieldProps) => {
+    const renderValue = (value: unknown) => {
+        if (!value) {
+            return <span className="u-text-note">Month</span>;
+        }
+
+        return <span>{String(value)}</span>;
+    };
+
+    return (
+        <MuiCustomTextField
+            select
+            variant="original"
+            label="Birthday"
+            defaultValue=""
+            SelectProps={{ renderValue, displayEmpty: true }}
+            {...props}
+        >
+            <MenuItem value="">
+                <ListItemText className="u-text-note">None</ListItemText>
+            </MenuItem>
+            {monthsItems.map((item, index) => {
+                return (
+                    <MenuItem key={index} value={item}>
+                        {item}
+                    </MenuItem>
+                );
+            })}
+        </MuiCustomTextField>
+    );
+};
+
+const YearNumberFormatInput = React.forwardRef<HTMLInputElement, InputBaseComponentProps>(
+    (props, forwardedRef) => {
+        const isAllowed = (value: NumberFormatValues) => {
+            const stringValue = value.value;
+            const numValue = value.floatValue;
+            const currentYear = new Date().getFullYear();
+
+            return (
+                !numValue ||
+                (numValue < currentYear &&
+                    !(stringValue.length === 4 && numValue < currentYear - 200))
+            );
+        };
+
+        return (
+            <NumberFormat
+                {...(props as unknown)}
+                getInputRef={forwardedRef}
+                format="####"
+                isAllowed={isAllowed}
+            />
+        );
+    }
+);
+
+const YearField = (props: MuiCustomTextFieldProps) => {
+    return (
+        <MuiCustomTextField
+            {...props}
+            variant="original"
+            placeholder="Year"
+            InputProps={{ inputComponent: YearNumberFormatInput }}
+        />
+    );
+};
+
+export const BirthdaySelect: Story = () => {
+    return (
+        <div
+            className="stack stack--justify-items-stretch stack--align-items-end stack--gap-6"
+            style={{
+                gridTemplateColumns: 'minmax(4rem, 16rem) minmax(4rem, 10rem) minmax(6rem, 1fr)',
+                maxWidth: '40rem'
+            }}
+        >
+            <MonthSelectField fullWidth />
+            <DaysSelectField fullWidth />
+            <YearField fullWidth />
         </div>
     );
 };
