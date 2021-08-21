@@ -124,6 +124,13 @@ export const theme = createTheme({
                     }
                 }
             }
+        },
+        MuiCheckbox: {
+            defaultProps: {
+                color: 'primary',
+                icon: <div className="MuiCustomCheckbox" />,
+                checkedIcon: <div className="MuiCustomCheckbox MuiCustomCheckbox-checked" />
+            }
         }
     }
 });

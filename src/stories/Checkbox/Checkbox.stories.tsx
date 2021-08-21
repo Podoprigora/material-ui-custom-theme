@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Checkbox, CheckboxProps, IconButton, Icon } from '@material-ui/core';
+import { Checkbox, CheckboxProps } from '@material-ui/core';
 
 export default {
     title: 'mui-custom/Checkbox',
@@ -17,6 +17,5 @@ export const Default: Story<CheckboxProps> = (args) => {
 };
 
 Default.args = {
-    disabled: false,
-    color: 'primary'
+    disabled: false
 } as CheckboxProps;
