@@ -15,7 +15,8 @@ import {
     InputAdornment,
     InputBase,
     InputBaseComponentProps,
-    useEventCallback
+    useEventCallback,
+    useTheme
 } from '@material-ui/core';
 import { MuiCustomTextField, MuiCustomTextFieldProps } from '@mui-custom';
 
@@ -674,6 +675,7 @@ const StripeInput = React.forwardRef<unknown, InputBaseComponentProps>(function 
 ) {
     const { component: Component, options, ...other } = props;
     const [mountNode, setMountNode] = useState<HTMLElement | null>(null);
+    const theme = useTheme();
 
     useImperativeHandle(forwardedRef, () => ({ focus: () => mountNode?.focus() }), [mountNode]);
 
@@ -684,17 +686,17 @@ const StripeInput = React.forwardRef<unknown, InputBaseComponentProps>(function 
                 ...options,
                 style: {
                     base: {
-                        color: '#212121',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        fontFamily: 'Poppins, Arial, sans-serif, monospace',
+                        color: theme.palette.text.primary,
+                        fontSize: theme.typography.fontSize,
+                        fontWeight: theme.typography.fontWeightMedium,
+                        fontFamily: theme.typography.fontFamily,
                         '::placeholder': {
-                            fontWeight: '400',
-                            color: 'rgba(0, 0, 0, .58)'
+                            fontWeight: theme.typography.fontWeightRegular,
+                            color: theme.palette.text.secondary
                         }
                     },
                     invalid: {
-                        color: '#212121'
+                        color: theme.palette.text.primary
                     }
                 }
             }}

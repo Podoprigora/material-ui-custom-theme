@@ -10,11 +10,9 @@
     &-root {
         $selector: &;
 
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
         padding-top: $list-padding-y;
         padding-bottom: $list-padding-y;
+        min-height: $list-item-min-height;
 
         &:hover {
             background-color: rgba($btn-color, $btn-outlined-hover-opacity);
@@ -62,10 +60,6 @@
     &-root {
         margin-top: $spacing-scale-1;
         margin-bottom: $spacing-scale-1;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        line-height: $list-item-line-height;
 
         & ~ & {
             margin-left: $list-padding-x;
@@ -81,13 +75,11 @@
 
         #{$this}-primary {
             font-size: $list-item-multiline-text-primary-font-size;
-            line-height: inherit;
             margin-bottom: $list-item-multiline-text-primary-margin-bottom;
         }
 
         #{$this}-secondary {
             font-size: $list-item-multiline-text-secondary-font-size;
-            line-height: inherit;
             color: $list-item-multiline-text-secondary-color;
         }
     }
@@ -117,6 +109,7 @@
 
         &:first-child {
             margin-right: $list-padding-x - $spacing-scale-1;
+            margin-top: 0;
         }
 
         &:not(:first-child) {
@@ -129,11 +122,10 @@
     &-root {
         display: flex;
         align-items: center;
-        font-family: inherit;
         font-size: inherit;
-        line-height: $list-item-line-height;
+        line-height: inherit;
         color: inherit;
-        min-height: $list-subheader-min-height;
+        min-height: $list-item-min-height;
     }
 
     &-gutters {

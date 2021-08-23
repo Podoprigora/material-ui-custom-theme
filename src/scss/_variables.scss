@@ -102,12 +102,29 @@ $spacing-scale: (
 );
 
 // Breakpoints
-$breakpoint-xs: 0;
-$breakpoint-sm: px-to-em(576px);
-$breakpoint-md: px-to-em(768px);
-$breakpoint-lg: px-to-em(992px);
-$breakpoint-xl: px-to-em(1200px);
-$breakpoint-xxl: px-to-em(1400px);
+// The px version required to export into material-ui theme.
+$breakpoint-xs-px: 0;
+$breakpoint-sm-px: 576px;
+$breakpoint-md-px: 768px;
+$breakpoint-lg-px: 992px;
+$breakpoint-xl-px: 1200px;
+$breakpoint-xxl-px: 1400px;
+
+$breakpoints-px: (
+    'xs': $breakpoint-xs-px,
+    'sm': $breakpoint-sm-px,
+    'md': $breakpoint-md-px,
+    'lg': $breakpoint-lg-px,
+    'xl': $breakpoint-xl-px,
+    'xxl': $breakpoint-xxl-px
+);
+
+$breakpoint-xs: px-to-em($breakpoint-xs-px);
+$breakpoint-sm: px-to-em($breakpoint-sm-px);
+$breakpoint-md: px-to-em($breakpoint-md-px);
+$breakpoint-lg: px-to-em($breakpoint-lg-px);
+$breakpoint-xl: px-to-em($breakpoint-xl-px);
+$breakpoint-xxl: px-to-em($breakpoint-xxl-px);
 
 $breakpoints: (
     'xs': $breakpoint-xs,
@@ -179,12 +196,11 @@ $toggle-btn-secondary-selected-box-shadow: inset 0 0 0 0.2rem rgba($color-second
 // MuiList
 $list-padding-y: $spacing-scale-4;
 $list-padding-x: $spacing-scale-8;
-$list-item-line-height: 1.4;
 $list-item-icon-font-size: $icon-large-font-size;
 $list-item-selected-bg-color: rgba($color-primary, 0.12);
 $list-item-selected-hover-bg-color: rgba($color-primary, 0.08);
 $list-item-focus-visible-bg-color: rgba($black, 0.12);
-$list-subheader-min-height: 4rem;
+$list-item-min-height: $btn-medium-min-height;
 $list-item-multiline-text-line-height: 1.2;
 $list-item-multiline-text-primary-font-size: inherit;
 $list-item-multiline-text-primary-margin-bottom: $spacing-scale-3;
@@ -199,8 +215,8 @@ $menu-paper-box-shadow: map-get($paper-elevations, 4);
 $simplebar-track-size: 1rem;
 $simplebar-scrollbar-min-size: 1rem;
 $simplebar-scrollbar-bg-color: $gray;
-$simplebar-scrollbar-opacity: 0.4;
-$simplebar-scrollbar-hover-opacity: 0.4;
+$simplebar-scrollbar-opacity: 0.45;
+$simplebar-scrollbar-hover-opacity: 0.45;
 
 // Popper
 $popper-arrow-size: 1.2rem !default;

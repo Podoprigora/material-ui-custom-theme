@@ -3,7 +3,15 @@ import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-cust
 import React from 'react';
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
 
+import { sassSpacingCallback, getSassBreakpoint, getSassVariable } from './sass-variables';
+
 // Modules
+declare module '@material-ui/core/styles' {
+    interface BreakpointOverrides {
+        xxl: true;
+    }
+}
+
 declare module '@material-ui/core/Icon' {
     interface IconPropsSizeOverrides {
         xsmall: true;
@@ -30,6 +38,49 @@ const MuiMenuPopoverDefaultProps: typeof MuiPopoverDefaultProps & {
 
 // Theme
 export const theme = createTheme({
+    // Styles
+    breakpoints: {
+        values: {
+            xs: getSassBreakpoint('xs'),
+            sm: getSassBreakpoint('sm'),
+            md: getSassBreakpoint('md'),
+            lg: getSassBreakpoint('lg'),
+            xl: getSassBreakpoint('xl'),
+            xxl: getSassBreakpoint('xxl')
+        },
+        unit: getSassVariable('breakpoint-unit')
+    },
+    spacing: sassSpacingCallback,
+    typography: {
+        fontFamily: getSassVariable('font-family'),
+        fontWeightRegular: getSassVariable('font-weight', 'number'),
+        fontWeightLight: getSassVariable('font-weight-thin', 'number'),
+        fontWeightMedium: getSassVariable('font-weight-strong', 'number'),
+        body1: {
+            fontSize: getSassVariable('font-size'),
+            lineHeight: getSassVariable('line-height')
+        }
+    },
+    palette: {
+        primary: {
+            main: getSassVariable('color-primary'),
+            light: getSassVariable('color-primary-light'),
+            dark: getSassVariable('color-primary-dark'),
+            contrastText: getSassVariable('color-primary-text')
+        },
+        secondary: {
+            main: getSassVariable('color-secondary'),
+            light: getSassVariable('color-secondary-light'),
+            dark: getSassVariable('color-secondary-dark'),
+            contrastText: getSassVariable('color-secondary-text')
+        },
+        text: {
+            primary: getSassVariable('body-color'),
+            secondary: getSassVariable('color-text-note')
+        }
+    },
+
+    // Components
     components: {
         MuiButtonBase: {
             defaultProps: {

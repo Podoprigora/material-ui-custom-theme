@@ -23,7 +23,7 @@ Default.args = {
 
 export const Examples = () => {
     return (
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={6}>
             <Avatar>A</Avatar>
             <Avatar variant="rounded">
                 <Icon fontSize="large">
