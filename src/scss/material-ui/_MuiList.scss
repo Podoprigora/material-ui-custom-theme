@@ -10,9 +10,13 @@
     &-root {
         $selector: &;
 
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         padding-top: $list-padding-y;
         padding-bottom: $list-padding-y;
         min-height: $list-item-min-height;
+        cursor: pointer;
 
         &:hover {
             background-color: rgba($btn-color, $btn-outlined-hover-opacity);
@@ -58,6 +62,7 @@
     $this: &;
 
     &-root {
+        flex: 1 1 auto;
         margin-top: $spacing-scale-1;
         margin-bottom: $spacing-scale-1;
 
