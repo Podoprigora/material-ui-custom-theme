@@ -18,6 +18,7 @@ import { MuiCustomTextField } from '@mui-custom';
 import { SearchSvg, ZoomInSvg } from '../../assets/svg-icons/feather';
 
 import topFilmsRawData from '../assets/data/top-films.json';
+import countriesRawData from '../assets/data/countries.json';
 
 export default {
     title: 'mui-custom/Autocomplete',
@@ -39,16 +40,16 @@ export const Default: Story = () => {
         <div style={{ maxWidth: '40rem' }}>
             <Autocomplete
                 // open
-                options={topFilmsRawData}
-                getOptionLabel={(option) => option.title}
+                options={countriesRawData}
+                getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
-                    <MuiCustomTextField {...params} variant="original" label="Movie" />
+                    <MuiCustomTextField {...params} variant="original" label="Countries" />
                 )}
                 renderOption={(params, option) => {
                     const { className, ...other } = params;
-                    const { title } = option;
+                    const { label } = option;
 
-                    return <AutocompleteListItem {...other}>{title}</AutocompleteListItem>;
+                    return <AutocompleteListItem {...other}>{label}</AutocompleteListItem>;
                 }}
             />
         </div>

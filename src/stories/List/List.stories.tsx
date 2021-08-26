@@ -459,9 +459,9 @@ const VirtualizedListItem = React.memo((props: VirtualizedListItemProps) => {
                     onChange={handleCheckboxChange}
                 />
             </ListItemIcon>
-            <ListItemText sx={{ flex: 'none' }}>{code}</ListItemText>
+            <ListItemText style={{ flex: 'none' }}>{code}</ListItemText>
             <ListItemText>{label}</ListItemText>
-            <ListItemText sx={{ flex: 'none' }}>{phone}</ListItemText>
+            <ListItemText style={{ flex: 'none' }}>{phone}</ListItemText>
         </ListItem>
     );
 }, areEqual);
