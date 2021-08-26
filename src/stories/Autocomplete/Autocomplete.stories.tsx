@@ -19,6 +19,7 @@ import { SearchSvg, ZoomInSvg } from '../../assets/svg-icons/feather';
 
 import topFilmsRawData from '../assets/data/top-films.json';
 import countriesRawData from '../assets/data/countries.json';
+import { MuiCustomAutocomplete } from '@mui-custom/Autocomplete';
 
 export default {
     title: 'mui-custom/Autocomplete',
@@ -51,6 +52,24 @@ export const Default: Story = () => {
 
                     return <AutocompleteListItem {...other}>{label}</AutocompleteListItem>;
                 }}
+            />
+        </div>
+    );
+};
+
+export const Custom: Story = () => {
+    return (
+        <div style={{ maxWidth: '40rem' }}>
+            <MuiCustomAutocomplete
+                // freeSolo
+                // forcePopupIcon
+                options={topFilmsRawData}
+                getOptionLabel={(option) => {
+                    return option.title;
+                }}
+                renderInput={(params) => (
+                    <MuiCustomTextField {...params} variant="original" label="Countries" />
+                )}
             />
         </div>
     );

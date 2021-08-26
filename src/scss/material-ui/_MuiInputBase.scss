@@ -47,5 +47,13 @@
 
     &-positionEnd {
         margin-left: $input-base-padding-x - $spacing-scale-1;
+
+        .MuiButtonBase {
+            &-root {
+                &:not(:last-of-type) {
+                    margin-right: $input-base-padding-x - $spacing-scale-1;
+                }
+            }
+        }
     }
 }
