@@ -1,23 +1,16 @@
 import React, { HTMLAttributes, useMemo } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import {
-    Autocomplete,
-    AutocompleteProps,
-    AutocompleteRenderInputParams,
-    AutocompleteRenderOptionState,
-    Box,
-    Button,
-    Icon,
-    InputAdornment,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-    Stack,
-    useAutocomplete
-} from '@material-ui/core';
+import { Autocomplete, Avatar, Button, Icon, InputAdornment, Stack } from '@material-ui/core';
 import { MuiCustomTextField } from '@mui-custom';
-import { SaveSvg, SearchSvg, UserPlusSvg, UsersSvg, UserSvg } from '../../assets/svg-icons/feather';
+import {
+    FilmSvg,
+    SaveSvg,
+    SearchSvg,
+    UserPlusSvg,
+    UsersSvg,
+    UserSvg
+} from '../../assets/svg-icons/feather';
 
 import topFilmsRawData from '../assets/data/top-films.json';
 import countriesRawData from '../assets/data/countries.json';
@@ -62,60 +55,62 @@ export const Default: Story = () => {
 export const Custom: Story = () => {
     return (
         <Stack direction="column" alignItems="flex-start" spacing={10} sx={{ maxWidth: '40rem' }}>
-            <Button
-                variant="outlined"
-                color="primary"
-                startIcon={
-                    <Icon fontSize="small">
-                        <SaveSvg />
-                    </Icon>
-                }
-            >
-                Save
-            </Button>
-            <MuiCustomTextField
-                label="Email"
-                variant="original"
-                placeholder="Enter email"
-                fullWidth
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Icon>
-                                <UserSvg />
-                            </Icon>
-                        </InputAdornment>
-                    )
-                }}
-            />
             <MuiCustomAutocomplete
                 // open
-                // freeSolo
-                // forcePopupIcon
                 fullWidth
                 openOnFocus
-                options={topFilmsRawData}
+                options={topFilmsRawData.slice(0, 25)}
                 getOptionLabel={(option) => {
                     return option.title;
                 }}
                 renderInput={(params) => (
                     <MuiCustomTextField
                         {...params}
-                        variant="original"
-                        label="Country"
-                        placeholder="Select country"
-                        InputProps={{
-                            ...params.InputProps,
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Icon>
-                                        <SearchSvg />
-                                    </Icon>
-                                </InputAdornment>
-                            )
-                        }}
+                        variant="filled"
+                        label="Favorite film"
+                        // placeholder="Select film"
+                        // InputProps={{
+                        //     ...params.InputProps,
+                        //     startAdornment: (
+                        //         <InputAdornment position="start">
+                        //             <Icon>
+                        //                 <SearchSvg />
+                        //             </Icon>
+                        //         </InputAdornment>
+                        //     )
+                        // }}
                     />
                 )}
+                renderOption={(params, option) => {
+                    const { title, year, image } = option;
+
+                    return (
+                        <li
+                            {...params}
+                            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem"
+                        >
+                            <div className="MuiListItemAvatar-root">
+                                {image ? (
+                                    <Avatar
+                                        src={image}
+                                        imgProps={{ loading: 'lazy', alt: title }}
+                                        variant="rounded"
+                                    />
+                                ) : (
+                                    <Avatar variant="rounded">
+                                        <Icon fontSize="large">
+                                            <FilmSvg />
+                                        </Icon>
+                                    </Avatar>
+                                )}
+                            </div>
+                            <div className="MuiListItemText-root MuiListItemText-multiline">
+                                <div className="MuiListItemText-primary">{title}</div>
+                                <div className="MuiListItemText-secondary">{year}</div>
+                            </div>
+                        </li>
+                    );
+                }}
             />
         </Stack>
     );

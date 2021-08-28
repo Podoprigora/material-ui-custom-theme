@@ -2,14 +2,15 @@ import React, { useMemo } from 'react';
 import clsx from 'clsx';
 import { Grow, Paper, Popper, PopperProps, useTheme } from '@material-ui/core';
 
-interface MuiCustomAutocompletePopperProps {
+export interface MuiCustomAutocompletePopperProps {
     open: boolean;
     anchorEl: HTMLElement | null;
+    autoWidth?: boolean;
     children?: React.ReactNode;
 }
 
 export const MuiCustomAutocompletePopper = (props: MuiCustomAutocompletePopperProps) => {
-    const { open, anchorEl, children } = props;
+    const { open, anchorEl, autoWidth = true, children } = props;
 
     const theme = useTheme();
 
@@ -33,8 +34,20 @@ export const MuiCustomAutocompletePopper = (props: MuiCustomAutocompletePopperPr
         };
     }, [anchorEl, open, theme]);
 
+    const paperStyle = useMemo(() => {
+        return {
+            ...(autoWidth && anchorEl && { width: anchorEl?.clientWidth })
+        };
+    }, [anchorEl, autoWidth]);
+
+    // Render
+
+    if (!anchorEl) {
+        return null;
+    }
+
     return (
-        <Popper {...popperProps}>
+        <Popper {...popperProps} className="MuiCustomAutocomplete-popper">
             {(popperParams) => {
                 const { TransitionProps, placement } = popperParams;
 
@@ -45,7 +58,7 @@ export const MuiCustomAutocompletePopper = (props: MuiCustomAutocompletePopperPr
                                 'MuiCustomAutocomplete-paper',
                                 `u-placement-${placement}`
                             )}
-                            sx={{ width: anchorEl?.clientWidth }}
+                            sx={paperStyle}
                         >
                             {children}
                         </Paper>

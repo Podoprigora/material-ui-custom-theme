@@ -6,7 +6,7 @@ export const MuiCustomAutocompleteListItem = (props: React.HTMLAttributes<HTMLLI
     return (
         <li
             {...other}
-            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-menuItem"
+            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem"
         >
             <div className="MuiListItemText-root">{children}</div>
         </li>

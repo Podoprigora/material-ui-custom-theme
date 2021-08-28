@@ -2,13 +2,15 @@ import React from 'react';
 import { setRef, useEventCallback } from '@material-ui/core';
 import { MuiCustomSimplebar } from '@mui-custom/Simplebar';
 
-type MuiCustomAutocompleteListProps = React.ComponentPropsWithoutRef<'ul'>;
+export interface MuiCustomAutocompleteListProps extends React.ComponentPropsWithoutRef<'ul'> {
+    maxHeight?: string;
+}
 
 export const MuiCustomAutocompleteList = React.forwardRef<
     HTMLDivElement,
     MuiCustomAutocompleteListProps
 >(function MuiCustomAutocompleteList(props, forwardedRef) {
-    const { children, ...other } = props;
+    const { children, maxHeight: maxHeight, ...other } = props;
 
     const handleScrollbarRef = useEventCallback((node: HTMLElement | null) => {
         if (node) {
@@ -23,6 +25,7 @@ export const MuiCustomAutocompleteList = React.forwardRef<
         <MuiCustomSimplebar
             className="MuiCustomAutocomplete-simplebar"
             scrollableNodeHandler={handleScrollbarRef}
+            style={{ ...(maxHeight && { maxHeight }) }}
         >
             <ul {...other} className="MuiList-root MuiList-padding MuiCustomAutocomplete-list">
                 {children}

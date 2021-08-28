@@ -6,25 +6,30 @@ import {
     Icon,
     IconButton,
     InputAdornment,
-    useAutocomplete,
-    useEventCallback
+    useAutocomplete
 } from '@material-ui/core';
 
 import { Clear } from '@material-ui/icons';
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
 
 import { MuiCustomAutocompleteListItem } from './AutocompleteListItem';
-import { MuiCustomAutocompleteList } from './AutocompleteList';
-import { MuiCustomAutocompletePopper } from './AutocompletePopper';
+import { MuiCustomAutocompleteList, MuiCustomAutocompleteListProps } from './AutocompleteList';
+import {
+    MuiCustomAutocompletePopper,
+    MuiCustomAutocompletePopperProps
+} from './AutocompletePopper';
 
 type DefaultOption = { label: string } | string;
 
-export type MuiCustomAutocompleteProps<
+export interface MuiCustomAutocompleteProps<
     T,
     Multiple extends boolean | undefined,
     DisableClearable extends boolean | undefined,
     FreeSolo extends boolean | undefined
-> = AutocompleteProps<T, Multiple, DisableClearable, FreeSolo>;
+> extends AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> {
+    ListProps?: MuiCustomAutocompleteListProps &
+        Pick<MuiCustomAutocompletePopperProps, 'autoWidth'>;
+}
 
 function defaultGetOptionLabel(option: DefaultOption) {
     if (typeof option === 'string') {
@@ -53,6 +58,7 @@ function MuiCustomAutocompleteWithRef<
         disabled = false,
         disableClearable = false,
         fullWidth = false,
+        ListProps,
 
         clearIcon = <Clear />,
         popupIcon = (
@@ -147,6 +153,7 @@ function MuiCustomAutocompleteWithRef<
     };
 
     const shouldDisplayList = groupedOptions.length > 0;
+    const { autoWidth: paperAutoWidth, ...otherListProps } = ListProps || {};
 
     return (
         <div
@@ -158,9 +165,13 @@ function MuiCustomAutocompleteWithRef<
         >
             {inputElement}
 
-            <MuiCustomAutocompletePopper open={popupOpen} anchorEl={anchorEl}>
+            <MuiCustomAutocompletePopper
+                open={popupOpen}
+                anchorEl={anchorEl}
+                autoWidth={paperAutoWidth}
+            >
                 {shouldDisplayList && (
-                    <MuiCustomAutocompleteList {...getListboxProps()}>
+                    <MuiCustomAutocompleteList {...getListboxProps()} {...otherListProps}>
                         {groupedOptions.map((option, index) => {
                             return renderListOption(option as T, index);
                         })}

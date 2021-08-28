@@ -7,8 +7,8 @@
         line-height: 1;
         color: $avatar-color;
         background-color: $avatar-bg-color;
-        min-width: $avatar-size;
-        min-height: $avatar-size;
+        width: $avatar-size;
+        height: $avatar-size;
     }
 
     &-rounded {

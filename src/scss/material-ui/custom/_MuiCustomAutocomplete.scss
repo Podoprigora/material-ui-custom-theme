@@ -3,22 +3,33 @@
         width: 100%;
     }
 
+    &-popper {
+        position: absolute;
+    }
+
     &-paper {
-        min-width: 30rem;
         margin: 0.3rem 0;
+        min-width: $autocomplete-list-min-width;
         transform-origin: 0 0 0;
+        overflow: hidden;
         box-shadow: $menu-paper-box-shadow;
     }
 
     &-simplebar {
-        max-height: 20rem;
+        max-height: $autocomplete-list-max-height;
+
+        @include media-breakpoint-down('sm') {
+            max-height: 50vh;
+        }
     }
 
     &-list {
         overflow: hidden;
     }
 
-    &-menuItem {
+    &-listItem {
+        @include disable-tap-highlight-color;
+
         &[aria-selected='true'] {
             background-color: $list-item-selected-bg-color;
 
