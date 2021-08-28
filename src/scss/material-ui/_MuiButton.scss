@@ -148,6 +148,10 @@
             &.Mui-disabled {
                 @extend #{$selector};
             }
+
+            .MuiIcon-root {
+                color: currentColor;
+            }
         }
 
         &Secondary {
@@ -163,6 +167,10 @@
 
             &.Mui-disabled {
                 @extend #{$selector};
+            }
+
+            .MuiIcon-root {
+                color: currentColor;
             }
         }
     }

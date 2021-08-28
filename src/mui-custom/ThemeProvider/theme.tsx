@@ -21,7 +21,7 @@ declare module '@material-ui/core/Icon' {
 // Default props
 const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
     TransitionComponent: Grow,
-    TransitionProps: { timeout: { exit: 120, enter: 220 } },
+    TransitionProps: { timeout: { exit: 300, enter: 220, appear: 220 } },
     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
     transformOrigin: { vertical: 'top', horizontal: 'left' }
 };

@@ -1,14 +1,23 @@
-import React, { HTMLAttributes, useMemo } from 'react';
+import React from 'react';
 import clsx from 'clsx';
+
 import {
     AutocompleteProps,
     Icon,
     IconButton,
     InputAdornment,
-    useAutocomplete
+    useAutocomplete,
+    useEventCallback
 } from '@material-ui/core';
+
 import { Clear } from '@material-ui/icons';
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
+
+import { MuiCustomAutocompleteListItem } from './AutocompleteListItem';
+import { MuiCustomAutocompleteList } from './AutocompleteList';
+import { MuiCustomAutocompletePopper } from './AutocompletePopper';
+
+type DefaultOption = { label: string } | string;
 
 export type MuiCustomAutocompleteProps<
     T,
@@ -17,8 +26,16 @@ export type MuiCustomAutocompleteProps<
     FreeSolo extends boolean | undefined
 > = AutocompleteProps<T, Multiple, DisableClearable, FreeSolo>;
 
+function defaultGetOptionLabel(option: DefaultOption) {
+    if (typeof option === 'string') {
+        return option;
+    }
+
+    return option?.label ?? '';
+}
+
 function MuiCustomAutocompleteWithRef<
-    T,
+    T extends DefaultOption,
     Multiple extends boolean | undefined = undefined,
     DisableClearable extends boolean | undefined = undefined,
     FreeSolo extends boolean | undefined = undefined
@@ -28,11 +45,14 @@ function MuiCustomAutocompleteWithRef<
 ) {
     const {
         renderInput,
+        renderOption: renderOptionProp,
+        getOptionLabel = defaultGetOptionLabel,
         freeSolo = false,
         forcePopupIcon = 'auto',
         className,
         disabled = false,
         disableClearable = false,
+        fullWidth = false,
 
         clearIcon = <Clear />,
         popupIcon = (
@@ -68,17 +88,6 @@ function MuiCustomAutocompleteWithRef<
     const hasClearIcon = !disableClearable && !disabled && dirty;
     const hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
 
-    // console.log({ hasPopupIcon, hasClearIcon });
-
-    // console.log({
-    //     getRootProps: getRootProps(),
-    //     getInputProps: getInputProps(),
-    //     getPopupIndicatorProps: getPopupIndicatorProps(),
-    //     dirty
-    // });
-
-    console.log({ groupedOptions });
-
     const inputStartAdornment: React.ReactNode = null;
     const inputEndAdornment: React.ReactNode = (hasClearIcon || hasPopupIcon) && (
         <InputAdornment position="end">
@@ -95,6 +104,7 @@ function MuiCustomAutocompleteWithRef<
                 <IconButton
                     size="small"
                     className="MuiIconButton-dense MuiIconButton-circular"
+                    sx={{ ...(popupOpen && { transform: 'rotate(180deg)' }) }}
                     {...(getPopupIndicatorProps() as unknown)}
                 >
                     {popupIcon}
@@ -120,13 +130,43 @@ function MuiCustomAutocompleteWithRef<
         }
     });
 
+    const defaultRenderOption: typeof renderOptionProp = (params, option) => (
+        <MuiCustomAutocompleteListItem {...params}>
+            {getOptionLabel(option)}
+        </MuiCustomAutocompleteListItem>
+    );
+    const renderOption = renderOptionProp || defaultRenderOption;
+
+    const renderListOption = (option: T, index: number) => {
+        const optionProps = getOptionProps({ option, index });
+
+        return renderOption(optionProps, option, {
+            selected: !!optionProps['aria-selected'],
+            inputValue
+        });
+    };
+
+    const shouldDisplayList = groupedOptions.length > 0;
+
     return (
         <div
-            className={clsx('MuiCustomAutocomplete', className)}
+            className={clsx('MuiCustomAutocomplete', className, {
+                'MuiCustomAutocomplete-fullWidth': fullWidth
+            })}
             {...getRootProps()}
             ref={forwardedRef}
         >
             {inputElement}
+
+            <MuiCustomAutocompletePopper open={popupOpen} anchorEl={anchorEl}>
+                {shouldDisplayList && (
+                    <MuiCustomAutocompleteList {...getListboxProps()}>
+                        {groupedOptions.map((option, index) => {
+                            return renderListOption(option as T, index);
+                        })}
+                    </MuiCustomAutocompleteList>
+                )}
+            </MuiCustomAutocompletePopper>
         </div>
     );
 }

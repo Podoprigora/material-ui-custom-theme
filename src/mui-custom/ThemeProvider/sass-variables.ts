@@ -7,7 +7,7 @@ export const getSassBreakpoint = (key: string): number => {
     if (breakpoint === '' || breakpoint === undefined) {
         return 0;
     }
-    return parseInt(breakpoint, 10);
+    return parseFloat(breakpoint);
 };
 
 export const sassSpacingCallback = (factor: number): string => {

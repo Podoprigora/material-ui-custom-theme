@@ -1,4 +1,38 @@
 .MuiCustomAutocomplete {
-    &-inputBase {
+    &-fullWidth {
+        width: 100%;
+    }
+
+    &-paper {
+        min-width: 30rem;
+        margin: 0.3rem 0;
+        transform-origin: 0 0 0;
+        box-shadow: $menu-paper-box-shadow;
+    }
+
+    &-simplebar {
+        max-height: 20rem;
+    }
+
+    &-list {
+        overflow: hidden;
+    }
+
+    &-menuItem {
+        &[aria-selected='true'] {
+            background-color: $list-item-selected-bg-color;
+
+            &:hover {
+                background-color: $list-item-selected-hover-bg-color;
+            }
+        }
+
+        &:hover {
+            background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+        }
+
+        &.Mui-focusVisible {
+            background-color: $list-item-focus-visible-bg-color;
+        }
     }
 }

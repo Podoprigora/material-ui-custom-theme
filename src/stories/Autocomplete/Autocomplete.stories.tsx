@@ -7,15 +7,17 @@ import {
     AutocompleteRenderInputParams,
     AutocompleteRenderOptionState,
     Box,
+    Button,
     Icon,
     InputAdornment,
     ListItem,
     ListItemButton,
     ListItemText,
+    Stack,
     useAutocomplete
 } from '@material-ui/core';
 import { MuiCustomTextField } from '@mui-custom';
-import { SearchSvg, ZoomInSvg } from '../../assets/svg-icons/feather';
+import { SaveSvg, SearchSvg, UserPlusSvg, UsersSvg, UserSvg } from '../../assets/svg-icons/feather';
 
 import topFilmsRawData from '../assets/data/top-films.json';
 import countriesRawData from '../assets/data/countries.json';
@@ -41,16 +43,16 @@ export const Default: Story = () => {
         <div style={{ maxWidth: '40rem' }}>
             <Autocomplete
                 // open
-                options={countriesRawData}
-                getOptionLabel={(option) => option.label}
+                options={topFilmsRawData}
+                getOptionLabel={(option) => option.title}
                 renderInput={(params) => (
-                    <MuiCustomTextField {...params} variant="original" label="Countries" />
+                    <MuiCustomTextField {...params} variant="original" label="Films" />
                 )}
                 renderOption={(params, option) => {
                     const { className, ...other } = params;
-                    const { label } = option;
+                    const { title } = option;
 
-                    return <AutocompleteListItem {...other}>{label}</AutocompleteListItem>;
+                    return <AutocompleteListItem {...other}>{title}</AutocompleteListItem>;
                 }}
             />
         </div>
@@ -59,18 +61,62 @@ export const Default: Story = () => {
 
 export const Custom: Story = () => {
     return (
-        <div style={{ maxWidth: '40rem' }}>
+        <Stack direction="column" alignItems="flex-start" spacing={10} sx={{ maxWidth: '40rem' }}>
+            <Button
+                variant="outlined"
+                color="primary"
+                startIcon={
+                    <Icon fontSize="small">
+                        <SaveSvg />
+                    </Icon>
+                }
+            >
+                Save
+            </Button>
+            <MuiCustomTextField
+                label="Email"
+                variant="original"
+                placeholder="Enter email"
+                fullWidth
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Icon>
+                                <UserSvg />
+                            </Icon>
+                        </InputAdornment>
+                    )
+                }}
+            />
             <MuiCustomAutocomplete
+                // open
                 // freeSolo
                 // forcePopupIcon
+                fullWidth
+                openOnFocus
                 options={topFilmsRawData}
                 getOptionLabel={(option) => {
                     return option.title;
                 }}
                 renderInput={(params) => (
-                    <MuiCustomTextField {...params} variant="original" label="Countries" />
+                    <MuiCustomTextField
+                        {...params}
+                        variant="original"
+                        label="Country"
+                        placeholder="Select country"
+                        InputProps={{
+                            ...params.InputProps,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Icon>
+                                        <SearchSvg />
+                                    </Icon>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
                 )}
             />
-        </div>
+        </Stack>
     );
 };
