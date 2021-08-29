@@ -7,3 +7,4 @@ export * from './OriginalInput';
 export * from './OriginInputLabel';
 export * from './FormControl';
 export * from './TextField';
+export * from './Autocomplete';

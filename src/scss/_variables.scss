@@ -277,6 +277,9 @@ $switch-size-small-width: 4rem;
 $switch-size-small-height: 2rem;
 $switch-size-small-thumb-size: 1.6rem;
 
+// MuiCircularProgress
+$circular-progress-size: 4rem;
+
 // MuiInputBase
 $input-border-color: rgba($black, 0.14);
 $input-hover-border-color: rgba($black, 0.4);
@@ -345,5 +348,5 @@ $input-outlined-min-height: 4.8rem;
 $select-min-width: 8rem;
 
 // MuiCustomAutocomplete
-$autocomplete-list-min-width: 30rem;
+$autocomplete-list-min-width: 16rem;
 $autocomplete-list-max-height: 32rem;

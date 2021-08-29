@@ -11,6 +11,7 @@
     },
     {
         "title": "The Godfather: Part II",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-MpQoypsC_ZCo0WYRriZwocEKWHOVP00q-Uq-oWPBGpM7-1NGPHYAbmxp&s=10",
         "year": 1974
     },
     {
@@ -20,18 +21,22 @@
     },
     {
         "title": "12 Angry Men",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn7K5SGgejqy-KTgRrF2Aw6o5ED4u3gDMzyoXuFJkN&s=10",
         "year": 1957
     },
     {
         "title": "Schindler's List",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhvck69HoB8K_NSnDz3TbRG76XkJtiRarkuA6vbYZ7LVLoI7MoU3g10vY9lQ&s=10",
         "year": 1993
     },
     {
         "title": "Pulp Fiction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQevgEcirobJtcfSKjBJtURR-F9ejM7N5pdup14tAv4&s=10",
         "year": 1994
     },
     {
         "title": "The Lord of the Rings: The Return of the King",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSok-YfPM8MUw5-B270TZfSly9YJDkptM1SMOCY1cQERiK3xqMyvrhfJUuO7w&s=10",
         "year": 2003
     },
     {

@@ -94,6 +94,7 @@
     $this: &;
 
     &-root {
+        flex: none;
         min-width: 0;
         font-size: $list-item-icon-font-size;
         color: $icon-color;
@@ -111,6 +112,7 @@
 .MuiListItemAvatar {
     &-root {
         min-width: 0;
+        flex: none;
 
         &:first-child {
             margin-right: $list-padding-x - $spacing-scale-1;

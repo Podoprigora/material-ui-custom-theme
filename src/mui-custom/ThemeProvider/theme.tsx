@@ -182,6 +182,15 @@ export const theme = createTheme({
                 icon: <div className="MuiCustomCheckbox" />,
                 checkedIcon: <div className="MuiCustomCheckbox MuiCustomCheckbox-checked" />
             }
+        },
+        MuiCircularProgress: {
+            defaultProps: {
+                size: '',
+                color: 'primary',
+                thickness: 3.4,
+                disableShrink: false,
+                variant: 'indeterminate'
+            }
         }
     }
 });

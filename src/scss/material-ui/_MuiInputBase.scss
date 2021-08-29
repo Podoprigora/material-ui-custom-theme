@@ -39,6 +39,11 @@
     &-root {
         color: $input-base-adornment-color;
         font-size: $input-base-adornment-font-size;
+
+        .MuiCircularProgress-root {
+            width: $icon-large-font-size;
+            height: $icon-large-font-size;
+        }
     }
 
     &-positionStart {
