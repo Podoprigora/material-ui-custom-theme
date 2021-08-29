@@ -10,6 +10,7 @@ import {
 import { loadStripe, StripeElementChangeEvent } from '@stripe/stripe-js';
 
 import {
+    CircularProgress,
     Icon,
     IconButton,
     InputAdornment,
@@ -105,6 +106,20 @@ export const OriginalInput: Story = () => {
                                 >
                                     <Icon>{isPasswordVisible ? <EyeSvg /> : <EyeOffSvg />}</Icon>
                                 </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <MuiCustomTextField
+                    id="original-loading-field"
+                    label="Autocomplete"
+                    color="primary"
+                    placeholder="Loaiding ..."
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CircularProgress color="primary" />
                             </InputAdornment>
                         )
                     }}
@@ -241,6 +256,20 @@ export const StandardInputExample: Story = () => {
                 />
                 <MuiCustomTextField
                     variant="standard"
+                    label="Autocomplete"
+                    color="primary"
+                    placeholder="Loaiding ..."
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CircularProgress color="primary" />
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <MuiCustomTextField
+                    variant="standard"
                     color="secondary"
                     label="Long label text overflow. Molestias totam explicabo consequatur praesentium ratione nihil alias quam voluptas!"
                     required
@@ -344,6 +373,20 @@ export const StandardFilledInputExample: Story = () => {
                 />
                 <MuiCustomTextField
                     variant="filled"
+                    label="Autocomplete"
+                    color="primary"
+                    placeholder="Loaiding ..."
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CircularProgress color="primary" />
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <MuiCustomTextField
+                    variant="filled"
                     color="secondary"
                     label="Long label text overflow. Molestias totam explicabo consequatur praesentium ratione nihil alias quam voluptas!"
                     required
@@ -440,6 +483,20 @@ export const OutlinedInputExample: Story = () => {
                                 >
                                     <Icon>{isPasswordVisible ? <EyeSvg /> : <EyeOffSvg />}</Icon>
                                 </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <MuiCustomTextField
+                    variant="outlined"
+                    label="Autocomplete"
+                    color="primary"
+                    placeholder="Loaiding ..."
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CircularProgress color="primary" />
                             </InputAdornment>
                         )
                     }}

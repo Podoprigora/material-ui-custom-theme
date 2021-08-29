@@ -198,6 +198,10 @@
             &.Mui-disabled {
                 @extend #{$selector};
             }
+
+            .MuiIcon-root {
+                color: currentColor;
+            }
         }
 
         &Secondary {
@@ -211,6 +215,10 @@
 
             &.Mui-disabled {
                 @extend #{$selector};
+            }
+
+            .MuiIcon-root {
+                color: currentColor;
             }
         }
     }
@@ -258,14 +266,29 @@
 
     &-iconSizeLarge {
         font-size: $icon-large-font-size;
+
+        .MuiCircularProgress-root {
+            width: $icon-large-font-size;
+            height: $icon-large-font-size;
+        }
     }
 
     &-iconSizeMedium {
         font-size: $icon-medium-font-size;
+
+        .MuiCircularProgress-root {
+            width: $icon-medium-font-size;
+            height: $icon-medium-font-size;
+        }
     }
 
     &-iconSizeSmall {
         font-size: $icon-small-font-size;
+
+        .MuiCircularProgress-root {
+            width: $icon-small-font-size;
+            height: $icon-small-font-size;
+        }
     }
 
     // Custom classes that are added with className property

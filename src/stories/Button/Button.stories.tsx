@@ -4,6 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
 
 import { Button, ButtonProps } from './Template';
+import { CircularProgress, Icon } from '@material-ui/core';
 
 export default {
     component: Button,
@@ -50,6 +51,44 @@ export const Examples = () => {
                 </Button>
             </div>
 
+            <div className="stack u-margin-b-10">
+                <Button
+                    variant="contained"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+                <Button
+                    variant="contained"
+                    color="inherit"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+            </div>
+
             {/* Outlined */}
 
             <div className="stack u-margin-b-10">
@@ -76,6 +115,44 @@ export const Examples = () => {
                 </Button>
             </div>
 
+            <div className="stack u-margin-b-10">
+                <Button
+                    variant="outlined"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+                <Button
+                    variant="outlined"
+                    color="secondary"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+                <Button
+                    variant="outlined"
+                    color="inherit"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+            </div>
+
             {/* Text */}
 
             <div className="stack u-margin-b-10">
@@ -99,6 +176,44 @@ export const Examples = () => {
                 </Button>
                 <Button variant="text" color="inherit" disabled>
                     Save product
+                </Button>
+            </div>
+
+            <div className="stack u-margin-b-10">
+                <Button
+                    variant="text"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+                <Button
+                    variant="text"
+                    color="secondary"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
+                </Button>
+                <Button
+                    variant="text"
+                    color="inherit"
+                    disabled
+                    startIcon={
+                        <Icon>
+                            <CircularProgress color="inherit" />
+                        </Icon>
+                    }
+                >
+                    Saving ...
                 </Button>
             </div>
 
