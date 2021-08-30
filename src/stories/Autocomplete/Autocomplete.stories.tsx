@@ -214,8 +214,11 @@ export const GoogleMapPlace: Story = () => {
     const googlePlaceAutocompleteService = useRef<google.maps.places.AutocompleteService | null>(
         null
     );
-    const inputValueRef = useRef('');
     const isMountedRef = useMountedRef();
+
+    const isValidQueryLength = (query: string) => {
+        return query.length >= 3;
+    };
 
     const fetchPlace = useMemo(() => {
         return _debonce((query: string) => {
@@ -223,10 +226,14 @@ export const GoogleMapPlace: Story = () => {
                 googlePlaceAutocompleteService.current = new google.maps.places.AutocompleteService();
             }
 
-            if (googlePlaceAutocompleteService.current) {
-                console.log({ query });
+            if (!isValidQueryLength(query)) {
+                setOptions([]);
+                return;
+            }
 
+            if (googlePlaceAutocompleteService.current) {
                 setLoading(true);
+
                 googlePlaceAutocompleteService.current.getPlacePredictions(
                     { input: query },
                     (result) => {
@@ -234,7 +241,7 @@ export const GoogleMapPlace: Story = () => {
                             return;
                         }
 
-                        if (Array.isArray(result) && inputValueRef.current.length) {
+                        if (Array.isArray(result)) {
                             setOptions(result);
                         } else {
                             setOptions([]);
@@ -244,18 +251,12 @@ export const GoogleMapPlace: Story = () => {
                     }
                 );
             }
-        }, 600);
+        }, 300);
     }, [isMountedRef]);
 
     const handleInputValueChange = useEventCallback(
         (ev: React.SyntheticEvent, newValue: string) => {
-            inputValueRef.current = newValue;
-
-            if (newValue.length >= 3) {
-                fetchPlace(newValue);
-            } else {
-                setOptions([]);
-            }
+            fetchPlace(newValue);
         }
     );
 
