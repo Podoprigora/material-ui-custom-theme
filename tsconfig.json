@@ -19,7 +19,7 @@
       "noEmit": true,
       "noImplicitThis": true,
       
-      "types": [],
+      "types": ["google.maps"],
       "paths": {
           "@mui-custom": ["./src/mui-custom"],
           "@mui-custom/*": ["./src/mui-custom/*"]

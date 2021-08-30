@@ -1,7 +1,6 @@
-import React, { HTMLAttributes, useMemo, useState, useEffect, useCallback } from 'react';
+import React, { HTMLAttributes, useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import _throttle from 'lodash/throttle';
-import _debonce from 'lodash/debounce';
 
 import {
     Autocomplete,
@@ -17,7 +16,7 @@ import {
 } from '@material-ui/core';
 
 import { MuiCustomTextField, MuiCustomAutocomplete } from '@mui-custom';
-import { useMountedRef, fakeRequest } from '@mui-custom/utils';
+import { useMountedRef, fakeRequest, loadScript } from '@mui-custom/utils';
 
 import {
     FilmSvg,
@@ -42,36 +41,36 @@ interface Film {
     image?: string;
 }
 
-const AutocompleteListItem = (props: HTMLAttributes<HTMLLIElement>) => {
-    const { className, children, ...other } = props;
+// const AutocompleteListItem = (props: HTMLAttributes<HTMLLIElement>) => {
+//     const { className, children, ...other } = props;
 
-    return (
-        <li {...other} className="MuiMenuItem-root MuiMenuItem-gutters">
-            <div className="MuiListItemText-root">{children}</div>
-        </li>
-    );
-};
+//     return (
+//         <li {...other} className="MuiMenuItem-root MuiMenuItem-gutters">
+//             <div className="MuiListItemText-root">{children}</div>
+//         </li>
+//     );
+// };
 
-export const Default: Story = () => {
-    return (
-        <div style={{ maxWidth: '40rem' }}>
-            <Autocomplete
-                // open
-                options={topFilmsRawData}
-                getOptionLabel={(option) => option.title}
-                renderInput={(params) => (
-                    <MuiCustomTextField {...params} variant="original" label="Films" />
-                )}
-                renderOption={(params, option) => {
-                    const { className, ...other } = params;
-                    const { title } = option;
+// export const Default: Story = () => {
+//     return (
+//         <div style={{ maxWidth: '40rem' }}>
+//             <Autocomplete
+//                 // open
+//                 options={topFilmsRawData}
+//                 getOptionLabel={(option) => option.title}
+//                 renderInput={(params) => (
+//                     <MuiCustomTextField {...params} variant="original" label="Films" />
+//                 )}
+//                 renderOption={(params, option) => {
+//                     const { className, ...other } = params;
+//                     const { title } = option;
 
-                    return <AutocompleteListItem {...other}>{title}</AutocompleteListItem>;
-                }}
-            />
-        </div>
-    );
-};
+//                     return <AutocompleteListItem {...other}>{title}</AutocompleteListItem>;
+//                 }}
+//             />
+//         </div>
+//     );
+// };
 
 export const AsynchronousRequest: Story = () => {
     const [open, setOpen] = useState(false);
@@ -141,7 +140,7 @@ export const AsynchronousRequest: Story = () => {
                 getOptionLabel={(option) => {
                     return option.title;
                 }}
-                filterOptions={(x) => x}
+                filterOptions={(x) => x} // To disable built-in filtering
                 isOptionEqualToValue={(option, value) => option.title === value.title}
                 renderInput={(params) => (
                     <MuiCustomTextField
@@ -149,7 +148,7 @@ export const AsynchronousRequest: Story = () => {
                         variant="standard"
                         label="Favorite film"
                         placeholder="Start typing: The ..."
-                        helperText="Min length of query string: 3 characters."
+                        helperText="Min length of query: 3 characters."
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
@@ -199,4 +198,31 @@ export const AsynchronousRequest: Story = () => {
             />
         </Stack>
     );
+};
+
+// Google Map Place
+
+export const GoogleMapPlace: Story = () => {
+    const googlePlaceAutocompleteService = useRef<google.maps.places.AutocompleteService | null>(
+        null
+    );
+
+    useEffect(() => {
+        loadScript(
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyBXw_smmk72DTrF1vabIzZ7-iNCUKoTiJ0&libraries=places',
+            'google-map'
+        );
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (window?.google && !googlePlaceAutocompleteService.current) {
+                googlePlaceAutocompleteService.current = new google.maps.places.AutocompleteService();
+            }
+
+            // console.log(googlePlaceAutocompleteService.current?.getPlacePredictions());
+        }, 2500);
+    }, []);
+
+    return <div>Google Map Place</div>;
 };
