@@ -1,3 +1,4 @@
+export * from './Highlighter';
 export * from './Simplebar';
 export * from './PaperSimplebar';
 export * from './Menu';

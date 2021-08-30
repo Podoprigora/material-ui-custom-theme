@@ -1,6 +1,7 @@
 import React, { HTMLAttributes, useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import _throttle from 'lodash/throttle';
+import _debonce from 'lodash/debounce';
 
 import {
     Autocomplete,
@@ -15,11 +16,12 @@ import {
     createFilterOptions
 } from '@material-ui/core';
 
-import { MuiCustomTextField, MuiCustomAutocomplete } from '@mui-custom';
+import { MuiCustomTextField, MuiCustomAutocomplete, MuiCustomHighlighter } from '@mui-custom';
 import { useMountedRef, fakeRequest, loadScript } from '@mui-custom/utils';
 
 import {
     FilmSvg,
+    MapPinSvg,
     SaveSvg,
     SearchSvg,
     UserPlusSvg,
@@ -201,11 +203,69 @@ export const AsynchronousRequest: Story = () => {
 };
 
 // Google Map Place
+// Docs:
+// - https://developers.google.com/maps/documentation/javascript/places-autocomplete#add-autocomplete
+// - https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction
 
 export const GoogleMapPlace: Story = () => {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [options, setOptions] = useState<google.maps.places.AutocompletePrediction[]>([]);
     const googlePlaceAutocompleteService = useRef<google.maps.places.AutocompleteService | null>(
         null
     );
+    const inputValueRef = useRef('');
+    const isMountedRef = useMountedRef();
+
+    const fetchPlace = useMemo(() => {
+        return _debonce((query: string) => {
+            if (window?.google && !googlePlaceAutocompleteService.current) {
+                googlePlaceAutocompleteService.current = new google.maps.places.AutocompleteService();
+            }
+
+            if (googlePlaceAutocompleteService.current) {
+                console.log({ query });
+
+                setLoading(true);
+                googlePlaceAutocompleteService.current.getPlacePredictions(
+                    { input: query },
+                    (result) => {
+                        if (!isMountedRef.current) {
+                            return;
+                        }
+
+                        if (Array.isArray(result) && inputValueRef.current.length) {
+                            setOptions(result);
+                        } else {
+                            setOptions([]);
+                        }
+
+                        setLoading(false);
+                    }
+                );
+            }
+        }, 600);
+    }, [isMountedRef]);
+
+    const handleInputValueChange = useEventCallback(
+        (ev: React.SyntheticEvent, newValue: string) => {
+            inputValueRef.current = newValue;
+
+            if (newValue.length >= 3) {
+                fetchPlace(newValue);
+            } else {
+                setOptions([]);
+            }
+        }
+    );
+
+    const handlePopupOpen = useEventCallback(() => {
+        setOpen(true);
+    });
+
+    const handlePopupClose = useEventCallback(() => {
+        setOpen(false);
+    });
 
     useEffect(() => {
         loadScript(
@@ -214,15 +274,78 @@ export const GoogleMapPlace: Story = () => {
         );
     }, []);
 
-    useEffect(() => {
-        setTimeout(() => {
-            if (window?.google && !googlePlaceAutocompleteService.current) {
-                googlePlaceAutocompleteService.current = new google.maps.places.AutocompleteService();
-            }
+    const shouldPopupOpen = open && options.length > 0;
 
-            // console.log(googlePlaceAutocompleteService.current?.getPlacePredictions());
-        }, 2500);
-    }, []);
+    return (
+        <div style={{ maxWidth: '40rem' }}>
+            <MuiCustomAutocomplete
+                open={shouldPopupOpen}
+                fullWidth
+                includeInputInList
+                forcePopupIcon={false}
+                options={options}
+                filterOptions={(x) => x}
+                getOptionLabel={(option) => {
+                    return typeof option === 'string' ? option : option?.description;
+                }}
+                isOptionEqualToValue={(option, value) => {
+                    return option.place_id.trim() === value.place_id.trim();
+                }}
+                renderInput={(inputProps) => {
+                    return (
+                        <MuiCustomTextField
+                            {...inputProps}
+                            variant="original"
+                            placeholder="Search a location"
+                            InputProps={{
+                                ...inputProps.InputProps,
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Icon>
+                                            <MapPinSvg />
+                                        </Icon>
+                                    </InputAdornment>
+                                ),
+                                endAdornment: loading ? (
+                                    <InputAdornment position="end">
+                                        <CircularProgress />
+                                    </InputAdornment>
+                                ) : (
+                                    inputProps.InputProps.endAdornment
+                                )
+                            }}
+                        />
+                    );
+                }}
+                renderOption={(params, option, state) => {
+                    const { structured_formatting } = option;
+                    const primaryText = structured_formatting.main_text;
+                    const secondaryText = structured_formatting.secondary_text;
+                    const { inputValue } = state;
 
-    return <div>Google Map Place</div>;
+                    return (
+                        <li
+                            {...params}
+                            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem"
+                        >
+                            <div className="MuiListItemIcon-root">
+                                <Icon fontSize="small">
+                                    <MapPinSvg />
+                                </Icon>
+                            </div>
+                            <div className="MuiListItemText-root MuiListItemText-multiline">
+                                <div className="MuiListItemText-primary">
+                                    <MuiCustomHighlighter text={primaryText} query={inputValue} />
+                                </div>
+                                <div className="MuiListItemText-secondary">{secondaryText}</div>
+                            </div>
+                        </li>
+                    );
+                }}
+                onOpen={handlePopupOpen}
+                onClose={handlePopupClose}
+                onInputChange={handleInputValueChange}
+            />
+        </div>
+    );
 };

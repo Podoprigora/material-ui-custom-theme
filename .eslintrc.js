@@ -91,7 +91,8 @@ module.exports = {
                 '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
                 '@typescript-eslint/explicit-module-boundary-types': 0,
                 '@typescript-eslint/ban-ts-comment': 0,
-                '@typescript-eslint/dot-notation': 0
+                '@typescript-eslint/dot-notation': 0,
+                '@typescript-eslint/naming-convention': 0
             }
         }
     ]
