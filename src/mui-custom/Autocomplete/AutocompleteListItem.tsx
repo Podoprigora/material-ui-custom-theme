@@ -1,14 +1,20 @@
 import React from 'react';
+import clsx from 'clsx';
 
-export const MuiCustomAutocompleteListItem = (props: React.HTMLAttributes<HTMLLIElement>) => {
+export type MuiCustomAutocompleteListItemProps = React.ComponentPropsWithoutRef<'li'>;
+
+export const MuiCustomAutocompleteListItem = (props: MuiCustomAutocompleteListItemProps) => {
     const { className, children, ...other } = props;
 
     return (
         <li
             {...other}
-            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem"
+            className={clsx(
+                'MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem',
+                className
+            )}
         >
-            <div className="MuiListItemText-root">{children}</div>
+            {children}
         </li>
     );
 };

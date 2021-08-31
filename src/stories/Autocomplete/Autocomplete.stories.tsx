@@ -12,11 +12,20 @@ import {
     InputAdornment,
     CircularProgress,
     Stack,
+    Checkbox,
     useEventCallback,
     createFilterOptions
 } from '@material-ui/core';
 
-import { MuiCustomTextField, MuiCustomAutocomplete, MuiCustomHighlighter } from '@mui-custom';
+import {
+    MuiCustomTextField,
+    MuiCustomAutocomplete,
+    MuiCustomHighlighter,
+    MuiCustomAutocompleteListItemText,
+    MuiCustomAutocompleteListItem,
+    MuiCustomAutocompleteListItemAvatar,
+    MuiCustomAutocompleteListItemIcon
+} from '@mui-custom';
 import { useMountedRef, fakeRequest, loadScript } from '@mui-custom/utils';
 
 import {
@@ -43,139 +52,101 @@ interface Film {
     image?: string;
 }
 
-// const AutocompleteListItem = (props: HTMLAttributes<HTMLLIElement>) => {
-//     const { className, children, ...other } = props;
-
-//     return (
-//         <li {...other} className="MuiMenuItem-root MuiMenuItem-gutters">
-//             <div className="MuiListItemText-root">{children}</div>
-//         </li>
-//     );
-// };
-
-// export const Default: Story = () => {
-//     return (
-//         <div style={{ maxWidth: '40rem' }}>
-//             <Autocomplete
-//                 // open
-//                 options={topFilmsRawData}
-//                 getOptionLabel={(option) => option.title}
-//                 renderInput={(params) => (
-//                     <MuiCustomTextField {...params} variant="original" label="Films" />
-//                 )}
-//                 renderOption={(params, option) => {
-//                     const { className, ...other } = params;
-//                     const { title } = option;
-
-//                     return <AutocompleteListItem {...other}>{title}</AutocompleteListItem>;
-//                 }}
-//             />
-//         </div>
-//     );
-// };
+interface Country {
+    code: string;
+    label: string;
+    phone: string;
+    suggested?: boolean;
+}
 
 export const AsynchronousRequest: Story = () => {
     const [open, setOpen] = useState(false);
-    const [options, setOptions] = useState<readonly Film[]>([]);
+    const [defaultOptions] = useState<readonly Film[]>(topFilmsRawData);
+    const [options, setOptions] = useState<readonly Film[]>(defaultOptions);
     const [loading, setLoading] = useState(false);
     const isMountedRef = useMountedRef();
 
     const fetch = useCallback(
         async (query?: string) => {
-            setLoading(true);
-
-            let response = await fakeRequest<Film[]>(topFilmsRawData, {
-                delay: 1000
-            });
-
             if (query) {
+                setLoading(true);
+
+                let response = await fakeRequest<Film[]>(topFilmsRawData, {
+                    delay: 300
+                });
+
                 const filterFn = createFilterOptions<Film>({ limit: 25 });
 
                 response = filterFn(response, {
                     inputValue: query,
                     getOptionLabel: (option) => option.title
                 });
-            }
 
-            if (isMountedRef.current) {
-                setOpen(true);
-                setOptions(response);
-                setLoading(false);
+                if (isMountedRef.current) {
+                    setOptions(response);
+                    setLoading(false);
+                }
             }
         },
         [isMountedRef]
     );
+
+    const handleOpen = useEventCallback(() => {
+        setOpen(true);
+    });
 
     const handleClose = useEventCallback(() => {
         setOpen(false);
     });
 
     const handleInputChange = useMemo(() => {
-        return _throttle(
-            (ev: React.SyntheticEvent, value: string, reason: AutocompleteInputChangeReason) => {
-                if (reason === 'input' && value.length >= 3) {
-                    fetch(value);
+        return _debonce(
+            (ev: React.SyntheticEvent, newValue: string, reason: AutocompleteInputChangeReason) => {
+                if (reason === 'input' && newValue.length > 0) {
+                    fetch(newValue);
                 } else {
-                    setOpen(false);
+                    setOptions(defaultOptions);
                 }
             },
-            600,
-            { leading: false, trailing: true }
+            300
         );
-    }, [fetch]);
+    }, [fetch, defaultOptions]);
 
-    useEffect(() => {
-        if (!open) {
-            setOptions([]);
-        }
-    }, [open]);
+    const shouldPopupOpen = open && options.length > 0;
 
     return (
         <Stack direction="column" alignItems="flex-start" spacing={10} sx={{ maxWidth: '40rem' }}>
             <MuiCustomAutocomplete
-                open={open}
+                open={shouldPopupOpen}
                 fullWidth
+                openOnFocus
+                remoteFilter
+                loading={loading}
                 forcePopupIcon={false}
+                onOpen={handleOpen}
                 onClose={handleClose}
                 onInputChange={handleInputChange}
                 options={options}
                 getOptionLabel={(option) => {
-                    return option.title;
+                    return typeof option === 'string' ? option : option.title;
                 }}
-                filterOptions={(x) => x} // To disable built-in filtering
-                isOptionEqualToValue={(option, value) => option.title === value.title}
+                isOptionEqualToValue={(option, value) => option.title.trim() === value.title.trim()}
                 renderInput={(params) => (
                     <MuiCustomTextField
                         {...params}
-                        variant="standard"
+                        variant="outlined"
                         label="Favorite film"
                         placeholder="Start typing: The ..."
                         helperText="Min length of query: 3 characters."
-                        InputProps={{
-                            ...params.InputProps,
-                            endAdornment: (
-                                <>
-                                    {loading ? (
-                                        <InputAdornment position="end">
-                                            <CircularProgress />
-                                        </InputAdornment>
-                                    ) : (
-                                        params.InputProps.endAdornment
-                                    )}
-                                </>
-                            )
-                        }}
                     />
                 )}
-                renderOption={(params, option) => {
+                renderOption={(params, option, state) => {
                     const { title, year, image } = option;
+                    const { inputValue } = state;
 
                     return (
-                        <li
-                            {...params}
-                            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem"
-                        >
-                            <div className="MuiListItemAvatar-root">
+                        <MuiCustomAutocompleteListItem {...params}>
+                            <MuiCustomAutocompleteListItemAvatar>
                                 {image ? (
                                     <Avatar
                                         src={image}
@@ -189,12 +160,18 @@ export const AsynchronousRequest: Story = () => {
                                         </Icon>
                                     </Avatar>
                                 )}
-                            </div>
-                            <div className="MuiListItemText-root MuiListItemText-multiline">
-                                <div className="MuiListItemText-primary">{title}</div>
-                                <div className="MuiListItemText-secondary">{year}</div>
-                            </div>
-                        </li>
+                            </MuiCustomAutocompleteListItemAvatar>
+                            <MuiCustomAutocompleteListItemText
+                                primary={
+                                    inputValue.length ? (
+                                        <MuiCustomHighlighter text={title} query={inputValue} />
+                                    ) : (
+                                        title
+                                    )
+                                }
+                                secondary={String(year)}
+                            />
+                        </MuiCustomAutocompleteListItem>
                     );
                 }}
             />
@@ -255,8 +232,12 @@ export const GoogleMapPlace: Story = () => {
     }, [isMountedRef]);
 
     const handleInputValueChange = useEventCallback(
-        (ev: React.SyntheticEvent, newValue: string) => {
-            fetchPlace(newValue);
+        (ev: React.SyntheticEvent, newValue: string, reason: AutocompleteInputChangeReason) => {
+            if (reason === 'input') {
+                fetchPlace(newValue);
+            } else if (reason === 'clear') {
+                setOptions([]);
+            }
         }
     );
 
@@ -282,10 +263,10 @@ export const GoogleMapPlace: Story = () => {
             <MuiCustomAutocomplete
                 open={shouldPopupOpen}
                 fullWidth
-                includeInputInList
                 forcePopupIcon={false}
+                remoteFilter
+                loading={loading}
                 options={options}
-                filterOptions={(x) => x}
                 getOptionLabel={(option) => {
                     return typeof option === 'string' ? option : option?.description;
                 }}
@@ -306,46 +287,87 @@ export const GoogleMapPlace: Story = () => {
                                             <MapPinSvg />
                                         </Icon>
                                     </InputAdornment>
-                                ),
-                                endAdornment: loading ? (
-                                    <InputAdornment position="end">
-                                        <CircularProgress />
-                                    </InputAdornment>
-                                ) : (
-                                    inputProps.InputProps.endAdornment
                                 )
                             }}
                         />
                     );
                 }}
-                renderOption={(params, option, state) => {
+                renderOption={(listItemParams, option, state) => {
                     const { structured_formatting } = option;
                     const primaryText = structured_formatting.main_text;
                     const secondaryText = structured_formatting.secondary_text;
                     const { inputValue } = state;
 
                     return (
-                        <li
-                            {...params}
-                            className="MuiMenuItem-root MuiMenuItem-gutters MuiCustomAutocomplete-listItem"
-                        >
-                            <div className="MuiListItemIcon-root">
+                        <MuiCustomAutocompleteListItem {...listItemParams}>
+                            <MuiCustomAutocompleteListItemIcon>
                                 <Icon fontSize="small">
                                     <MapPinSvg />
                                 </Icon>
-                            </div>
-                            <div className="MuiListItemText-root MuiListItemText-multiline">
-                                <div className="MuiListItemText-primary">
+                            </MuiCustomAutocompleteListItemIcon>
+                            <MuiCustomAutocompleteListItemText
+                                primary={
                                     <MuiCustomHighlighter text={primaryText} query={inputValue} />
-                                </div>
-                                <div className="MuiListItemText-secondary">{secondaryText}</div>
-                            </div>
-                        </li>
+                                }
+                                secondary={secondaryText}
+                            />
+                        </MuiCustomAutocompleteListItem>
                     );
                 }}
                 onOpen={handlePopupOpen}
                 onClose={handlePopupClose}
                 onInputChange={handleInputValueChange}
+            />
+        </div>
+    );
+};
+
+// Multiselect
+
+export const MultiSelect: Story = () => {
+    return (
+        <div style={{ maxWidth: '40rem' }}>
+            <MuiCustomAutocomplete
+                fullWidth
+                openOnFocus
+                multiple
+                disableCloseOnSelect
+                forcePopupIcon={false}
+                options={topFilmsRawData.slice(0, 50)}
+                getOptionLabel={(option) => {
+                    return option.title;
+                }}
+                filterOptions={(options, state) => {
+                    const filterFn = createFilterOptions<Film>({
+                        matchFrom: 'start'
+                    });
+
+                    return filterFn(options, state);
+                }}
+                renderInput={(inputProps) => {
+                    return (
+                        <MuiCustomTextField
+                            {...inputProps}
+                            variant="outlined"
+                            label="Filter by films"
+                        />
+                    );
+                }}
+                renderOption={(listItemProps, option, state) => {
+                    const { title } = option;
+                    const { selected } = state;
+
+                    return (
+                        <MuiCustomAutocompleteListItem {...listItemProps}>
+                            <MuiCustomAutocompleteListItemIcon>
+                                <Checkbox className="MuiCheckbox-dense" checked={selected} />
+                            </MuiCustomAutocompleteListItemIcon>
+                            <MuiCustomAutocompleteListItemText className="u-text-truncate">
+                                {title}
+                            </MuiCustomAutocompleteListItemText>
+                        </MuiCustomAutocompleteListItem>
+                    );
+                }}
             />
         </div>
     );

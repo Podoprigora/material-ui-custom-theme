@@ -68,8 +68,8 @@ import {
     HeartSvg
 } from '../../assets/svg-icons/feather';
 
-import '../scss/navigation-list.scss';
-import '../scss/nested-navigation-list.scss';
+import './navigation-list.scss';
+import './nested-navigation-list.scss';
 
 import countriesRawData from '../assets/data/countries.json';
 import UserpicImg from '../assets/images/userpic.jpg';

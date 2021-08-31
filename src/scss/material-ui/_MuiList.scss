@@ -98,6 +98,7 @@
         min-width: 0;
         font-size: $list-item-icon-font-size;
         color: $icon-color;
+        line-height: 0;
 
         &:first-child {
             margin-right: $list-padding-x - $spacing-scale-1;

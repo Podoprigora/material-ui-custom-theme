@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Popper, PopperProps, Paper, Fade, IconButton, Icon } from '@material-ui/core';
 import { MapPinSvg, XSvg } from '../../assets/svg-icons/feather';
 
-import '../scss/map-popper.scss';
+import './map-popper.scss';
 
 export default {
     title: 'mui-custom/Popper',

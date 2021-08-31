@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import {
     AutocompleteProps,
+    CircularProgress,
     Icon,
     IconButton,
     InputAdornment,
@@ -18,6 +19,7 @@ import {
     MuiCustomAutocompletePopper,
     MuiCustomAutocompletePopperProps
 } from './AutocompletePopper';
+import { MuiCustomAutocompleteListItemText } from './AutocompleteListItemText';
 
 type DefaultOption = { label: string } | string;
 
@@ -27,6 +29,8 @@ export interface MuiCustomAutocompleteProps<
     DisableClearable extends boolean | undefined,
     FreeSolo extends boolean | undefined
 > extends AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> {
+    loading?: boolean;
+    remoteFilter?: boolean;
     ListProps?: MuiCustomAutocompleteListProps &
         Pick<MuiCustomAutocompletePopperProps, 'autoWidth'>;
 }
@@ -52,6 +56,9 @@ function MuiCustomAutocompleteWithRef<
         renderInput,
         renderOption: renderOptionProp,
         getOptionLabel = defaultGetOptionLabel,
+        loading,
+        remoteFilter,
+        filterOptions = remoteFilter ? (x) => x : undefined,
         freeSolo = false,
         forcePopupIcon = 'auto',
         className,
@@ -87,6 +94,7 @@ function MuiCustomAutocompleteWithRef<
         setAnchorEl,
         groupedOptions
     } = useAutocomplete({
+        filterOptions,
         ...props,
         componentName: 'MuiCustomAutocomplete'
     });
@@ -95,9 +103,10 @@ function MuiCustomAutocompleteWithRef<
     const hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
 
     const inputStartAdornment: React.ReactNode = null;
-    const inputEndAdornment: React.ReactNode = (hasClearIcon || hasPopupIcon) && (
+    const inputEndAdornment: React.ReactNode = (hasClearIcon || hasPopupIcon || loading) && (
         <InputAdornment position="end">
-            {hasClearIcon ? (
+            {loading ? <CircularProgress /> : null}
+            {hasClearIcon && !loading ? (
                 <IconButton
                     size="small"
                     className="MuiIconButton-dense MuiIconButton-circular"
@@ -106,7 +115,7 @@ function MuiCustomAutocompleteWithRef<
                     {clearIcon}
                 </IconButton>
             ) : null}
-            {hasPopupIcon ? (
+            {hasPopupIcon && !loading ? (
                 <IconButton
                     size="small"
                     className="MuiIconButton-dense MuiIconButton-circular"
@@ -138,7 +147,9 @@ function MuiCustomAutocompleteWithRef<
 
     const defaultRenderOption: typeof renderOptionProp = (params, option) => (
         <MuiCustomAutocompleteListItem {...params}>
-            {getOptionLabel(option)}
+            <MuiCustomAutocompleteListItemText>
+                {getOptionLabel(option)}
+            </MuiCustomAutocompleteListItemText>
         </MuiCustomAutocompleteListItem>
     );
     const renderOption = renderOptionProp || defaultRenderOption;
