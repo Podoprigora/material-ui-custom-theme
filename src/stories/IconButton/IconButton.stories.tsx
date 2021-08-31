@@ -1,10 +1,9 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Icon, Tooltip } from '@material-ui/core';
+import { Icon, Tooltip, IconButton } from '@material-ui/core';
 import { FavoriteBorder } from '@material-ui/icons';
 
-import { IconButton, IconButtonProps } from './Template';
 import {
     AnchorSvg,
     ArrowRightSvg,
@@ -22,15 +21,7 @@ export default {
     title: 'mui-custom/IconButton'
 } as Meta;
 
-export const Default: Story<IconButtonProps> = (args) => {
-    return <IconButton {...args} />;
-};
-
-Default.args = {
-    children: <FavoriteBorder />
-};
-
-export const Examples = () => {
+export const Examples: Story = () => {
     return (
         <>
             <div className="stack">

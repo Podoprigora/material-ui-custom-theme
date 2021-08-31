@@ -1,18 +1,17 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, Icon } from '@material-ui/core';
+import { Button, Icon, ButtonGroup } from '@material-ui/core';
 import { Menu1Svg, SaveSvg, TagSvg } from '../../assets/svg-icons/feather';
-import { ButtonGroup, ButtonGroupProps } from './Template';
 
 export default {
     component: ButtonGroup,
     title: 'mui-custom/ButtonGroup'
 } as Meta;
 
-export const Default: Story<ButtonGroupProps> = (args) => {
+export const Default: Story = (args) => {
     return (
-        <ButtonGroup {...args}>
+        <ButtonGroup variant="outlined" size="medium">
             <Button
                 startIcon={
                     <Icon>
@@ -43,8 +42,3 @@ export const Default: Story<ButtonGroupProps> = (args) => {
         </ButtonGroup>
     );
 };
-
-Default.args = {
-    variant: 'outlined',
-    size: 'medium'
-} as ButtonGroupProps;

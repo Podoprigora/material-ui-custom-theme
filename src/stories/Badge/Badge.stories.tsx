@@ -1,9 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, Icon, IconButton } from '@material-ui/core';
+import { Button, Icon, IconButton, Badge } from '@material-ui/core';
 
-import { Badge, BadgeProps } from './Template';
 import { HeartSvg, MessageSquareSvg } from '../../assets/svg-icons/feather';
 
 export default {
@@ -11,9 +10,9 @@ export default {
     component: Badge
 } as Meta;
 
-export const Default: Story<BadgeProps> = (args) => {
+export const Default: Story = () => {
     return (
-        <Badge {...args}>
+        <Badge badgeContent={5} color="primary">
             <IconButton className="MuiIconButton-dense">
                 <Icon fontSize="large">
                     <HeartSvg />
@@ -22,11 +21,6 @@ export const Default: Story<BadgeProps> = (args) => {
         </Badge>
     );
 };
-
-Default.args = {
-    badgeContent: 5,
-    color: 'primary'
-} as BadgeProps;
 
 export const Exmaples = () => {
     return (

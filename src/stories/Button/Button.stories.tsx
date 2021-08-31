@@ -1,28 +1,15 @@
 import React from 'react';
-
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
 
-import { Button, ButtonProps } from './Template';
-import { CircularProgress, Icon } from '@material-ui/core';
+import { CircularProgress, Icon, Button } from '@material-ui/core';
+import { KeyboardArrowRight, ShoppingCart } from '@material-ui/icons';
 
 export default {
     component: Button,
     title: 'mui-custom/Button'
 } as Meta;
 
-export const Default: Story<ButtonProps> = (args) => {
-    return <Button {...args} />;
-};
-
-Default.args = {
-    color: 'primary',
-    variant: 'contained',
-    children: 'Save product',
-    startIcon: <ShoppingCart />
-} as ButtonProps;
-
-export const Examples = () => {
+export const Examples: Story = () => {
     return (
         <>
             {/* Contained */}

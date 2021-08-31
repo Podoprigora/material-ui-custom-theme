@@ -28,6 +28,7 @@ import {
     Badge,
     Collapse,
     Paper,
+    List,
     useEventCallback
 } from '@material-ui/core';
 
@@ -48,7 +49,7 @@ import {
 } from '@material-ui/icons';
 import { MuiCustomSimplebar, MuiCustomSimplebarRef, MuiCustomColorList } from '@mui-custom';
 
-import { FacebookSettingLinkedList, List, ListProps } from './Template';
+import { FacebookSettingLinkedList } from './Template';
 import {
     InboxSvg,
     Trash2Svg,
@@ -80,7 +81,7 @@ export default {
 
 // Default
 
-export const Default: Story<ListProps> = (args) => {
+export const Default: Story = () => {
     return (
         <>
             <Button
@@ -111,7 +112,7 @@ export const Default: Story<ListProps> = (args) => {
             </Button>
             <Divider className="u-margin-t-4" />
             <div style={{ width: '100%', maxWidth: '36rem' }}>
-                <List {...args}>
+                <List>
                     <ListItemButton>
                         <ListItemIcon>
                             <Icon>
@@ -159,7 +160,7 @@ export const Default: Story<ListProps> = (args) => {
                     </ListItem>
                 </List>
                 <Divider />
-                <List {...args}>
+                <List>
                     <ListItemButton>
                         <ListItemIcon>
                             <Icon>
@@ -182,7 +183,7 @@ export const Default: Story<ListProps> = (args) => {
                     </ListItemButton>
                 </List>
                 <Divider />
-                <List {...args}>
+                <List>
                     <ListItemButton alignItems="flex-start">
                         <ListItemText>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.

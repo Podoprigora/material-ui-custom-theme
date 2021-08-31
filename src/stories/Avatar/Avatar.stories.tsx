@@ -1,8 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Icon, Stack } from '@material-ui/core';
-import { Avatar, AvatarProps } from './Tempate';
+import { Icon, Stack, Avatar } from '@material-ui/core';
 
 import UserpicImg from '../assets/images/userpic.jpg';
 import { FolderSvg } from '../../assets/svg-icons/feather';
@@ -12,14 +11,9 @@ export default {
     component: Avatar
 } as Meta;
 
-export const Default: Story<AvatarProps> = (args) => {
-    return <Avatar {...args} />;
+export const Default: Story = () => {
+    return <Avatar src={UserpicImg} sx={{ width: 100, height: 100 }} />;
 };
-
-Default.args = {
-    src: UserpicImg,
-    sx: { width: 100, height: 100 }
-} as AvatarProps;
 
 export const Examples = () => {
     return (
