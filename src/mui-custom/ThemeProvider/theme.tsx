@@ -1,6 +1,8 @@
-import { createTheme, Grow, PopoverProps } from '@material-ui/core';
-import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
 import React from 'react';
+import { ButtonBaseProps, ChipProps, createTheme, Grow, PopoverProps } from '@material-ui/core';
+import { Clear } from '@material-ui/icons';
+import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
+
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
 
 import { sassSpacingCallback, getSassBreakpoint, getSassVariable } from './sass-variables';
@@ -17,6 +19,8 @@ declare module '@material-ui/core/Icon' {
         xsmall: true;
     }
 }
+
+type ChipButtonBaseProps = ButtonBaseProps & ChipProps;
 
 // Default props
 const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
@@ -85,7 +89,7 @@ export const theme = createTheme({
         MuiButtonBase: {
             defaultProps: {
                 disableRipple: true,
-                focusRipple: true
+                focusRipple: false
             }
         },
         MuiButton: {
@@ -107,6 +111,12 @@ export const theme = createTheme({
                 size: 'medium',
                 disableFocusRipple: false
             }
+        },
+        MuiChip: {
+            defaultProps: {
+                disableRipple: true,
+                deleteIcon: <Clear />
+            } as ChipButtonBaseProps
         },
         MuiSvgIcon: {
             defaultProps: {

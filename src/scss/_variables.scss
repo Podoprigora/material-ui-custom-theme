@@ -339,11 +339,13 @@ $input-filled-box-shadow: 0 0.2rem 0rem -0.1rem $input-border-color;
 $input-filled-bg-color: $gray-lighten-5;
 $input-filled-hover-box-shadow: 0 0.2rem 0rem -0.1rem $input-hover-border-color;
 
-//MuiOutlinedInput
+// MuiOutlinedInput
 $input-outlined-legend-spacing: $spacing-scale-3;
 $input-outlined-label-shrink-font-weight: $form-label-font-weight;
 $input-outlined-error-border-color: rgba($color-error, 0.55);
 $input-outlined-min-height: 4.8rem;
+
+// MuiChip
 
 // MuiSelect
 $select-min-width: 8rem;

@@ -1,0 +1,143 @@
+@use "sass:math";
+
+.MuiChip {
+    $this: &;
+
+    &-root {
+        color: inherit;
+        font-size: $font-size-small;
+        height: auto;
+        transition: background-color 0.15s;
+
+        #{$this}-icon {
+            font-size: $icon-small-font-size;
+            margin-left: $btn-small-padding-x - $spacing-scale-1;
+        }
+
+        #{$this}-deleteIcon {
+            font-size: 1.5rem;
+            color: $icon-color;
+            margin-right: $btn-small-padding-x - $spacing-scale-2;
+            transition: color 0.15s;
+
+            &:hover {
+                color: currentColor;
+            }
+        }
+    }
+
+    &-sizeMedium {
+        min-height: 3rem;
+        border-radius: 1.5rem;
+    }
+
+    &-sizeSmall {
+        min-height: 2.6rem;
+        border-radius: 1.3rem;
+    }
+
+    &-filled {
+        background-color: $gray-lighten-4;
+        color: $btn-color;
+
+        &:hover,
+        &.Mui-focusVisible {
+            background-color: darken($gray-lighten-4, 5%);
+        }
+
+        &:active {
+            box-shadow: none;
+        }
+    }
+
+    &-outlined {
+        border: 0;
+        box-shadow: $input-base-box-shadow;
+
+        &:hover,
+        &.Mui-focusVisible {
+            background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+        }
+
+        &:active {
+            box-shadow: $input-base-box-shadow;
+        }
+    }
+
+    &-colorPrimary,
+    &-colorSecondary {
+        #{$this}-icon,
+        #{$this}-deleteIcon {
+            color: inherit;
+        }
+    }
+
+    &-colorPrimary {
+        &#{$this}-filled {
+            background-color: $color-primary;
+            color: $color-primary-text;
+
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($color-primary, $btn-hover-opacity);
+            }
+        }
+
+        &#{$this}-outlined {
+            box-shadow: 0 0 0 0.1rem $color-primary;
+            color: $color-primary;
+
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+            }
+        }
+
+        #{$this}-deleteIcon {
+            &:hover {
+                color: darken($color-primary, 15%);
+            }
+        }
+    }
+
+    &-colorSecondary {
+        &#{$this}-filled {
+            background-color: $color-secondary;
+            color: $color-secondary-text;
+
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($color-secondary, $btn-hover-opacity);
+            }
+        }
+
+        &#{$this}-outlined {
+            box-shadow: 0 0 0 0.1rem $color-secondary;
+            color: $color-secondary;
+
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+            }
+        }
+
+        #{$this}-deleteIcon {
+            &:hover {
+                color: darken($color-secondary, 15%);
+            }
+        }
+    }
+
+    &-label {
+        padding: 0 $btn-small-padding-x;
+        line-height: 1.2;
+    }
+
+    &-labelMedium {
+        font-size: 1.3rem;
+    }
+
+    &-labelSmall {
+        font-size: $font-size-small;
+    }
+}

@@ -14,7 +14,10 @@ import {
     Stack,
     Checkbox,
     useEventCallback,
-    createFilterOptions
+    createFilterOptions,
+    InputBase,
+    InputBaseProps,
+    Chip
 } from '@material-ui/core';
 
 import {
@@ -324,6 +327,37 @@ export const GoogleMapPlace: Story = () => {
 
 // Multiselect
 
+const InputWrap = React.forwardRef<HTMLInputElement, React.HTMLAttributes<HTMLInputElement>>(
+    function InputWrap(props, forwardedRef) {
+        return (
+            <div
+                className="MuiCustomInputWrap"
+                style={{
+                    display: 'flex',
+                    flexFlow: 'row wrap',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    flexGrow: 1
+                }}
+            >
+                <Chip label="Fight Club" color="primary" onDelete={() => {}} />
+                {/* <Chip
+                    label="The Lord of the Rings: The Fellowship of the Ring"
+                    color="primary"
+                    onDelete={() => {}}
+                /> */}
+                <Chip label="Forrest Gump" color="primary" onDelete={() => {}} />
+                <Chip label="Ame Beauty" color="primary" onDelete={() => {}} />
+                <input
+                    {...props}
+                    style={{ display: 'flex', width: 0, minWidth: '3rem', flexGrow: 1 }}
+                    ref={forwardedRef}
+                />
+            </div>
+        );
+    }
+);
+
 export const MultiSelect: Story = () => {
     return (
         <div style={{ maxWidth: '40rem' }}>
@@ -348,8 +382,13 @@ export const MultiSelect: Story = () => {
                     return (
                         <MuiCustomTextField
                             {...inputProps}
-                            variant="outlined"
+                            variant="original"
                             label="Filter by films"
+                            placeholder="Select a film"
+                            InputProps={{
+                                ...inputProps.InputProps,
+                                inputComponent: InputWrap
+                            }}
                         />
                     );
                 }}

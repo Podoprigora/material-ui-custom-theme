@@ -141,8 +141,9 @@ function MuiCustomAutocompleteWithRef<
             endAdornment: inputEndAdornment
         },
         inputProps: {
-            ...getInputProps()
-        }
+            ...getInputProps(),
+            tags: [1, 2, 3]
+        } as React.HTMLAttributes<HTMLElement> & { tags: Array<number> }
     });
 
     const defaultRenderOption: typeof renderOptionProp = (params, option) => (
