@@ -382,9 +382,12 @@ export const MultiSelect: Story = () => {
                     return (
                         <MuiCustomTextField
                             {...inputProps}
-                            variant="original"
+                            variant="outlined"
                             label="Filter by films"
                             placeholder="Select a film"
+                            InputLabelProps={{
+                                shrink: true
+                            }}
                             InputProps={{
                                 ...inputProps.InputProps,
                                 inputComponent: InputWrap
