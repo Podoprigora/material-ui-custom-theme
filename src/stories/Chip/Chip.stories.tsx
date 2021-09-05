@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { Chip, Icon, Stack } from '@material-ui/core';
-import { AwardSvg, StarSvg } from '../../assets/svg-icons/feather';
+import { AwardSvg } from '../../assets/svg-icons/feather';
 
 export default {
     title: 'mui-custom/Chip',
@@ -11,8 +11,8 @@ export default {
 
 export const Examples: Story = () => {
     return (
-        <Stack direction="column" spacing={6}>
-            <Stack direction="row" justifyContent="flex-start" spacing={5}>
+        <Stack direction="column" spacing={8}>
+            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip variant="filled" size="medium" clickable label="React" />
                 <Chip variant="filled" size="medium" clickable label="Redux" />
                 <Chip variant="filled" size="medium" clickable label="Next.js" />
@@ -20,7 +20,7 @@ export const Examples: Story = () => {
                 <Chip variant="filled" size="medium" clickable label="SCSS" />
                 <Chip variant="filled" size="medium" clickable label="Node.js" />
             </Stack>
-            <Stack direction="row" justifyContent="flex-start" spacing={5}>
+            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip variant="outlined" size="medium" clickable label="React" />
                 <Chip variant="outlined" size="medium" clickable label="Redux" />
                 <Chip variant="outlined" size="medium" clickable label="Next.js" />
@@ -29,7 +29,7 @@ export const Examples: Story = () => {
                 <Chip variant="outlined" size="medium" clickable label="Node.js" />
             </Stack>
 
-            <Stack direction="row" justifyContent="flex-start" spacing={5}>
+            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip variant="filled" size="small" clickable label="React" />
                 <Chip variant="filled" size="small" clickable label="Redux" />
                 <Chip variant="filled" size="small" clickable label="Next.js" />
@@ -37,7 +37,7 @@ export const Examples: Story = () => {
                 <Chip variant="filled" size="small" clickable label="SCSS" />
                 <Chip variant="filled" size="small" clickable label="Node.js" />
             </Stack>
-            <Stack direction="row" justifyContent="flex-start" spacing={5}>
+            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip variant="outlined" size="small" clickable label="React" />
                 <Chip variant="outlined" size="small" clickable label="Redux" />
                 <Chip variant="outlined" size="small" clickable label="Next.js" />
@@ -45,7 +45,7 @@ export const Examples: Story = () => {
                 <Chip variant="outlined" size="small" clickable label="SCSS" />
                 <Chip variant="outlined" size="small" clickable label="Node.js" />
             </Stack>
-            <Stack direction="row" justifyContent="flex-start" spacing={5}>
+            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip
                     variant="filled"
                     color="primary"

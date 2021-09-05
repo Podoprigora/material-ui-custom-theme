@@ -138,7 +138,7 @@ export const MuiCustomTextField = React.forwardRef<HTMLDivElement, MuiCustomText
         };
 
         if (variant === 'outlined') {
-            if (InputLabelProps && typeof InputLabelProps.shrink !== 'undefined') {
+            if (InputLabelProps && typeof InputLabelProps?.shrink !== 'undefined') {
                 InputMore.notched = InputLabelProps.shrink;
             }
             if (label) {
@@ -150,6 +150,10 @@ export const MuiCustomTextField = React.forwardRef<HTMLDivElement, MuiCustomText
                     </React.Fragment>
                 );
             }
+        }
+
+        if (variant === 'original' && InputLabelProps?.shrink) {
+            delete InputLabelProps?.shrink;
         }
 
         if (select) {

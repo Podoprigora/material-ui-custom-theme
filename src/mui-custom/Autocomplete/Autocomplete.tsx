@@ -3,6 +3,8 @@ import clsx from 'clsx';
 
 import {
     AutocompleteProps,
+    AutocompleteRenderInputParams,
+    Chip,
     CircularProgress,
     Icon,
     IconButton,
@@ -13,6 +15,8 @@ import {
 import { Clear } from '@material-ui/icons';
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
 
+import { MuiCustomTextFieldProps } from '../TextField';
+
 import { MuiCustomAutocompleteListItem } from './AutocompleteListItem';
 import { MuiCustomAutocompleteList, MuiCustomAutocompleteListProps } from './AutocompleteList';
 import {
@@ -20,19 +24,34 @@ import {
     MuiCustomAutocompletePopperProps
 } from './AutocompletePopper';
 import { MuiCustomAutocompleteListItemText } from './AutocompleteListItemText';
+import {
+    MuiCustomAutocompleteInputContainer,
+    MuiCustomAutocompleteInputContainerProps
+} from './AutocompleteInputContainer';
 
 type DefaultOption = { label: string } | string;
+
+export interface MuiCustomAutocompleteRenderInputParams
+    extends Omit<AutocompleteRenderInputParams, 'inputProps' | 'InputProps'> {
+    InputProps?: MuiCustomTextFieldProps['InputProps'] & {
+        inputComponent?: React.ElementType<MuiCustomAutocompleteInputContainerProps>;
+    };
+    inputProps?: ReturnType<ReturnType<typeof useAutocomplete>['getInputProps']> & {
+        tags?: React.ReactNode;
+    };
+}
 
 export interface MuiCustomAutocompleteProps<
     T,
     Multiple extends boolean | undefined,
     DisableClearable extends boolean | undefined,
     FreeSolo extends boolean | undefined
-> extends AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> {
+> extends Omit<AutocompleteProps<T, Multiple, DisableClearable, FreeSolo>, 'renderInput'> {
     loading?: boolean;
     remoteFilter?: boolean;
     ListProps?: MuiCustomAutocompleteListProps &
         Pick<MuiCustomAutocompletePopperProps, 'autoWidth'>;
+    renderInput: (params: MuiCustomAutocompleteRenderInputParams) => React.ReactNode;
 }
 
 function defaultGetOptionLabel(option: DefaultOption) {
@@ -56,9 +75,11 @@ function MuiCustomAutocompleteWithRef<
         renderInput,
         renderOption: renderOptionProp,
         getOptionLabel = defaultGetOptionLabel,
+        renderTags,
         loading,
         remoteFilter,
         filterOptions = remoteFilter ? (x) => x : undefined,
+        multiple = false,
         freeSolo = false,
         forcePopupIcon = 'auto',
         className,
@@ -66,6 +87,7 @@ function MuiCustomAutocompleteWithRef<
         disableClearable = false,
         fullWidth = false,
         ListProps,
+        ChipProps,
 
         clearIcon = <Clear />,
         popupIcon = (
@@ -83,6 +105,7 @@ function MuiCustomAutocompleteWithRef<
         getPopupIndicatorProps,
         getListboxProps,
         getOptionProps,
+        getTagProps,
 
         id,
         value,
@@ -101,6 +124,7 @@ function MuiCustomAutocompleteWithRef<
 
     const hasClearIcon = !disableClearable && !disabled && dirty;
     const hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
+    let tags: React.ReactNode = null;
 
     const inputStartAdornment: React.ReactNode = null;
     const inputEndAdornment: React.ReactNode = (hasClearIcon || hasPopupIcon || loading) && (
@@ -128,6 +152,33 @@ function MuiCustomAutocompleteWithRef<
         </InputAdornment>
     );
 
+    if (multiple && Array.isArray(value) && value.length > 0) {
+        const getCustomizedChipProps = (params: { index: number }) => {
+            return {
+                className: 'MuiCustomAutocomplete-chip',
+                disabled,
+                ...getTagProps(params)
+            };
+        };
+
+        if (renderTags) {
+            tags = renderTags(value as T[], getCustomizedChipProps);
+        } else {
+            tags = value.map((option, index) => {
+                return (
+                    // eslint-disable-next-line react/jsx-key
+                    <Chip
+                        label={getOptionLabel(option as T)}
+                        {...getCustomizedChipProps({ index })}
+                        {...ChipProps}
+                    />
+                );
+            });
+        }
+    }
+
+    const hasTags = Array.isArray(tags) && tags.length > 0;
+
     const inputElement = renderInput({
         id,
         disabled,
@@ -138,12 +189,13 @@ function MuiCustomAutocompleteWithRef<
             ref: setAnchorEl,
             className: 'MuiCustomAutocomplete-inputBase',
             startAdornment: inputStartAdornment,
-            endAdornment: inputEndAdornment
+            endAdornment: inputEndAdornment,
+            inputComponent: MuiCustomAutocompleteInputContainer
         },
         inputProps: {
             ...getInputProps(),
-            tags: [1, 2, 3]
-        } as React.HTMLAttributes<HTMLElement> & { tags: Array<number> }
+            ...(multiple && hasTags && { tags })
+        }
     });
 
     const defaultRenderOption: typeof renderOptionProp = (params, option) => (
@@ -157,6 +209,8 @@ function MuiCustomAutocompleteWithRef<
 
     const renderListOption = (option: T, index: number) => {
         const optionProps = getOptionProps({ option, index });
+
+        // console.log({ optionProps, value });
 
         return renderOption(optionProps, option, {
             selected: !!optionProps['aria-selected'],

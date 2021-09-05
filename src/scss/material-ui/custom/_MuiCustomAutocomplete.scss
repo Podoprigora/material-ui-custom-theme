@@ -1,4 +1,6 @@
 .MuiCustomAutocomplete {
+    $this: &;
+
     &-fullWidth {
         width: 100%;
     }
@@ -44,6 +46,43 @@
 
         &.Mui-focusVisible {
             background-color: $list-item-focus-visible-bg-color;
+        }
+    }
+
+    &-chip {
+        border-radius: $input-base-border-radius;
+        margin: $spacing-scale-3 $spacing-scale-3 0 0;
+        max-width: 100%;
+
+        .MuiChip-label {
+            @include truncation;
+        }
+    }
+
+    & &InputContainer {
+        flex: 1;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow: hidden;
+
+        &-filled {
+            input,
+            .MuiInputBase-input:not([role='button']) {
+                display: block;
+                flex: 1 1 10rem;
+                min-width: 0;
+                min-height: 3rem;
+                padding: $spacing-scale-3 $spacing-scale-3 0;
+            }
+        }
+    }
+
+    .MuiCustomOriginalInput {
+        #{$this}InputContainer-filled {
+            margin-top: -$spacing-scale-3;
+            padding: $input-base-padding-y 0;
         }
     }
 }

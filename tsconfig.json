@@ -18,6 +18,9 @@
       "isolatedModules": true,
       "noEmit": true,
       "noImplicitThis": true,
+
+      "useUnknownInCatchVariables": true,
+      "exactOptionalPropertyTypes": false,
       
       "types": ["google.maps"],
       "paths": {

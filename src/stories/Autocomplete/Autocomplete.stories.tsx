@@ -327,37 +327,6 @@ export const GoogleMapPlace: Story = () => {
 
 // Multiselect
 
-const InputWrap = React.forwardRef<HTMLInputElement, React.HTMLAttributes<HTMLInputElement>>(
-    function InputWrap(props, forwardedRef) {
-        return (
-            <div
-                className="MuiCustomInputWrap"
-                style={{
-                    display: 'flex',
-                    flexFlow: 'row wrap',
-                    alignItems: 'flex-start',
-                    justifyContent: 'flex-start',
-                    flexGrow: 1
-                }}
-            >
-                <Chip label="Fight Club" color="primary" onDelete={() => {}} />
-                {/* <Chip
-                    label="The Lord of the Rings: The Fellowship of the Ring"
-                    color="primary"
-                    onDelete={() => {}}
-                /> */}
-                <Chip label="Forrest Gump" color="primary" onDelete={() => {}} />
-                <Chip label="Ame Beauty" color="primary" onDelete={() => {}} />
-                <input
-                    {...props}
-                    style={{ display: 'flex', width: 0, minWidth: '3rem', flexGrow: 1 }}
-                    ref={forwardedRef}
-                />
-            </div>
-        );
-    }
-);
-
 export const MultiSelect: Story = () => {
     return (
         <div style={{ maxWidth: '40rem' }}>
@@ -366,8 +335,13 @@ export const MultiSelect: Story = () => {
                 openOnFocus
                 multiple
                 disableCloseOnSelect
+                defaultValue={[
+                    { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+                    { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 }
+                ]}
                 forcePopupIcon={false}
                 options={topFilmsRawData.slice(0, 50)}
+                ChipProps={{ color: 'primary' }}
                 getOptionLabel={(option) => {
                     return option.title;
                 }}
@@ -378,19 +352,19 @@ export const MultiSelect: Story = () => {
 
                     return filterFn(options, state);
                 }}
+                isOptionEqualToValue={(option, value) => {
+                    return value.title.trim() === option.title.trim();
+                }}
                 renderInput={(inputProps) => {
                     return (
                         <MuiCustomTextField
                             {...inputProps}
                             variant="outlined"
+                            color="primary"
                             label="Filter by films"
                             placeholder="Select a film"
                             InputLabelProps={{
                                 shrink: true
-                            }}
-                            InputProps={{
-                                ...inputProps.InputProps,
-                                inputComponent: InputWrap
                             }}
                         />
                     );
@@ -402,7 +376,11 @@ export const MultiSelect: Story = () => {
                     return (
                         <MuiCustomAutocompleteListItem {...listItemProps}>
                             <MuiCustomAutocompleteListItemIcon>
-                                <Checkbox className="MuiCheckbox-dense" checked={selected} />
+                                <Checkbox
+                                    color="primary"
+                                    className="MuiCheckbox-dense"
+                                    checked={selected}
+                                />
                             </MuiCustomAutocompleteListItemIcon>
                             <MuiCustomAutocompleteListItemText className="u-text-truncate">
                                 {title}
