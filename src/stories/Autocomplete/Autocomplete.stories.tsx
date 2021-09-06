@@ -330,6 +330,10 @@ export const GoogleMapPlace: Story = () => {
 // Multiselect
 
 export const MultiSelect: Story = () => {
+    const sortedOptions = topFilmsRawData.slice(0, 50).sort((a, b) => {
+        return b.year - a.year;
+    });
+
     return (
         <div style={{ maxWidth: '40rem' }}>
             <MuiCustomAutocomplete
@@ -342,7 +346,7 @@ export const MultiSelect: Story = () => {
                     { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 }
                 ]}
                 forcePopupIcon={false}
-                options={topFilmsRawData.slice(0, 50)}
+                options={sortedOptions}
                 ChipProps={{ color: 'primary' }}
                 getOptionLabel={(option) => {
                     return option.title;
@@ -354,6 +358,7 @@ export const MultiSelect: Story = () => {
 
                     return filterFn(options, state);
                 }}
+                groupBy={(option) => `${String(option.year)} year`}
                 isOptionEqualToValue={(option, value) => {
                     return value.title.trim() === option.title.trim();
                 }}

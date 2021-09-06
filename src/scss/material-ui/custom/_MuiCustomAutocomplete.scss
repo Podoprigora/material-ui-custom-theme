@@ -49,6 +49,10 @@
         }
     }
 
+    &-listGroup {
+        color: $autocomplete-list-group-color;
+    }
+
     &-chip {
         border-radius: $autocomplete-chip-border-radius;
         margin: $autocomplete-chip-spacing $autocomplete-chip-spacing 0 0;

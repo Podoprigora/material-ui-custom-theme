@@ -4,11 +4,13 @@ import clsx from 'clsx';
 import {
     AutocompleteProps,
     AutocompleteRenderInputParams,
+    AutocompleteGroupedOption,
     Chip,
     CircularProgress,
     Icon,
     IconButton,
     InputAdornment,
+    ListSubheader,
     useAutocomplete
 } from '@material-ui/core';
 
@@ -28,6 +30,7 @@ import {
     MuiCustomAutocompleteInputContainer,
     MuiCustomAutocompleteInputContainerProps
 } from './AutocompleteInputContainer';
+import { MuiCustomAutocompleteListGroup } from './AutocompleteListGroup';
 
 type DefaultOption = { label: string } | string;
 
@@ -75,11 +78,13 @@ function MuiCustomAutocompleteWithRef<
     const {
         renderInput,
         renderOption: renderOptionProp,
-        getOptionLabel = defaultGetOptionLabel,
         renderTags,
+        renderGroup: renderGroupProp,
+        getOptionLabel = defaultGetOptionLabel,
         loading,
         remoteFilter,
         filterOptions = remoteFilter ? (x) => x : undefined,
+        groupBy,
         multiple = false,
         freeSolo = false,
         forcePopupIcon = 'auto',
@@ -220,6 +225,16 @@ function MuiCustomAutocompleteWithRef<
         });
     };
 
+    const defaultRenderGroup: typeof renderGroupProp = (params) => {
+        const { group, key, children } = params;
+
+        return [
+            <MuiCustomAutocompleteListGroup key={key}>{group}</MuiCustomAutocompleteListGroup>,
+            children
+        ];
+    };
+    const renderGroup = renderGroupProp || defaultRenderGroup;
+
     const shouldDisplayList = groupedOptions.length > 0;
     const { autoWidth: paperAutoWidth, ...otherListProps } = ListProps || {};
 
@@ -241,6 +256,20 @@ function MuiCustomAutocompleteWithRef<
                 {shouldDisplayList && (
                     <MuiCustomAutocompleteList {...getListboxProps()} {...otherListProps}>
                         {groupedOptions.map((option, index) => {
+                            if (groupBy) {
+                                const groupedOption = option as AutocompleteGroupedOption<T>;
+
+                                return renderGroup({
+                                    key: String(groupedOption.key),
+                                    group: groupedOption.group,
+                                    children: groupedOption.options.map((item, index2) => {
+                                        const optionIndex = groupedOption.index + index2;
+
+                                        return renderListOption(item, optionIndex);
+                                    })
+                                });
+                            }
+
                             return renderListOption(option as T, index);
                         })}
                     </MuiCustomAutocompleteList>
