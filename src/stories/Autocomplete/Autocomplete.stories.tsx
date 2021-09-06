@@ -134,15 +134,17 @@ export const AsynchronousRequest: Story = () => {
                     return typeof option === 'string' ? option : option.title;
                 }}
                 isOptionEqualToValue={(option, value) => option.title.trim() === value.title.trim()}
-                renderInput={(params) => (
-                    <MuiCustomTextField
-                        {...params}
-                        variant="outlined"
-                        label="Favorite film"
-                        placeholder="Start typing: The ..."
-                        helperText="Min length of query: 3 characters."
-                    />
-                )}
+                renderInput={(params) => {
+                    return (
+                        <MuiCustomTextField
+                            {...params}
+                            variant="outlined"
+                            label="Favorite film"
+                            placeholder="Start typing: The ..."
+                            helperText="Min length of query: 3 characters."
+                        />
+                    );
+                }}
                 renderOption={(params, option, state) => {
                     const { title, year, image } = option;
                     const { inputValue } = state;
@@ -363,9 +365,6 @@ export const MultiSelect: Story = () => {
                             color="primary"
                             label="Filter by films"
                             placeholder="Select a film"
-                            InputLabelProps={{
-                                shrink: true
-                            }}
                         />
                     );
                 }}

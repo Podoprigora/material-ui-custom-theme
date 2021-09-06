@@ -194,6 +194,23 @@ $toggle-btn-selected-box-shadow: inset 0 0 0 0.2rem rgba($body-color, 0.25);
 $toggle-btn-primary-selected-box-shadow: inset 0 0 0 0.2rem rgba($color-primary, 0.6);
 $toggle-btn-secondary-selected-box-shadow: inset 0 0 0 0.2rem rgba($color-secondary, 0.6);
 
+// MuiChip
+$chip-icon-font-size: $icon-small-font-size;
+$chip-label-padding-x: $btn-small-padding-x;
+$chip-label-line-height: $btn-line-height;
+$chip-delete-icon-font-size: 1.5rem;
+$chip-filled-color: $btn-color;
+$chip-filled-bg-color: $gray-lighten-4;
+$chip-outlined-border-color: rgba($black, 0.14);
+$chip-outlined-border-width: 0.1rem;
+$chip-outlined-hover-opacity: $btn-outlined-hover-opacity;
+$chip-medium-font-size: 1.3rem;
+$chip-medium-min-height: 3rem;
+$chip-medium-border-radius: 1.5rem;
+$chip-small-font-size: $btn-small-font-size;
+$chip-small-min-height: 2.6rem;
+$chip-small-border-radius: 1.3rem;
+
 // MuiList
 $list-padding-y: $spacing-scale-4;
 $list-padding-x: $spacing-scale-8;
@@ -345,13 +362,12 @@ $input-outlined-label-shrink-font-weight: $form-label-font-weight;
 $input-outlined-error-border-color: rgba($color-error, 0.55);
 $input-outlined-min-height: 4.8rem;
 
-// MuiChip
-$chip-font-size: $font-size-small;
-$chip-icon-font-size: $icon-small-font-size;
-
 // MuiSelect
 $select-min-width: 8rem;
 
 // MuiCustomAutocomplete
 $autocomplete-list-min-width: 16rem;
 $autocomplete-list-max-height: 32rem;
+$autocomplete-chip-border-radius: $input-base-border-radius;
+$autocomplete-chip-spacing: $spacing-scale-3;
+$autocomplete-input-min-width: 10rem;

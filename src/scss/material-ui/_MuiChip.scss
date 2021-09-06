@@ -5,19 +5,19 @@
 
     &-root {
         color: inherit;
-        font-size: $font-size-small;
+        font-size: $chip-medium-font-size;
         height: auto;
         transition: background-color 0.15s;
 
         #{$this}-icon {
-            font-size: $icon-small-font-size;
-            margin-left: $btn-small-padding-x - $spacing-scale-1;
+            font-size: $chip-icon-font-size;
+            margin-left: $chip-label-padding-x - $spacing-scale-1;
         }
 
         #{$this}-deleteIcon {
-            font-size: 1.5rem;
+            font-size: $chip-delete-icon-font-size;
             color: $icon-color;
-            margin-right: $btn-small-padding-x - $spacing-scale-2;
+            margin-right: $chip-label-padding-x - $spacing-scale-2;
             transition: color 0.15s;
 
             &:hover {
@@ -27,22 +27,22 @@
     }
 
     &-sizeMedium {
-        min-height: 3rem;
-        border-radius: 1.5rem;
+        min-height: $chip-medium-min-height;
+        border-radius: $chip-medium-border-radius;
     }
 
     &-sizeSmall {
-        min-height: 2.6rem;
-        border-radius: 1.3rem;
+        min-height: $chip-small-min-height;
+        border-radius: $chip-small-border-radius;
     }
 
     &-filled {
-        background-color: $gray-lighten-4;
-        color: $btn-color;
+        background-color: $chip-filled-bg-color;
+        color: $chip-filled-color;
 
         &:hover,
         &.Mui-focusVisible {
-            background-color: darken($gray-lighten-4, 5%);
+            background-color: darken($chip-filled-bg-color, 5%);
         }
 
         &:active {
@@ -52,15 +52,15 @@
 
     &-outlined {
         border: 0;
-        box-shadow: $input-base-box-shadow;
+        box-shadow: 0 0 0 $chip-outlined-border-width $chip-outlined-border-color;
 
         &:hover,
         &.Mui-focusVisible {
-            background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+            background-color: rgba($chip-filled-color, $chip-outlined-hover-opacity);
         }
 
         &:active {
-            box-shadow: $input-base-box-shadow;
+            box-shadow: 0 0 0 $chip-outlined-border-width $chip-outlined-border-color;
         }
     }
 
@@ -84,12 +84,12 @@
         }
 
         &#{$this}-outlined {
-            box-shadow: 0 0 0 0.1rem $color-primary;
+            box-shadow: 0 0 0 $chip-outlined-border-width $color-primary;
             color: $color-primary;
 
             &:hover,
             &.Mui-focusVisible {
-                background-color: rgba($color-primary, $btn-outlined-hover-opacity);
+                background-color: rgba($color-primary, $chip-outlined-hover-opacity);
             }
         }
 
@@ -112,12 +112,12 @@
         }
 
         &#{$this}-outlined {
-            box-shadow: 0 0 0 0.1rem $color-secondary;
+            box-shadow: 0 0 0 $chip-outlined-border-width $color-secondary;
             color: $color-secondary;
 
             &:hover,
             &.Mui-focusVisible {
-                background-color: rgba($color-secondary, $btn-outlined-hover-opacity);
+                background-color: rgba($color-secondary, $chip-outlined-hover-opacity);
             }
         }
 
@@ -129,15 +129,15 @@
     }
 
     &-label {
-        padding: 0 $btn-small-padding-x;
-        line-height: 1.2;
+        padding: 0 $chip-label-padding-x;
+        line-height: $chip-label-line-height;
     }
 
     &-labelMedium {
-        font-size: 1.3rem;
+        font-size: $chip-medium-font-size;
     }
 
     &-labelSmall {
-        font-size: $font-size-small;
+        font-size: $chip-small-font-size;
     }
 }

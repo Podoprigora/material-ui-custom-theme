@@ -32,7 +32,8 @@ import {
 type DefaultOption = { label: string } | string;
 
 export interface MuiCustomAutocompleteRenderInputParams
-    extends Omit<AutocompleteRenderInputParams, 'inputProps' | 'InputProps'> {
+    extends Omit<AutocompleteRenderInputParams, 'inputProps' | 'InputProps' | 'InputLabelProps'> {
+    InputLabelProps?: MuiCustomTextFieldProps['InputLabelProps'];
     InputProps?: MuiCustomTextFieldProps['InputProps'] & {
         inputComponent?: React.ElementType<MuiCustomAutocompleteInputContainerProps>;
     };
@@ -184,13 +185,16 @@ function MuiCustomAutocompleteWithRef<
         disabled,
         fullWidth: true,
         size: undefined,
-        InputLabelProps: getInputLabelProps(),
+        InputLabelProps: {
+            ...getInputLabelProps(),
+            ...(hasTags && { shrink: true })
+        },
         InputProps: {
             ref: setAnchorEl,
             className: 'MuiCustomAutocomplete-inputBase',
             startAdornment: inputStartAdornment,
             endAdornment: inputEndAdornment,
-            inputComponent: MuiCustomAutocompleteInputContainer
+            ...(multiple && { inputComponent: MuiCustomAutocompleteInputContainer })
         },
         inputProps: {
             ...getInputProps(),
@@ -209,8 +213,6 @@ function MuiCustomAutocompleteWithRef<
 
     const renderListOption = (option: T, index: number) => {
         const optionProps = getOptionProps({ option, index });
-
-        // console.log({ optionProps, value });
 
         return renderOption(optionProps, option, {
             selected: !!optionProps['aria-selected'],

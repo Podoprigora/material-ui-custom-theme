@@ -50,8 +50,8 @@
     }
 
     &-chip {
-        border-radius: $input-base-border-radius;
-        margin: $spacing-scale-3 $spacing-scale-3 0 0;
+        border-radius: $autocomplete-chip-border-radius;
+        margin: $autocomplete-chip-spacing $autocomplete-chip-spacing 0 0;
         max-width: 100%;
 
         .MuiChip-label {
@@ -71,17 +71,17 @@
             input,
             .MuiInputBase-input:not([role='button']) {
                 display: block;
-                flex: 1 1 10rem;
+                flex: 1 1 $autocomplete-input-min-width;
                 min-width: 0;
-                min-height: 3rem;
-                padding: $spacing-scale-3 $spacing-scale-3 0;
+                min-height: $chip-medium-min-height;
+                padding: $autocomplete-chip-spacing $autocomplete-chip-spacing 0;
             }
         }
     }
 
     .MuiCustomOriginalInput {
         #{$this}InputContainer-filled {
-            margin-top: -$spacing-scale-3;
+            margin-top: -$autocomplete-chip-spacing;
             padding: $input-base-padding-y 0;
         }
     }
