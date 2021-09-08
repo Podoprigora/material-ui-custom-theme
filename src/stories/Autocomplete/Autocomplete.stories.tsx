@@ -1,23 +1,17 @@
-import React, { HTMLAttributes, useMemo, useState, useEffect, useCallback, useRef } from 'react';
+import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import _throttle from 'lodash/throttle';
 import _debonce from 'lodash/debounce';
 
 import {
     Autocomplete,
     AutocompleteInputChangeReason,
     Avatar,
-    Button,
     Icon,
     InputAdornment,
-    CircularProgress,
     Stack,
     Checkbox,
     useEventCallback,
-    createFilterOptions,
-    InputBase,
-    InputBaseProps,
-    Chip
+    createFilterOptions
 } from '@material-ui/core';
 
 import {
@@ -31,18 +25,9 @@ import {
 } from '@mui-custom';
 import { useMountedRef, fakeRequest, loadScript } from '@mui-custom/utils';
 
-import {
-    FilmSvg,
-    MapPinSvg,
-    SaveSvg,
-    SearchSvg,
-    UserPlusSvg,
-    UsersSvg,
-    UserSvg
-} from '../../assets/svg-icons/feather';
+import { FilmSvg, MapPinSvg } from '../../assets/svg-icons/feather';
 
 import topFilmsRawData from '../assets/data/top-films.json';
-import countriesRawData from '../assets/data/countries.json';
 
 export default {
     title: 'mui-custom/Autocomplete',
@@ -53,13 +38,6 @@ interface Film {
     title: string;
     year: number;
     image?: string;
-}
-
-interface Country {
-    code: string;
-    label: string;
-    phone: string;
-    suggested?: boolean;
 }
 
 export const AsynchronousRequest: Story = () => {

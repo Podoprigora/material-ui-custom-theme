@@ -1,5 +1,6 @@
 import React from 'react';
-import { ButtonBaseProps, ChipProps, createTheme, Grow, PopoverProps } from '@material-ui/core';
+import { ButtonBaseProps, ChipProps, Grow, PopoverProps } from '@material-ui/core';
+import { createTheme } from '@material-ui/core/styles';
 import { Clear } from '@material-ui/icons';
 import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
 

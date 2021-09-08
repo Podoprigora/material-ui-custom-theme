@@ -10,7 +10,6 @@ import {
     Icon,
     IconButton,
     InputAdornment,
-    ListSubheader,
     useAutocomplete
 } from '@material-ui/core';
 
@@ -116,7 +115,6 @@ function MuiCustomAutocompleteWithRef<
         id,
         value,
         dirty,
-        focused,
         inputValue,
         popupOpen,
         anchorEl,
