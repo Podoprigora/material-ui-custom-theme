@@ -1,5 +1,37 @@
 @use "sass:math";
 
+@mixin chip-color($parent-selector, $background-color, $color) {
+    &#{$parent-selector}-filled {
+        background-color: $background-color;
+        color: $color;
+
+        &#{$parent-selector}-clickable {
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($background-color, $btn-hover-opacity);
+            }
+        }
+    }
+
+    &#{$parent-selector}-outlined {
+        box-shadow: 0 0 0 $chip-outlined-border-width $background-color;
+        color: $background-color;
+
+        &#{$parent-selector}-clickable {
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($background-color, $chip-outlined-hover-opacity);
+            }
+        }
+    }
+
+    #{$parent-selector}-deleteIcon {
+        &:hover {
+            color: darken($background-color, 15%);
+        }
+    }
+}
+
 .MuiChip {
     $this: &;
 
@@ -40,9 +72,11 @@
         background-color: $chip-filled-bg-color;
         color: $chip-filled-color;
 
-        &:hover,
-        &.Mui-focusVisible {
-            background-color: darken($chip-filled-bg-color, 5%);
+        &#{$this}-clickable {
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: darken($chip-filled-bg-color, 5%);
+            }
         }
 
         &:active {
@@ -59,6 +93,13 @@
             background-color: rgba($chip-filled-color, $chip-outlined-hover-opacity);
         }
 
+        &#{$this}-clickable {
+            &:hover,
+            &.Mui-focusVisible {
+                background-color: rgba($chip-filled-color, $chip-outlined-hover-opacity);
+            }
+        }
+
         &:active {
             box-shadow: 0 0 0 $chip-outlined-border-width $chip-outlined-border-color;
         }
@@ -73,59 +114,11 @@
     }
 
     &-colorPrimary {
-        &#{$this}-filled {
-            background-color: $color-primary;
-            color: $color-primary-text;
-
-            &:hover,
-            &.Mui-focusVisible {
-                background-color: rgba($color-primary, $btn-hover-opacity);
-            }
-        }
-
-        &#{$this}-outlined {
-            box-shadow: 0 0 0 $chip-outlined-border-width $color-primary;
-            color: $color-primary;
-
-            &:hover,
-            &.Mui-focusVisible {
-                background-color: rgba($color-primary, $chip-outlined-hover-opacity);
-            }
-        }
-
-        #{$this}-deleteIcon {
-            &:hover {
-                color: darken($color-primary, 15%);
-            }
-        }
+        @include chip-color($this, $color-primary, $color-primary-text);
     }
 
     &-colorSecondary {
-        &#{$this}-filled {
-            background-color: $color-secondary;
-            color: $color-secondary-text;
-
-            &:hover,
-            &.Mui-focusVisible {
-                background-color: rgba($color-secondary, $btn-hover-opacity);
-            }
-        }
-
-        &#{$this}-outlined {
-            box-shadow: 0 0 0 $chip-outlined-border-width $color-secondary;
-            color: $color-secondary;
-
-            &:hover,
-            &.Mui-focusVisible {
-                background-color: rgba($color-secondary, $chip-outlined-hover-opacity);
-            }
-        }
-
-        #{$this}-deleteIcon {
-            &:hover {
-                color: darken($color-secondary, 15%);
-            }
-        }
+        @include chip-color($this, $color-secondary, $color-secondary-text);
     }
 
     &-label {
@@ -139,5 +132,25 @@
 
     &-labelSmall {
         font-size: $chip-small-font-size;
+    }
+
+    // Custom classes
+
+    &-tag {
+        font-weight: $chip-tag-font-weight;
+        letter-spacing: $chip-tag-letter-spacing;
+        border-radius: $chip-tag-border-radius;
+
+        &#{$this}-colorPrimary {
+            @include chip-color($this, rgba($color-primary, 0.12), darken($color-primary, 1%));
+        }
+
+        &#{$this}-colorSecondary {
+            @include chip-color($this, rgba($color-secondary, 0.12), darken($color-secondary, 2%));
+        }
+
+        &#{$this}-colorWarning {
+            @include chip-color($this, rgba($color-warning, 0.12), darken($color-warning, 10%));
+        }
     }
 }

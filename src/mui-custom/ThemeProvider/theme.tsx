@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonBaseProps, ChipProps, Grow, PopoverProps } from '@material-ui/core';
+import { ButtonBase, ButtonBaseProps, ChipProps, Grow, PopoverProps } from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 import { Clear } from '@material-ui/icons';
 import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
@@ -20,8 +20,6 @@ declare module '@material-ui/core/Icon' {
         xsmall: true;
     }
 }
-
-type ChipButtonBaseProps = ButtonBaseProps & ChipProps;
 
 // Default props
 const MuiPopoverDefaultProps: Omit<PopoverProps, 'open' | 'anchorEl'> = {
@@ -62,6 +60,10 @@ export const theme = createTheme({
         fontWeightLight: getSassVariable('font-weight-thin', 'number'),
         fontWeightMedium: getSassVariable('font-weight-strong', 'number'),
         body1: {
+            fontSize: getSassVariable('font-size'),
+            lineHeight: getSassVariable('line-height')
+        },
+        body2: {
             fontSize: getSassVariable('font-size'),
             lineHeight: getSassVariable('line-height')
         }
@@ -115,9 +117,8 @@ export const theme = createTheme({
         },
         MuiChip: {
             defaultProps: {
-                disableRipple: true,
                 deleteIcon: <Clear />
-            } as ChipButtonBaseProps
+            }
         },
         MuiSvgIcon: {
             defaultProps: {

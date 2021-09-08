@@ -26,6 +26,9 @@ $color-secondary-dark: #19b6cb;
 $color-secondary-text: #fff;
 $color-secondary-border-color: #d9ebed;
 
+$color-warning: #ffb800;
+$color-warning-text: #fff;
+
 $color-error: $red-accent-4;
 $color-text-note: rgba($gray-darken-4, 0.6);
 
@@ -210,6 +213,9 @@ $chip-medium-border-radius: 1.5rem;
 $chip-small-font-size: $btn-small-font-size;
 $chip-small-min-height: 2.6rem;
 $chip-small-border-radius: 1.3rem;
+$chip-tag-border-radius: $border-radius-sm;
+$chip-tag-font-weight: $font-weight-strong;
+$chip-tag-letter-spacing: 0.4px;
 
 // MuiList
 $list-padding-y: $spacing-scale-4;
