@@ -1,5 +1,6 @@
 @use "sass:math";
 
+// Mixins
 @mixin chip-color($parent-selector, $background-color, $color) {
     &#{$parent-selector}-filled {
         background-color: $background-color;
@@ -32,6 +33,12 @@
     }
 }
 
+@mixin chip-dimmed-color($color) {
+    color: darken($color, 10%);
+    background-color: rgba($color, 0.12);
+}
+
+// Selectors
 .MuiChip {
     $this: &;
 
@@ -134,23 +141,34 @@
         font-size: $chip-small-font-size;
     }
 
-    // Custom classes
-
-    &-tag {
-        font-weight: $chip-tag-font-weight;
-        letter-spacing: $chip-tag-letter-spacing;
-        border-radius: $chip-tag-border-radius;
+    // Custom variance
+    &-dimmed {
+        font-weight: $chip-dimmed-font-weight;
+        letter-spacing: $chip-dimmed-letter-spacing;
+        border-radius: $chip-dimmed-border-radius;
 
         &#{$this}-colorPrimary {
-            @include chip-color($this, rgba($color-primary, 0.12), darken($color-primary, 1%));
+            @include chip-dimmed-color($color-primary);
         }
 
         &#{$this}-colorSecondary {
-            @include chip-color($this, rgba($color-secondary, 0.12), darken($color-secondary, 2%));
+            @include chip-dimmed-color($color-secondary);
         }
 
         &#{$this}-colorWarning {
-            @include chip-color($this, rgba($color-warning, 0.12), darken($color-warning, 10%));
+            @include chip-dimmed-color($color-warning);
+        }
+
+        &#{$this}-colorSuccess {
+            @include chip-dimmed-color($color-success);
+        }
+
+        &#{$this}-colorInfo {
+            @include chip-dimmed-color($color-info);
+        }
+
+        &#{$this}-colorError {
+            @include chip-dimmed-color($color-error);
         }
     }
 }

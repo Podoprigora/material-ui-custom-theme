@@ -11,7 +11,7 @@ export default {
 
 export const Examples: Story = () => {
     return (
-        <Stack direction="column" spacing={8}>
+        <Stack direction="column" spacing={10}>
             <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip variant="filled" size="medium" label="React" />
                 <Chip variant="filled" size="medium" label="Redux" />
@@ -20,59 +20,59 @@ export const Examples: Story = () => {
                 <Chip variant="filled" size="medium" label="SCSS" />
                 <Chip variant="filled" size="medium" label="Node.js" />
             </Stack>
-            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
-                <Chip
-                    variant="outlined"
-                    size="medium"
-                    clickable
-                    component={ButtonBase}
-                    disableRipple
-                    label="React"
-                />
-                <Chip
-                    variant="outlined"
-                    size="medium"
-                    clickable
-                    component={ButtonBase}
-                    disableRipple
-                    label="Redux"
-                />
-                <Chip
-                    variant="outlined"
-                    size="medium"
-                    clickable
-                    component={ButtonBase}
-                    disableRipple
-                    label="Next.js"
-                />
-                <Chip
-                    variant="outlined"
-                    size="medium"
-                    clickable
-                    component={ButtonBase}
-                    disableRipple
-                    label="Material-UI"
-                />
-                <Chip
-                    variant="outlined"
-                    size="medium"
-                    clickable
-                    component={ButtonBase}
-                    disableRipple
-                    label="SCSS"
-                />
-                <Chip
-                    variant="outlined"
-                    size="medium"
-                    clickable
-                    component={ButtonBase}
-                    disableRipple
-                    label="Node.js"
-                />
-            </Stack>
 
             <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
                 <Chip
+                    variant="outlined"
+                    size="medium"
+                    clickable
+                    component={ButtonBase}
+                    disableRipple
+                    label="React"
+                />
+                <Chip
+                    variant="outlined"
+                    size="medium"
+                    clickable
+                    component={ButtonBase}
+                    disableRipple
+                    label="Redux"
+                />
+                <Chip
+                    variant="outlined"
+                    size="medium"
+                    clickable
+                    component={ButtonBase}
+                    disableRipple
+                    label="Next.js"
+                />
+                <Chip
+                    variant="outlined"
+                    size="medium"
+                    clickable
+                    component={ButtonBase}
+                    disableRipple
+                    label="Material-UI"
+                />
+                <Chip
+                    variant="outlined"
+                    size="medium"
+                    clickable
+                    component={ButtonBase}
+                    disableRipple
+                    label="SCSS"
+                />
+                <Chip
+                    variant="outlined"
+                    size="medium"
+                    clickable
+                    component={ButtonBase}
+                    disableRipple
+                    label="Node.js"
+                />
+            </Stack>
+            <Stack direction="row" flexWrap="wrap" justifyContent="flex-start" gap={4}>
+                <Chip
                     variant="filled"
                     size="small"
                     clickable
@@ -260,6 +260,17 @@ export const Examples: Story = () => {
                     }
                     onDelete={() => {}}
                 />
+            </Stack>
+
+            {/* Dimmed variance */}
+            <Stack direction="row" flexWrap="wrap" gap={4}>
+                <Chip variant="dimmed" size="small" color="secondary" label="New" />
+                <Chip variant="dimmed" size="small" color="primary" label="Pending" />
+                <Chip variant="dimmed" size="small" color="success" label="Paid" />
+                <Chip variant="dimmed" size="small" color="warning" label="Un paid" />
+                <Chip variant="dimmed" size="small" color="info" label="Delivery" />
+                <Chip variant="dimmed" size="small" color="error" label="Rejected" />
+                <Chip variant="dimmed" size="small" color="default" label="Archived" />
             </Stack>
         </Stack>
     );

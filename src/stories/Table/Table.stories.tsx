@@ -18,7 +18,7 @@ export default {
     title: 'mui-custom/Table'
 } as Meta;
 
-type OrderStatus = 'paid' | 'new' | 'pending';
+type OrderStatus = 'paid' | 'new' | 'pending' | 'unpaid';
 
 const createOrderData = (
     code: string,
@@ -39,14 +39,15 @@ const ordersRow: ReturnType<typeof createOrderData>[] = [
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
-    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
-    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54)
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 532.54)
 ];
 
 const orderStatusColorsMap: Record<OrderStatus, ChipProps['color']> = {
     new: 'secondary',
-    paid: 'primary',
-    pending: 'warning'
+    paid: 'success',
+    pending: 'primary',
+    unpaid: 'error'
 };
 
 export const Orders: Story = () => {
@@ -89,10 +90,9 @@ export const Orders: Story = () => {
                                             sx={{ paddingTop: 0, paddingBottom: 0 }}
                                         >
                                             <Chip
-                                                variant="filled"
+                                                variant="dimmed"
                                                 color={color}
                                                 size="small"
-                                                className="MuiChip-tag"
                                                 label={_upperFirst(status)}
                                             />
                                         </TableCell>

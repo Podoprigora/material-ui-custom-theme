@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonBase, ButtonBaseProps, ChipProps, Grow, PopoverProps } from '@material-ui/core';
+import { Grow, PopoverProps } from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 import { Clear } from '@material-ui/icons';
 import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
@@ -18,6 +18,12 @@ declare module '@material-ui/core/styles' {
 declare module '@material-ui/core/Icon' {
     interface IconPropsSizeOverrides {
         xsmall: true;
+    }
+}
+
+declare module '@material-ui/core/Chip' {
+    interface ChipPropsVariantOverrides {
+        dimmed: true;
     }
 }
 
