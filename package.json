@@ -20,6 +20,7 @@
         "@stripe/react-stripe-js": "^1.4.1",
         "@stripe/stripe-js": "^1.16.0",
         "clsx": "^1.1.1",
+        "date-fns": "^2.23.0",
         "lodash": "^4.17.21",
         "material-ui-popup-state": "^1.9.0",
         "prop-types": "^15.7.2",

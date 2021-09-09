@@ -1,0 +1,62 @@
+.MuiTable {
+    &-root {
+    }
+
+    &-striped {
+        tbody {
+            tr:nth-of-type(odd) {
+                td {
+                    background-color: #f9f9f9;
+                }
+            }
+        }
+    }
+
+    &-bordered {
+        tbody {
+            tr:not(:last-of-type) {
+                td {
+                    border-bottom: 0.1rem solid $border-color;
+                }
+            }
+        }
+    }
+}
+
+.MuiTableHead {
+    &-root {
+        .MuiTableCell-root {
+            background-color: $gray-lighten-4;
+            font-weight: $font-weight-strong;
+            border-bottom: 0.1rem solid $border-color;
+        }
+    }
+}
+
+.MuiTableCell {
+    $this: &;
+
+    &-root {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+        padding: 0 $list-padding-x;
+        height: 4.8rem;
+        border: 0;
+
+        & #{$this}-truncatedContainer {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        & #{$this}-truncated {
+            @include truncation;
+        }
+    }
+
+    &-sizeSmall {
+        height: 4rem;
+    }
+}

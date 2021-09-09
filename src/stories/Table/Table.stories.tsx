@@ -1,18 +1,55 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import _upperFirst from 'lodash/upperFirst';
+import formatDate from 'date-fns/format';
 
 import {
+    Button,
+    Checkbox,
     Chip,
     ChipProps,
+    Divider,
+    FormControlLabel,
+    Icon,
+    IconButton,
+    Link,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
     Paper,
+    Stack,
+    Switch,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow,
+    Tooltip,
+    useEventCallback
 } from '@material-ui/core';
+import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+import {
+    ForumRounded,
+    InsertDriveFileOutlined,
+    PaymentOutlined,
+    PictureAsPdfOutlined
+} from '@material-ui/icons';
+import NumberFormat from 'react-number-format';
+
+import { MuiCustomTable, MuiCustomTableCell } from '@mui-custom';
+import {
+    ChevronDownSvg,
+    Edit2Svg,
+    MoreVerticalSvg,
+    Trash2Svg,
+    CheckSvg,
+    InboxSvg
+} from '../../assets/svg-icons/feather';
 
 export default {
     title: 'mui-custom/Table'
@@ -36,74 +73,229 @@ const ordersRow: ReturnType<typeof createOrderData>[] = [
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
-    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 532.54),
-    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 532.54)
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54)
 ];
 
 const orderStatusColorsMap: Record<OrderStatus, ChipProps['color']> = {
     new: 'secondary',
     paid: 'success',
-    pending: 'primary',
+    pending: 'default',
     unpaid: 'error'
 };
 
+const OrdersTableMenu = () => {
+    const popupState = usePopupState({ variant: 'popover', popupId: 'ordersTableMenu' });
+
+    return (
+        <>
+            <IconButton {...bindTrigger(popupState)}>
+                <Icon fontSize="medium">
+                    <MoreVerticalSvg />
+                </Icon>
+            </IconButton>
+            <Menu
+                {...bindMenu(popupState)}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                PaperProps={{}}
+                onClick={popupState.close}
+            >
+                <MenuItem>
+                    <ListItemIcon>
+                        <Icon fontSize="xsmall">
+                            <Edit2Svg />
+                        </Icon>
+                    </ListItemIcon>
+                    Edit
+                </MenuItem>
+                <Divider />
+                <MenuItem>
+                    <ListItemIcon>
+                        <Icon fontSize="xsmall" color="error">
+                            <Trash2Svg />
+                        </Icon>
+                    </ListItemIcon>
+                    Delete
+                </MenuItem>
+            </Menu>
+        </>
+    );
+};
+
 export const Orders: Story = () => {
+    const [dense, setDense] = useState(false);
+    const [striped, setStriped] = useState(true);
+    const [bordered, setBordered] = useState(false);
+
+    const handleDenseSwitchChange = useEventCallback((ev, checked: boolean) => {
+        setDense(checked);
+    });
+    const handleStripedSwitchChange = useEventCallback((ev, checked: boolean) => {
+        setStriped(checked);
+    });
+    const handleBorderedSwitchChange = useEventCallback((ev, checked: boolean) => {
+        setBordered(checked);
+    });
+
+    const renderAmount = useMemo(() => {
+        return (amount: number) => {
+            return (
+                <NumberFormat
+                    value={amount}
+                    thousandSeparator=","
+                    decimalSeparator="."
+                    prefix="£"
+                    displayType="text"
+                />
+            );
+        };
+    }, []);
+
     const shouldDisplayItems = ordersRow.length > 0;
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: '50rem' }}>
-                <Table stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="left" sx={{ width: '12rem', minWidth: '12rem' }}>
-                                #
-                            </TableCell>
-                            <TableCell align="left" sx={{ width: '12rem', minWidth: '12rem' }}>
-                                Date
-                            </TableCell>
-                            <TableCell align="left" sx={{ width: '14rem', minWidth: '14rem' }}>
-                                Status
-                            </TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell align="right" sx={{ width: '14rem', minWidth: '10rem' }}>
-                                Amount
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {shouldDisplayItems &&
-                            ordersRow.map((item, index) => {
-                                const { code, created, status, email, amount } = item;
+        <>
+            <Stack
+                direction="row"
+                flexWrap="wrap"
+                justifyContent="flex-end"
+                gap={6}
+                sx={{ paddingTop: 8, paddingBottom: 8 }}
+            >
+                <FormControlLabel
+                    label="Striped"
+                    control={
+                        <Switch
+                            checked={striped}
+                            color="primary"
+                            size="small"
+                            sx={{ marginRight: 4 }}
+                            onChange={handleStripedSwitchChange}
+                        />
+                    }
+                />
+                <FormControlLabel
+                    label="Bordered"
+                    control={
+                        <Switch
+                            checked={bordered}
+                            color="primary"
+                            size="small"
+                            sx={{ marginRight: 4 }}
+                            onChange={handleBorderedSwitchChange}
+                        />
+                    }
+                />
+                <FormControlLabel
+                    label="Dense"
+                    control={
+                        <Switch
+                            checked={dense}
+                            color="primary"
+                            size="small"
+                            sx={{ marginRight: 4 }}
+                            onChange={handleDenseSwitchChange}
+                        />
+                    }
+                />
+            </Stack>
 
-                                const color = orderStatusColorsMap[status];
+            <Paper sx={{ overflow: 'hidden' }}>
+                <TableContainer sx={{ maxHeight: '50rem' }}>
+                    <MuiCustomTable
+                        stickyHeader
+                        striped={striped}
+                        bordered={bordered}
+                        size={dense ? 'small' : 'medium'}
+                    >
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="left">#</TableCell>
+                                <TableCell align="left">Date</TableCell>
+                                <TableCell align="left">Status</TableCell>
+                                <TableCell sx={{ minWidth: '20rem' }}>Details</TableCell>
+                                <TableCell align="right">Amount</TableCell>
+                                <TableCell />
+                                <TableCell />
+                            </TableRow>
+                        </TableHead>
 
-                                return (
-                                    <TableRow key={index}>
-                                        <TableCell align="left">{code}</TableCell>
-                                        <TableCell align="left">{created}</TableCell>
-                                        <TableCell
-                                            align="left"
-                                            sx={{ paddingTop: 0, paddingBottom: 0 }}
-                                        >
-                                            <Chip
-                                                variant="dimmed"
-                                                color={color}
-                                                size="small"
-                                                label={_upperFirst(status)}
-                                            />
-                                        </TableCell>
-                                        <TableCell>{email}</TableCell>
-                                        <TableCell align="right">{amount}</TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Paper>
+                        <TableBody>
+                            {shouldDisplayItems &&
+                                ordersRow.map((item, index) => {
+                                    const { code, created, status, amount } = item;
+                                    const color = orderStatusColorsMap[status];
+                                    const formatedDate = formatDate(
+                                        new Date(created),
+                                        'MMM do, yyyy'
+                                    );
+
+                                    return (
+                                        <TableRow key={index}>
+                                            <MuiCustomTableCell noWrap>
+                                                <Tooltip title="Open">
+                                                    <Link href="#" color="primary">
+                                                        {code}
+                                                    </Link>
+                                                </Tooltip>
+                                            </MuiCustomTableCell>
+                                            <MuiCustomTableCell noWrap>
+                                                {formatedDate}
+                                            </MuiCustomTableCell>
+                                            <TableCell align="left">
+                                                <Chip
+                                                    variant="dimmed"
+                                                    color={color}
+                                                    size="small"
+                                                    label={_upperFirst(status)}
+                                                />
+                                            </TableCell>
+                                            <MuiCustomTableCell truncated>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                elit. Sequi doloribus quisquam quae deleniti
+                                                asperiores nesciunt soluta commodi eaque aut,
+                                                facilis, temporibus exercitationem quos ad.
+                                            </MuiCustomTableCell>
+                                            <TableCell align="right">
+                                                {renderAmount(amount)}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Stack
+                                                    direction="row"
+                                                    flexWrap="nowrap"
+                                                    spacing={1}
+                                                >
+                                                    <Tooltip title="Send message">
+                                                        <IconButton color="primary">
+                                                            <ForumRounded fontSize="large" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Add payment">
+                                                        <IconButton color="primary">
+                                                            <PaymentOutlined fontSize="large" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Generate invoice">
+                                                        <IconButton color="primary">
+                                                            <PictureAsPdfOutlined fontSize="large" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Stack>
+                                            </TableCell>
+                                            <TableCell style={{ paddingLeft: 0 }}>
+                                                <OrdersTableMenu />
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                        </TableBody>
+                    </MuiCustomTable>
+                </TableContainer>
+            </Paper>
+        </>
     );
 };
