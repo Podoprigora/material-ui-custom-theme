@@ -37,12 +37,13 @@
     $this: &;
 
     &-root {
+        box-sizing: border-box;
         font-family: inherit;
         font-size: inherit;
         line-height: inherit;
         color: inherit;
-        padding: 0 $list-padding-x;
-        height: 4.8rem;
+        padding: $list-padding-y $list-padding-x;
+        height: 5.2rem;
         border: 0;
 
         & #{$this}-truncatedContainer {
@@ -58,5 +59,29 @@
 
     &-sizeSmall {
         height: 4rem;
+    }
+
+    &-paddingAction {
+        &:last-of-type {
+            padding-right: $list-padding-x;
+        }
+
+        &:first-of-type {
+            padding-left: $list-padding-x;
+        }
+
+        padding: 0;
+    }
+
+    &-paddingCheckbox {
+        &:last-of-type {
+            padding-right: $list-padding-x - $checkbox-padding;
+        }
+
+        &:first-of-type {
+            padding-left: $list-padding-x - $checkbox-padding;
+        }
+
+        padding: 0;
     }
 }

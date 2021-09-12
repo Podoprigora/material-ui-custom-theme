@@ -6,16 +6,39 @@
     }
 }
 
+.MuiListItem,
 .MuiListItemButton {
     &-root {
-        $selector: &;
-
         display: flex;
         justify-content: flex-start;
         align-items: center;
+
+        & + .MuiDivider-root {
+            margin-top: $spacing-scale-4;
+            margin-bottom: $spacing-scale-4;
+        }
+    }
+
+    &-padding {
         padding-top: $list-padding-y;
         padding-bottom: $list-padding-y;
         min-height: $list-item-min-height;
+    }
+
+    &-dense {
+        padding-top: math.div($list-padding-y, 2);
+        padding-bottom: math.div($list-padding-y, 2);
+        min-height: auto;
+    }
+
+    &-gutters {
+        padding-left: $list-padding-x;
+        padding-right: $list-padding-x;
+    }
+}
+
+.MuiListItemButton {
+    &-root {
         cursor: pointer;
 
         &:hover {
@@ -40,21 +63,6 @@
         &.Mui-focusVisible {
             background-color: $list-item-focus-visible-bg-color;
         }
-
-        & + .MuiDivider-root {
-            margin-top: $spacing-scale-4;
-            margin-bottom: $spacing-scale-4;
-        }
-    }
-
-    &-dense {
-        padding-top: math.div($list-padding-y, 2);
-        padding-bottom: math.div($list-padding-y, 2);
-    }
-
-    &-gutters {
-        padding-left: $list-padding-x;
-        padding-right: $list-padding-x;
     }
 }
 
