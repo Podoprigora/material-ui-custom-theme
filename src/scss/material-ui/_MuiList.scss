@@ -42,12 +42,12 @@
         cursor: pointer;
 
         &:hover {
-            background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+            background-color: $list-item-hover-bg-color;
         }
 
         @include media-not-hover {
             &:hover {
-                background-color: rgba($btn-color, $btn-outlined-hover-opacity);
+                background-color: $list-item-hover-bg-color;
             }
         }
 

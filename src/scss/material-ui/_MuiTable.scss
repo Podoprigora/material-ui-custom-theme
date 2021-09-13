@@ -32,6 +32,42 @@
     }
 }
 
+.MuiTableRow {
+    $this: &;
+
+    &-root {
+        .MuiTableCell-root {
+            transition: background-color 0.12s;
+        }
+
+        &#{$this}-hover {
+            &:hover {
+                background-color: transparent;
+
+                .MuiTableCell-root {
+                    background-color: $table-row-hover-bg-color;
+                }
+            }
+
+            &.Mui-selected {
+                &:hover {
+                    .MuiTableCell-root {
+                        background-color: $table-row-selected-hover-bg-color;
+                    }
+                }
+            }
+        }
+
+        &.Mui-selected {
+            background-color: transparent;
+
+            .MuiTableCell-root {
+                background-color: $table-row-selected-bg-color;
+            }
+        }
+    }
+}
+
 .MuiTableCell {
     $this: &;
 

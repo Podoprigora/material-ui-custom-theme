@@ -1,20 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import {
-    Button,
-    Checkbox,
-    FormControlLabel,
-    Icon,
-    InputAdornment,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Stack
-} from '@material-ui/core';
-import { SaveOutlined } from '@material-ui/icons';
-import { MuiCustomTextField } from '@mui-custom';
+import { Checkbox, FormControlLabel, Stack } from '@material-ui/core';
 
 export default {
     title: 'mui-custom/Checkbox',

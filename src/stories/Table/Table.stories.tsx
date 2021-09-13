@@ -137,16 +137,27 @@ export const Orders: Story = () => {
     const [dense, setDense] = useState(false);
     const [striped, setStriped] = useState(true);
     const [bordered, setBordered] = useState(false);
+    const [selected, setSelected] = useState<number[]>([]);
 
     const handleDenseSwitchChange = useEventCallback((ev, checked: boolean) => {
         setDense(checked);
     });
+
     const handleStripedSwitchChange = useEventCallback((ev, checked: boolean) => {
         setStriped(checked);
     });
+
     const handleBorderedSwitchChange = useEventCallback((ev, checked: boolean) => {
         setBordered(checked);
     });
+
+    const handleRowSelect = (index: number) => () => {
+        if (selected.indexOf(index) !== -1) {
+            setSelected((prevState) => prevState.filter((item) => item !== index));
+        } else {
+            setSelected((prevState) => [...prevState, index]);
+        }
+    };
 
     const renderAmount = useMemo(() => {
         return (amount: number) => {
@@ -218,7 +229,7 @@ export const Orders: Story = () => {
                     <TableHead>
                         <TableRow>
                             <MuiCustomTableCell padding="checkbox">
-                                <Checkbox />
+                                <Checkbox disabled />
                             </MuiCustomTableCell>
                             <TableCell align="left">#</TableCell>
                             <TableCell align="left">Date</TableCell>
@@ -236,11 +247,15 @@ export const Orders: Story = () => {
                                 const { code, created, status, amount } = item;
                                 const color = orderStatusColorsMap[status];
                                 const formatedDate = formatDate(new Date(created), 'MMM do, yyyy');
+                                const checked = selected.indexOf(index) !== -1;
 
                                 return (
-                                    <TableRow key={index}>
+                                    <TableRow key={index} hover selected={checked}>
                                         <MuiCustomTableCell padding="checkbox">
-                                            <Checkbox />
+                                            <Checkbox
+                                                checked={checked}
+                                                onChange={handleRowSelect(index)}
+                                            />
                                         </MuiCustomTableCell>
                                         <MuiCustomTableCell noWrap>
                                             <Tooltip title="Open">
@@ -351,13 +366,17 @@ export const Clients: Story = () => {
                         const rowKey = id?.value || index;
 
                         return (
-                            <TableRow key={rowKey}>
+                            <TableRow key={rowKey} hover>
                                 <MuiCustomTableCell>
                                     <Avatar
                                         variant="circular"
                                         style={{ width: '5.2rem', height: '5.2rem' }}
                                         src={picture?.large}
-                                    />
+                                        imgProps={{ loading: 'lazy', width: '5.2rem' }}
+                                        className="MuiAvatar-colorPrimary"
+                                    >
+                                        {String(name?.first).charAt(0)}
+                                    </Avatar>
                                 </MuiCustomTableCell>
                                 <MuiCustomTableCell>
                                     <Link href="#" underline="always">
