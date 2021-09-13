@@ -1,22 +1,24 @@
 import React from 'react';
-import { Paper, PaperProps, TableContainer, TableContainerProps } from '@material-ui/core';
+import { TableContainer, TableContainerProps } from '@material-ui/core';
+import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '../PaperSimplebar';
 
 export interface MuiCustomTableContainerProps extends TableContainerProps {
-    maxHeight?: string;
-    PaperProps?: PaperProps;
+    PaperProps?: MuiCustomPaperSimplebarProps;
 }
 
 export const MuiCustomTableContainer = React.forwardRef<
     HTMLDivElement,
     MuiCustomTableContainerProps
 >(function MuiCustomTableContainer(props, forwardedRef) {
-    const { children, maxHeight, PaperProps: PaperPropsProp, ...other } = props;
+    const { children, PaperProps: PaperPropsProp, ...other } = props;
 
     return (
-        <Paper {...PaperPropsProp} {...(maxHeight && { sx: { overflow: 'hidden' } })}>
-            <TableContainer {...other} {...(maxHeight && { sx: { maxHeight } })} ref={forwardedRef}>
-                {children}
-            </TableContainer>
-        </Paper>
+        <MuiCustomPaperSimplebar
+            {...PaperPropsProp}
+            className="MuiCustomTablePaperSimplebar"
+            ref={forwardedRef}
+        >
+            <TableContainer {...other}>{children}</TableContainer>
+        </MuiCustomPaperSimplebar>
     );
 });

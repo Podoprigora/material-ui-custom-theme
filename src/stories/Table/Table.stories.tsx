@@ -219,7 +219,7 @@ export const Orders: Story = () => {
                 />
             </Stack>
 
-            <MuiCustomTableContainer maxHeight="40rem">
+            <MuiCustomTableContainer PaperProps={{ maxHeight: '50rem' }}>
                 <MuiCustomTable
                     stickyHeader
                     striped={striped}
@@ -350,7 +350,7 @@ export const Clients: Story = () => {
     }
 
     return (
-        <MuiCustomTableContainer maxHeight="50rem">
+        <MuiCustomTableContainer PaperProps={{ maxHeight: '50rem' }}>
             <MuiCustomTable stickyHeader bordered>
                 <TableHead>
                     <TableRow>

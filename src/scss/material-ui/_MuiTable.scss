@@ -120,3 +120,29 @@
         padding: 0;
     }
 }
+
+// Custom selectors
+
+.MuiCustomTablePaperSimplebar {
+    .MuiTableContainer {
+        &-root {
+            overflow-x: inherit;
+        }
+    }
+
+    .simplebar-custom {
+        $simplebar: '.simplebar';
+
+        #{$simplebar}-track#{$simplebar}-vertical {
+            width: $table-simplebar-track-size;
+        }
+
+        #{$simplebar}-track#{$simplebar}-horizontal {
+            height: $table-simplebar-track-size;
+
+            #{$simplebar}-scrollbar#{$simplebar}-visible {
+                height: $table-simplebar-track-size - 2 * $simplebar-offset;
+            }
+        }
+    }
+}
