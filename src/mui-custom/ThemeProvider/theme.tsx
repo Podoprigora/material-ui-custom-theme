@@ -95,6 +95,12 @@ export const theme = createTheme({
 
     // Components
     components: {
+        MuiLink: {
+            defaultProps: {
+                underline: 'hover',
+                variant: 'inherit'
+            }
+        },
         MuiButtonBase: {
             defaultProps: {
                 disableRipple: true,

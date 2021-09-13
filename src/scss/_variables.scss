@@ -184,6 +184,9 @@ $btn-hover-opacity: 0.8;
 $btn-focus-visible-box-shadow: 0 0px 0px 0.1rem $white, 0 0px 0px 0.4rem rgba($color-primary, 0.2);
 $btn-transition: background-color 0.2s ease;
 
+// MuiLink
+$link-text-underline-offset: 0.1rem;
+
 // Icon
 $icon-color: $gray-darken-1;
 $icon-large-font-size: 2.4rem;
@@ -236,6 +239,18 @@ $list-item-multiline-text-primary-font-size: inherit;
 $list-item-multiline-text-primary-margin-bottom: $spacing-scale-3;
 $list-item-multiline-text-secondary-font-size: inherit;
 $list-item-multiline-text-secondary-color: $color-text-note;
+
+// MuiTable
+$table-striped-bg-color: #f9f9f9;
+$table-header-bg-color: $paper-bg-color;
+$table-header-color: $icon-color;
+$table-header-font-size: $font-size-small;
+$table-header-font-weight: $font-weight-bold;
+$table-header-border-bottom: 0.2rem solid $border-color;
+$table-cell-padding-x: $list-padding-x;
+$table-cell-padding-y: $list-padding-y;
+$table-cell-medium-min-height: 5.2rem;
+$table-cell-small-min-height: $list-item-min-height;
 
 // MuiMenu
 $menu-item-min-height: 3.8rem;

@@ -247,7 +247,7 @@ export const Orders: Story = () => {
                                         </MuiCustomTableCell>
                                         <MuiCustomTableCell noWrap>
                                             <Tooltip title="Open">
-                                                <Link href="#" color="primary">
+                                                <Link href="#" color="primary" underline="always">
                                                     {code}
                                                 </Link>
                                             </Tooltip>
@@ -363,7 +363,7 @@ export const Clients: Story = () => {
                                     />
                                 </MuiCustomTableCell>
                                 <MuiCustomTableCell>
-                                    <Link href="#" color="primary">
+                                    <Link href="#" underline="always">
                                         {name?.first} {name?.last}
                                     </Link>
                                 </MuiCustomTableCell>

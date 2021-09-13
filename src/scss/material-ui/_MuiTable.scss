@@ -1,12 +1,9 @@
 .MuiTable {
-    &-root {
-    }
-
     &-striped {
         tbody {
             tr:nth-of-type(odd) {
                 td {
-                    background-color: #f9f9f9;
+                    background-color: $table-striped-bg-color;
                 }
             }
         }
@@ -26,9 +23,11 @@
 .MuiTableHead {
     &-root {
         .MuiTableCell-root {
-            background-color: $gray-lighten-4;
-            font-weight: $font-weight-strong;
-            border-bottom: 0.1rem solid $border-color;
+            background-color: $table-header-bg-color;
+            color: $table-header-color;
+            font-size: $table-header-font-size;
+            font-weight: $table-header-font-weight;
+            border-bottom: $table-header-border-bottom;
         }
     }
 }
@@ -42,8 +41,8 @@
         font-size: inherit;
         line-height: inherit;
         color: inherit;
-        padding: $list-padding-y $list-padding-x;
-        height: 5.2rem;
+        padding: $table-cell-padding-y $table-cell-padding-x;
+        height: $table-cell-medium-min-height;
         border: 0;
 
         & #{$this}-truncatedContainer {
@@ -58,16 +57,16 @@
     }
 
     &-sizeSmall {
-        height: 4rem;
+        height: $table-cell-small-min-height;
     }
 
     &-paddingAction {
         &:last-of-type {
-            padding-right: $list-padding-x;
+            padding-right: $table-cell-padding-x;
         }
 
         &:first-of-type {
-            padding-left: $list-padding-x;
+            padding-left: $table-cell-padding-x;
         }
 
         padding: 0;
@@ -75,11 +74,11 @@
 
     &-paddingCheckbox {
         &:last-of-type {
-            padding-right: $list-padding-x - $checkbox-padding;
+            padding-right: $table-cell-padding-x - $checkbox-padding;
         }
 
         &:first-of-type {
-            padding-left: $list-padding-x - $checkbox-padding;
+            padding-left: $table-cell-padding-x - $checkbox-padding;
         }
 
         padding: 0;
