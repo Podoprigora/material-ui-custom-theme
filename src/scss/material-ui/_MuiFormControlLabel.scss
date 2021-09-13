@@ -1,0 +1,35 @@
+.MuiFormControlLabel {
+    &-root {
+        margin: 0;
+    }
+
+    &-labelPlacementEnd {
+        .MuiCheckbox {
+            &-root {
+                margin-right: $input-base-padding-x - $checkbox-padding;
+                margin-left: -$checkbox-padding;
+            }
+        }
+
+        .MuiSwitch {
+            &-root {
+                margin-right: $input-base-padding-x;
+            }
+        }
+    }
+
+    &-labelPlacementStart {
+        .MuiCheckbox {
+            &-root {
+                margin-left: $input-base-padding-x - $checkbox-padding;
+                margin-right: -$checkbox-padding;
+            }
+        }
+
+        .MuiSwitch {
+            &-root {
+                margin-left: $input-base-padding-x;
+            }
+        }
+    }
+}

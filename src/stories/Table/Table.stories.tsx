@@ -170,7 +170,7 @@ export const Orders: Story = () => {
                 direction="row"
                 flexWrap="wrap"
                 justifyContent="flex-end"
-                gap={6}
+                gap={10}
                 sx={{ paddingTop: 8, paddingBottom: 8 }}
             >
                 <FormControlLabel
@@ -180,7 +180,6 @@ export const Orders: Story = () => {
                             checked={striped}
                             color="primary"
                             size="small"
-                            sx={{ marginRight: 4 }}
                             onChange={handleStripedSwitchChange}
                         />
                     }
@@ -192,7 +191,6 @@ export const Orders: Story = () => {
                             checked={bordered}
                             color="primary"
                             size="small"
-                            sx={{ marginRight: 4 }}
                             onChange={handleBorderedSwitchChange}
                         />
                     }
@@ -204,7 +202,6 @@ export const Orders: Story = () => {
                             checked={dense}
                             color="primary"
                             size="small"
-                            sx={{ marginRight: 4 }}
                             onChange={handleDenseSwitchChange}
                         />
                     }

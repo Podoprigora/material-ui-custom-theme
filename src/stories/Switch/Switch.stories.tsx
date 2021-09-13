@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { Switch, SwitchProps } from '@material-ui/core';
+import { FormControlLabel, Stack, Switch, SwitchProps } from '@material-ui/core';
 
 export default {
     title: 'mui-custom/Switch',
@@ -37,3 +37,26 @@ export const Examples = () => {
         </div>
     );
 };
+
+export const FormControlLabelStory: Story = () => {
+    return (
+        <Stack direction="column" alignItems="flex-start" spacing={8}>
+            <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+            <FormControlLabel label="Label" labelPlacement="start" control={<Switch />} />
+            <Stack direction="row" justifyContent="flex-start" flexWrap="wrap" gap={8}>
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+            </Stack>
+            <Stack direction="column" spacing={8}>
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+                <FormControlLabel label="Label" labelPlacement="end" control={<Switch />} />
+            </Stack>
+        </Stack>
+    );
+};
+
+FormControlLabelStory.storyName = 'Form Control Label';
