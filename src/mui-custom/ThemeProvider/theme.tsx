@@ -204,7 +204,10 @@ export const theme = createTheme({
             defaultProps: {
                 color: 'primary',
                 icon: <div className="MuiCustomCheckbox" />,
-                checkedIcon: <div className="MuiCustomCheckbox MuiCustomCheckbox-checked" />
+                checkedIcon: <div className="MuiCustomCheckbox MuiCustomCheckbox-checked" />,
+                indeterminateIcon: (
+                    <div className="MuiCustomCheckbox MuiCustomCheckbox-indeterminate" />
+                )
             }
         },
         MuiCircularProgress: {

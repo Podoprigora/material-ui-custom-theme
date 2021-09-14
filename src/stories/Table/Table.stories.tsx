@@ -2,6 +2,14 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import _upperFirst from 'lodash/upperFirst';
 import formatDate from 'date-fns/format';
+import {
+    useTable,
+    useRowSelect,
+    Column,
+    CellProps,
+    TableToggleAllRowsSelectedProps,
+    TableToggleRowsSelectedProps
+} from 'react-table';
 
 import {
     Avatar,
@@ -74,12 +82,19 @@ const createOrderData = (
     return { code, created, status, email, amount };
 };
 
-const ordersRow: ReturnType<typeof createOrderData>[] = [
+type Order = ReturnType<typeof createOrderData>;
+
+const ordersRow: Order[] = [
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54),
     createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
@@ -108,6 +123,7 @@ const OrdersTableMenu = () => {
                 {...bindMenu(popupState)}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                disableScrollLock
                 PaperProps={{}}
                 onClick={popupState.close}
             >
@@ -137,7 +153,6 @@ export const Orders: Story = () => {
     const [dense, setDense] = useState(false);
     const [striped, setStriped] = useState(true);
     const [bordered, setBordered] = useState(false);
-    const [selected, setSelected] = useState<number[]>([]);
 
     const handleDenseSwitchChange = useEventCallback((ev, checked: boolean) => {
         setDense(checked);
@@ -151,29 +166,238 @@ export const Orders: Story = () => {
         setBordered(checked);
     });
 
-    const handleRowSelect = (index: number) => () => {
-        if (selected.indexOf(index) !== -1) {
-            setSelected((prevState) => prevState.filter((item) => item !== index));
-        } else {
-            setSelected((prevState) => [...prevState, index]);
-        }
-    };
+    const handleCodeLinkClick = useEventCallback((rowData: Order) => {
+        console.log({ rowData });
+    });
 
-    const renderAmount = useMemo(() => {
-        return (amount: number) => {
-            return (
-                <NumberFormat
-                    value={amount}
-                    thousandSeparator=","
-                    decimalSeparator="."
-                    prefix="£"
-                    displayType="text"
-                />
-            );
-        };
-    }, []);
+    const columns = useMemo<Column<Order>[]>(
+        () => [
+            {
+                id: 'checkbox',
+                Header: (headerProps) => {
+                    const { column, getToggleAllRowsSelectedProps } = headerProps;
+                    const { title, ...checkboxProps } = getToggleAllRowsSelectedProps
+                        ? getToggleAllRowsSelectedProps()
+                        : ({} as TableToggleAllRowsSelectedProps);
 
-    const shouldDisplayItems = ordersRow.length > 0;
+                    return (
+                        <TableCell {...column.getHeaderProps()} padding="checkbox">
+                            <Checkbox {...checkboxProps} />
+                        </TableCell>
+                    );
+                },
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { row, cell } = cellProps;
+                    const { title, ...checkboxProps } = row?.getToggleRowSelectedProps
+                        ? row.getToggleRowSelectedProps()
+                        : ({} as TableToggleRowsSelectedProps);
+
+                    return (
+                        <TableCell {...cell.getCellProps()} padding="checkbox">
+                            <Checkbox {...checkboxProps} />
+                        </TableCell>
+                    );
+                }
+            },
+            {
+                accessor: 'code',
+                Header: (headerProps) => {
+                    const { column } = headerProps;
+
+                    return (
+                        <TableCell {...column.getHeaderProps()} align="left">
+                            #
+                        </TableCell>
+                    );
+                },
+                Cell: (cellProps) => {
+                    const { value, cell, row } = cellProps;
+
+                    const handleClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+                        ev.preventDefault();
+
+                        handleCodeLinkClick(row.original);
+                    };
+
+                    return (
+                        <MuiCustomTableCell {...cell.getCellProps()} noWrap>
+                            <Tooltip title="Open">
+                                <Link
+                                    href="#"
+                                    color="primary"
+                                    underline="always"
+                                    onClick={handleClick}
+                                >
+                                    {value}
+                                </Link>
+                            </Tooltip>
+                        </MuiCustomTableCell>
+                    );
+                }
+            },
+            {
+                accessor: 'created',
+                Header: (headerProps) => {
+                    const { column } = headerProps;
+
+                    return (
+                        <TableCell {...column.getHeaderProps()} align="left">
+                            Date
+                        </TableCell>
+                    );
+                },
+                Cell: (cellProps) => {
+                    const { value, cell } = cellProps;
+                    const formatedDate = formatDate(new Date(value), 'MMM do, yyyy');
+
+                    return (
+                        <MuiCustomTableCell noWrap {...cell.getCellProps()}>
+                            {formatedDate}
+                        </MuiCustomTableCell>
+                    );
+                }
+            },
+            {
+                accessor: 'status',
+                Header: (headerProps) => {
+                    const { column } = headerProps;
+
+                    return (
+                        <TableCell {...column.getHeaderProps()} align="center">
+                            Status
+                        </TableCell>
+                    );
+                },
+                Cell: (cellProps) => {
+                    const { value, cell } = cellProps;
+                    const color = orderStatusColorsMap[value];
+
+                    return (
+                        <MuiCustomTableCell align="center" {...cell.getCellProps()}>
+                            <Chip
+                                variant="dimmed"
+                                color={color}
+                                size="small"
+                                label={_upperFirst(value)}
+                            />
+                        </MuiCustomTableCell>
+                    );
+                }
+            },
+            {
+                id: 'details',
+                Header: (headerProps) => {
+                    const { column } = headerProps;
+
+                    return (
+                        <TableCell
+                            {...column.getHeaderProps()}
+                            align="left"
+                            sx={{ minWidth: '20rem' }}
+                        >
+                            Details
+                        </TableCell>
+                    );
+                },
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { cell } = cellProps;
+
+                    return (
+                        <MuiCustomTableCell truncated {...cell.getCellProps()}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
+                            doloribus quisquam quae deleniti asperiores nesciunt soluta commodi
+                            eaque aut, facilis, temporibus exercitationem quos ad.
+                        </MuiCustomTableCell>
+                    );
+                }
+            },
+            {
+                accessor: 'amount',
+                Header: (headerProps) => {
+                    const { column } = headerProps;
+
+                    return (
+                        <TableCell {...column.getHeaderProps()} align="right">
+                            Amount
+                        </TableCell>
+                    );
+                },
+                Cell: (cellProps) => {
+                    const { value, cell } = cellProps;
+
+                    return (
+                        <MuiCustomTableCell align="right" {...cell.getCellProps()}>
+                            <NumberFormat
+                                value={value}
+                                thousandSeparator=","
+                                decimalSeparator="."
+                                prefix="£"
+                                displayType="text"
+                            />
+                        </MuiCustomTableCell>
+                    );
+                }
+            },
+            {
+                id: 'actions',
+                Header: (headerProps) => <TableCell {...headerProps.column.getHeaderProps()} />,
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { cell } = cellProps;
+
+                    return (
+                        <MuiCustomTableCell padding="action" {...cell.getCellProps()}>
+                            <Stack direction="row" flexWrap="nowrap" spacing={1}>
+                                <Tooltip title="Send message">
+                                    <IconButton color="primary">
+                                        <ForumRounded fontSize="large" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Add payment">
+                                    <IconButton color="primary">
+                                        <PaymentOutlined fontSize="large" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Generate invoice">
+                                    <IconButton color="primary">
+                                        <PictureAsPdfOutlined fontSize="large" />
+                                    </IconButton>
+                                </Tooltip>
+                            </Stack>
+                        </MuiCustomTableCell>
+                    );
+                }
+            },
+            {
+                id: 'more-actions',
+                Header: (headerProps) => <TableCell {...headerProps.column.getHeaderProps()} />,
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { cell } = cellProps;
+
+                    return (
+                        <MuiCustomTableCell padding="action" {...cell.getCellProps()}>
+                            <OrdersTableMenu />
+                        </MuiCustomTableCell>
+                    );
+                }
+            }
+        ],
+        [handleCodeLinkClick]
+    );
+
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+        {
+            autoResetSelectedRows: false,
+            columns,
+            data: ordersRow
+        },
+        useRowSelect
+    );
+
+    const shouldDisplayItems = rows.length > 0;
+
+    if (!shouldDisplayItems) {
+        return <div />;
+    }
 
     return (
         <>
@@ -225,88 +449,40 @@ export const Orders: Story = () => {
                     striped={striped}
                     bordered={bordered}
                     size={dense ? 'small' : 'medium'}
+                    {...getTableProps()}
                 >
                     <TableHead>
-                        <TableRow>
-                            <MuiCustomTableCell padding="checkbox">
-                                <Checkbox disabled />
-                            </MuiCustomTableCell>
-                            <TableCell align="left">#</TableCell>
-                            <TableCell align="left">Date</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell sx={{ minWidth: '20rem' }}>Details</TableCell>
-                            <TableCell align="right">Amount</TableCell>
-                            <TableCell />
-                            <TableCell />
-                        </TableRow>
+                        {headerGroups.map((headerGroup) => {
+                            const { key, ...rowProps } = headerGroup.getHeaderGroupProps();
+
+                            return (
+                                <TableRow {...rowProps} key={key}>
+                                    {headerGroup.headers.map((column) => {
+                                        const { key: headerKey } = column.getHeaderProps();
+
+                                        return column.render('Header', { key: headerKey });
+                                    })}
+                                </TableRow>
+                            );
+                        })}
                     </TableHead>
 
-                    <TableBody>
-                        {shouldDisplayItems &&
-                            ordersRow.map((item, index) => {
-                                const { code, created, status, amount } = item;
-                                const color = orderStatusColorsMap[status];
-                                const formatedDate = formatDate(new Date(created), 'MMM do, yyyy');
-                                const checked = selected.indexOf(index) !== -1;
+                    <TableBody {...getTableBodyProps()}>
+                        {rows.map((row) => {
+                            prepareRow(row);
 
-                                return (
-                                    <TableRow key={index} hover selected={checked}>
-                                        <MuiCustomTableCell padding="checkbox">
-                                            <Checkbox
-                                                checked={checked}
-                                                onChange={handleRowSelect(index)}
-                                            />
-                                        </MuiCustomTableCell>
-                                        <MuiCustomTableCell noWrap>
-                                            <Tooltip title="Open">
-                                                <Link href="#" color="primary" underline="always">
-                                                    {code}
-                                                </Link>
-                                            </Tooltip>
-                                        </MuiCustomTableCell>
-                                        <MuiCustomTableCell noWrap>
-                                            {formatedDate}
-                                        </MuiCustomTableCell>
-                                        <MuiCustomTableCell align="center">
-                                            <Chip
-                                                variant="dimmed"
-                                                color={color}
-                                                size="small"
-                                                label={_upperFirst(status)}
-                                            />
-                                        </MuiCustomTableCell>
-                                        <MuiCustomTableCell truncated>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                                            elit. Sequi doloribus quisquam quae deleniti asperiores
-                                            nesciunt soluta commodi eaque aut, facilis, temporibus
-                                            exercitationem quos ad.
-                                        </MuiCustomTableCell>
-                                        <TableCell align="right">{renderAmount(amount)}</TableCell>
-                                        <MuiCustomTableCell padding="action">
-                                            <Stack direction="row" flexWrap="nowrap" spacing={1}>
-                                                <Tooltip title="Send message">
-                                                    <IconButton color="primary">
-                                                        <ForumRounded fontSize="large" />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Add payment">
-                                                    <IconButton color="primary">
-                                                        <PaymentOutlined fontSize="large" />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Generate invoice">
-                                                    <IconButton color="primary">
-                                                        <PictureAsPdfOutlined fontSize="large" />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </Stack>
-                                        </MuiCustomTableCell>
-                                        <MuiCustomTableCell padding="action">
-                                            <OrdersTableMenu />
-                                        </MuiCustomTableCell>
-                                    </TableRow>
-                                );
-                            })}
+                            const { key, ...rowProps } = row.getRowProps();
+
+                            return (
+                                <TableRow key={key} {...rowProps} hover selected={row?.isSelected}>
+                                    {row.cells.map((cell) => {
+                                        const { key: cellKey } = cell.getCellProps();
+
+                                        return cell.render('Cell', { key: cellKey });
+                                    })}
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                 </MuiCustomTable>
             </MuiCustomTableContainer>

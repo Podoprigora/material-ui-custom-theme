@@ -14,7 +14,7 @@ module.exports = {
     ],
     core: { builder: 'webpack5' },
     typescript: {
-        check: true,
+        check: false,
         reactDocgen: 'react-docgen-typescript'
     }
 };

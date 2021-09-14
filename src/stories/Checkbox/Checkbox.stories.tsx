@@ -16,6 +16,10 @@ export const Default: Story = () => {
     );
 };
 
+export const Indeterminate: Story = () => {
+    return <Checkbox indeterminate />;
+};
+
 export const FormControlLabelStory: Story = () => {
     return (
         <Stack direction="column" alignItems="flex-start" spacing={4}>

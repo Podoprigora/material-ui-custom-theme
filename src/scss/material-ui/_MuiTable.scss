@@ -135,10 +135,13 @@
 
         #{$simplebar}-track#{$simplebar}-vertical {
             width: $table-simplebar-track-size;
+            // background-color: $white;
+            // box-shadow: 0 -0.2rem 0 0.1rem $border-color;
         }
 
         #{$simplebar}-track#{$simplebar}-horizontal {
             height: $table-simplebar-track-size;
+            // box-shadow: -0.2rem 0 0 0.1rem $border-color;
 
             #{$simplebar}-scrollbar#{$simplebar}-visible {
                 height: $table-simplebar-track-size - 2 * $simplebar-offset;
