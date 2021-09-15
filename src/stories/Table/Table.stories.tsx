@@ -8,7 +8,11 @@ import {
     Column,
     CellProps,
     TableToggleAllRowsSelectedProps,
-    TableToggleRowsSelectedProps
+    TableToggleRowsSelectedProps,
+    useExpanded,
+    TableExpandedToggleProps,
+    Row,
+    ColumnInstance
 } from 'react-table';
 
 import {
@@ -17,6 +21,7 @@ import {
     Checkbox,
     Chip,
     ChipProps,
+    Collapse,
     Divider,
     FormControlLabel,
     Icon,
@@ -47,6 +52,9 @@ import {
     BusinessRounded,
     ForumRounded,
     InsertDriveFileOutlined,
+    KeyboardArrowDownRounded,
+    KeyboardArrowRight,
+    KeyboardArrowRightRounded,
     MailOutlineOutlined,
     PaymentOutlined,
     PhoneIphoneOutlined,
@@ -56,15 +64,18 @@ import NumberFormat from 'react-number-format';
 
 import { MuiCustomTable, MuiCustomTableCell, MuiCustomTableContainer } from '@mui-custom';
 import {
-    ChevronDownSvg,
     Edit2Svg,
     MoreVerticalSvg,
     Trash2Svg,
     CheckSvg,
-    InboxSvg
+    InboxSvg,
+    ChevronLeftSvg,
+    ChevronRightSvg,
+    ChevronDownSvg
 } from '../../assets/svg-icons/feather';
 import { useMountedRef } from '@mui-custom/utils';
 import { RandomUser, fetchRandomUsers } from '../services/RandomUsersService';
+import clsx from 'clsx';
 
 export default {
     title: 'mui-custom/Table'
@@ -85,6 +96,36 @@ const createOrderData = (
 type Order = ReturnType<typeof createOrderData>;
 
 const ordersRow: Order[] = [
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 3453455.54),
+    createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54),
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
@@ -149,6 +190,60 @@ const OrdersTableMenu = () => {
     );
 };
 
+const MemoizedRow = React.memo(
+    (props: {
+        row: Row<Order>;
+        visibleColumns: ColumnInstance<Order>[];
+        oddRow?: boolean;
+        selected?: boolean;
+        expanded?: boolean;
+    }) => {
+        const { row, visibleColumns, oddRow = false, selected = false, expanded = false } = props;
+
+        console.log('rerender memoized row');
+
+        const { key, ...rowProps } = row.getRowProps();
+
+        const expandedColumn = visibleColumns.find((column) => !!column?.ExpandedRowContent);
+
+        return (
+            <React.Fragment>
+                <TableRow
+                    {...rowProps}
+                    hover
+                    selected={selected}
+                    className={clsx({ 'MuiTableRow-oddRow': oddRow })}
+                >
+                    {row.cells.map((cell) => {
+                        const { key: cellKey } = cell.getCellProps();
+
+                        return cell.render('Cell', { key: cellKey });
+                    })}
+                </TableRow>
+                {expandedColumn && (
+                    <TableRow
+                        className={clsx('MuiTableRow-body', {
+                            'MuiTableRow-collapsed': !row?.isExpanded
+                        })}
+                    >
+                        <TableCell colSpan={visibleColumns.length}>
+                            <Collapse
+                                in={expanded}
+                                timeout={{ enter: 250, exit: 150 }}
+                                unmountOnExit
+                            >
+                                <div className="MuiTableExpandedContent">
+                                    {expandedColumn.render('ExpandedRowContent', row)}
+                                </div>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                )}
+            </React.Fragment>
+        );
+    }
+);
+
 export const Orders: Story = () => {
     const [dense, setDense] = useState(false);
     const [striped, setStriped] = useState(true);
@@ -172,6 +267,49 @@ export const Orders: Story = () => {
 
     const columns = useMemo<Column<Order>[]>(
         () => [
+            {
+                id: 'expander',
+                Header: (headerProps) => <TableCell {...headerProps.column.getHeaderProps()} />,
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { row, cell } = cellProps;
+                    const { title, ...rowExpanderProps } = row?.getToggleRowExpandedProps
+                        ? row.getToggleRowExpandedProps()
+                        : ({} as TableExpandedToggleProps);
+                    const tooltipTitle = row?.isExpanded ? 'Collapse' : 'Expand';
+
+                    return (
+                        <MuiCustomTableCell {...cell.getCellProps()} padding="checkbox">
+                            {/* <Tooltip title={tooltipTitle}> */}
+                            <IconButton size="medium" {...rowExpanderProps}>
+                                {row?.isExpanded ? (
+                                    <KeyboardArrowDownRounded fontSize="large" />
+                                ) : (
+                                    <KeyboardArrowRightRounded fontSize="large" />
+                                )}
+                            </IconButton>
+                            {/* </Tooltip> */}
+                        </MuiCustomTableCell>
+                    );
+                },
+                ExpandedRowContent: (row) => {
+                    return (
+                        <div>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur ex id
+                            odio tenetur, vel nesciunt animi aliquid. Velit doloremque dolores omnis
+                            id hic, cupiditate non consectetur nemo sit sapiente vero. Magnam sunt
+                            hic nihil molestiae ut sed eligendi quod consequuntur, commodi eos? Sint
+                            cum iure modi ea aliquid provident consectetur quaerat esse ullam? Amet
+                            a iure deleniti eaque et natus? Ratione, officia eaque iure aliquid quam
+                            voluptatem corrupti illo aliquam magnam odio eveniet consequuntur dicta
+                            molestias maiores cumque modi voluptatibus magni! Optio aspernatur
+                            excepturi sit aperiam quod tenetur mollitia ab? Incidunt iusto quos
+                            necessitatibus alias dolorum ad aliquid modi, qui vero voluptatem rem
+                            voluptate veniam, sunt laudantium tempora odit soluta, quia aut eaque
+                            unde repellendus quaerat.
+                        </div>
+                    );
+                }
+            },
             {
                 id: 'checkbox',
                 Header: (headerProps) => {
@@ -384,12 +522,19 @@ export const Orders: Story = () => {
         [handleCodeLinkClick]
     );
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        visibleColumns
+    } = useTable(
         {
-            autoResetSelectedRows: false,
             columns,
             data: ordersRow
         },
+        useExpanded,
         useRowSelect
     );
 
@@ -468,19 +613,59 @@ export const Orders: Story = () => {
                     </TableHead>
 
                     <TableBody {...getTableBodyProps()}>
-                        {rows.map((row) => {
+                        {rows.map((row, index) => {
                             prepareRow(row);
 
                             const { key, ...rowProps } = row.getRowProps();
 
-                            return (
-                                <TableRow key={key} {...rowProps} hover selected={row?.isSelected}>
-                                    {row.cells.map((cell) => {
-                                        const { key: cellKey } = cell.getCellProps();
+                            const expandedColumn = visibleColumns.find(
+                                (column) => !!column?.ExpandedRowContent
+                            );
+                            const ExpandedRowContent =
+                                expandedColumn && expandedColumn?.ExpandedRowContent;
 
-                                        return cell.render('Cell', { key: cellKey });
-                                    })}
-                                </TableRow>
+                            return (
+                                <MemoizedRow
+                                    key={key}
+                                    row={row}
+                                    visibleColumns={visibleColumns}
+                                    selected={row?.isSelected}
+                                    expanded={row?.isExpanded}
+                                    oddRow={index % 2 === 0}
+                                />
+                                // <React.Fragment key={key}>
+                                //     <TableRow
+                                //         {...rowProps}
+                                //         hover
+                                //         selected={row?.isSelected}
+                                //         className={clsx({ 'MuiTableRow-oddRow': index % 2 === 0 })}
+                                //     >
+                                //         {row.cells.map((cell) => {
+                                //             const { key: cellKey } = cell.getCellProps();
+
+                                //             return cell.render('Cell', { key: cellKey });
+                                //         })}
+                                //     </TableRow>
+                                //     {ExpandedRowContent && (
+                                //         <TableRow
+                                //             className={clsx('MuiTableRow-body', {
+                                //                 'MuiTableRow-collapsed': !row?.isExpanded
+                                //             })}
+                                //         >
+                                //             <TableCell colSpan={visibleColumns.length}>
+                                //                 <Collapse
+                                //                     in={row?.isExpanded}
+                                //                     timeout={{ enter: 250, exit: 150 }}
+                                //                     unmountOnExit
+                                //                 >
+                                //                     <div className="MuiTableExpandedContent">
+                                //                         <ExpandedRowContent {...row} />
+                                //                     </div>
+                                //                 </Collapse>
+                                //             </TableCell>
+                                //         </TableRow>
+                                //     )}
+                                // </React.Fragment>
                             );
                         })}
                     </TableBody>

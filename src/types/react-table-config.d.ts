@@ -1,5 +1,6 @@
 // Source: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-table
 
+import React from 'react';
 import {
     UseColumnOrderInstanceProps,
     UseColumnOrderState,
@@ -51,6 +52,13 @@ import {
 } from 'react-table';
 
 declare module 'react-table' {
+    // useExpanded
+    export interface TableExpandedToggleProps extends TableKeyedProps {
+        title?: string;
+        style?: React.CSSProperties;
+        onClick?: (ev: React.MouseEvent) => void;
+    }
+
     export interface TableOptions<D extends Record<string, unknown>>
         extends Partial<UseExpandedOptions<D>>,
             UseFiltersOptions<D>,
@@ -100,7 +108,9 @@ declare module 'react-table' {
             UseGlobalFiltersColumnOptions<D>,
             UseGroupByColumnOptions<D>,
             UseResizeColumnsColumnOptions<D>,
-            UseSortByColumnOptions<D> {}
+            UseSortByColumnOptions<D> {
+        ExpandedRowContent?: React.ComponentType<Row<D>>;
+    }
 
     export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>
         extends UseFiltersColumnProps<D>,

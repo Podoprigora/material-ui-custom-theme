@@ -1,7 +1,7 @@
 .MuiTable {
     &-striped {
         tbody {
-            tr:nth-of-type(odd) {
+            .MuiTableRow-oddRow {
                 td {
                     background-color: $table-striped-bg-color;
                 }
@@ -66,6 +66,33 @@
             }
         }
     }
+
+    // Custom selector
+
+    &-body {
+        &#{$this}-collapsed {
+            .MuiTableCell {
+                &-root {
+                    border-bottom: 0;
+                }
+            }
+        }
+
+        &:not(#{$this}-collapsed) {
+            .MuiTableCell {
+                &-root {
+                    border-bottom: 0.1rem solid $border-color;
+                }
+            }
+        }
+
+        .MuiTableCell {
+            &-root {
+                padding: 0;
+                height: 0;
+            }
+        }
+    }
 }
 
 .MuiTableCell {
@@ -122,6 +149,10 @@
 }
 
 // Custom selectors
+
+.MuiTableExpandedContent {
+    padding: $table-cell-padding-x;
+}
 
 .MuiCustomTablePaperSimplebar {
     .MuiTableContainer {
