@@ -113,8 +113,7 @@ declare module 'react-table' {
             UseResizeColumnsColumnOptions<D>,
             UseSortByColumnOptions<D> {
         ExpandedRowContent?: React.ComponentType<Row<D>>;
-        MuiCustomCellProps?: MuiCustomTableCellProps;
-        MuiCellProps?: MuiTableCellProps;
+        MuiCellProps?: MuiCustomTableCellProps;
     }
 
     export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>

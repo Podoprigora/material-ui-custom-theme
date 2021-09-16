@@ -121,6 +121,10 @@
 
     &-sizeSmall {
         height: $table-cell-small-min-height;
+
+        &#{$this}-paddingCheckbox {
+            padding: 0;
+        }
     }
 
     &-paddingAction {
@@ -129,7 +133,7 @@
         }
 
         &:first-of-type {
-            padding-left: $table-cell-padding-x;
+            padding-left: $spacing-scale-3;
         }
 
         padding: 0;
