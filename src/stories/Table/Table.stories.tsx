@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useMemo, useState, useCallback, createContext } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import _upperFirst from 'lodash/upperFirst';
 import formatDate from 'date-fns/format';
@@ -12,7 +12,8 @@ import {
     useExpanded,
     TableExpandedToggleProps,
     Row,
-    ColumnInstance
+    ColumnInstance,
+    Cell
 } from 'react-table';
 
 import {
@@ -73,7 +74,7 @@ import {
     ChevronRightSvg,
     ChevronDownSvg
 } from '../../assets/svg-icons/feather';
-import { useMountedRef } from '@mui-custom/utils';
+import { createCtx, useMountedRef } from '@mui-custom/utils';
 import { RandomUser, fetchRandomUsers } from '../services/RandomUsersService';
 import clsx from 'clsx';
 
@@ -140,7 +141,10 @@ const ordersRow: Order[] = [
     createOrderData('94812-44', '2021-05-28', 'pending', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
     createOrderData('94812-44', '2021-05-28', 'paid', 'demo@mail.com', 532.54),
-    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54)
+    createOrderData('94812-44', '2021-05-28', 'unpaid', 'demo@mail.com', 5345342.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54),
+    createOrderData('94812-44', '2021-05-28', 'new', 'demo@mail.com', 532.54)
 ];
 
 const orderStatusColorsMap: Record<OrderStatus, ChipProps['color']> = {
@@ -190,59 +194,78 @@ const OrdersTableMenu = () => {
     );
 };
 
-const MemoizedRow = React.memo(
-    (props: {
-        row: Row<Order>;
-        visibleColumns: ColumnInstance<Order>[];
-        oddRow?: boolean;
-        selected?: boolean;
-        expanded?: boolean;
-    }) => {
-        const { row, visibleColumns, oddRow = false, selected = false, expanded = false } = props;
+const MemoizedRowContext = createCtx<{ selected?: boolean; expanded?: boolean }>();
 
-        console.log('rerender memoized row');
+const MemoizedExpandedRow = (props: { row: Row<Order> }) => {
+    const { row } = props;
+    const { expanded } = MemoizedRowContext.useContext();
 
-        const { key, ...rowProps } = row.getRowProps();
+    return useMemo(() => {
+        const expandedColumn = row.cells.find((cell) => {
+            return !!cell.column?.ExpandedRowContent;
+        });
+        const colSpan = row.cells.length;
 
-        const expandedColumn = visibleColumns.find((column) => !!column?.ExpandedRowContent);
+        return expandedColumn ? (
+            <TableRow
+                className={clsx('MuiTableRow-body', {
+                    'MuiTableRow-collapsed': !expanded
+                })}
+            >
+                <TableCell colSpan={colSpan}>
+                    <Collapse in={expanded} timeout={{ enter: 250, exit: 150 }} unmountOnExit>
+                        <div className="MuiTableExpandedContent">
+                            {expandedColumn.render('ExpandedRowContent', row)}
+                        </div>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        ) : null;
+    }, [expanded, row]);
+};
 
+const MemoizedRow = (props: { row: Row<Order>; oddRow?: boolean }) => {
+    const { row, oddRow = false } = props;
+
+    const selected = row?.isSelected;
+    const expanded = row?.isExpanded;
+
+    const rowContextValue = useMemo(() => ({ selected, expanded } as const), [selected, expanded]);
+
+    const cells = useMemo(() => {
+        return row.cells.map((cell) => {
+            const { key: cellKey, ...cellProps } = cell.getCellProps();
+            const { MuiCustomCellProps, MuiCellProps } = cell.column;
+
+            return (
+                <MuiCustomTableCell
+                    key={cellKey}
+                    {...cellProps}
+                    {...MuiCellProps}
+                    {...MuiCustomCellProps}
+                >
+                    {cell.render('Cell')}
+                </MuiCustomTableCell>
+            );
+        });
+    }, [row]);
+
+    return useMemo(() => {
         return (
-            <React.Fragment>
+            <MemoizedRowContext.Provider value={rowContextValue}>
                 <TableRow
-                    {...rowProps}
+                    {...row.getRowProps()}
                     hover
-                    selected={selected}
+                    selected={rowContextValue.selected}
                     className={clsx({ 'MuiTableRow-oddRow': oddRow })}
                 >
-                    {row.cells.map((cell) => {
-                        const { key: cellKey } = cell.getCellProps();
-
-                        return cell.render('Cell', { key: cellKey });
-                    })}
+                    {cells}
                 </TableRow>
-                {expandedColumn && (
-                    <TableRow
-                        className={clsx('MuiTableRow-body', {
-                            'MuiTableRow-collapsed': !row?.isExpanded
-                        })}
-                    >
-                        <TableCell colSpan={visibleColumns.length}>
-                            <Collapse
-                                in={expanded}
-                                timeout={{ enter: 250, exit: 150 }}
-                                unmountOnExit
-                            >
-                                <div className="MuiTableExpandedContent">
-                                    {expandedColumn.render('ExpandedRowContent', row)}
-                                </div>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                )}
-            </React.Fragment>
+                <MemoizedExpandedRow row={row} />
+            </MemoizedRowContext.Provider>
         );
-    }
-);
+    }, [row, oddRow, cells, rowContextValue]);
+};
 
 export const Orders: Story = () => {
     const [dense, setDense] = useState(false);
@@ -265,7 +288,7 @@ export const Orders: Story = () => {
         console.log({ rowData });
     });
 
-    const columns = useMemo<Column<Order>[]>(
+    const columns1 = useMemo<Column<Order>[]>(
         () => [
             {
                 id: 'expander',
@@ -522,16 +545,152 @@ export const Orders: Story = () => {
         [handleCodeLinkClick]
     );
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        visibleColumns
-    } = useTable(
+    const columns2 = useMemo<Column<Order>[]>(
+        () => [
+            {
+                id: 'expander',
+                MuiCustomCellProps: {
+                    padding: 'checkbox'
+                },
+                Header: '',
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { row } = cellProps;
+                    const { title, ...rowExpanderProps } = row?.getToggleRowExpandedProps
+                        ? row.getToggleRowExpandedProps()
+                        : ({} as TableExpandedToggleProps);
+                    const { expanded } = MemoizedRowContext.useContext();
+
+                    return (
+                        <IconButton size="medium" {...rowExpanderProps}>
+                            {expanded ? (
+                                <KeyboardArrowDownRounded fontSize="large" />
+                            ) : (
+                                <KeyboardArrowRightRounded fontSize="large" />
+                            )}
+                        </IconButton>
+                    );
+                },
+                ExpandedRowContent: (row) => {
+                    return (
+                        <div>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur ex id
+                            odio tenetur, vel nesciunt animi aliquid. Velit doloremque dolores omnis
+                            id hic, cupiditate non consectetur nemo sit sapiente vero. Magnam sunt
+                            hic nihil molestiae ut sed eligendi quod consequuntur, commodi eos? Sint
+                            cum iure modi ea aliquid provident consectetur quaerat esse ullam? Amet
+                            a iure deleniti eaque et natus? Ratione, officia eaque iure aliquid quam
+                            voluptatem corrupti illo aliquam magnam odio eveniet consequuntur dicta
+                            molestias maiores cumque modi voluptatibus magni! Optio aspernatur
+                            excepturi sit aperiam quod tenetur mollitia ab? Incidunt iusto quos
+                            necessitatibus alias dolorum ad aliquid modi, qui vero voluptatem rem
+                            voluptate veniam, sunt laudantium tempora odit soluta, quia aut eaque
+                            unde repellendus quaerat.
+                        </div>
+                    );
+                }
+            },
+            {
+                id: 'checkbox',
+                MuiCellProps: {
+                    padding: 'checkbox'
+                },
+                Header: (headerProps) => {
+                    const { getToggleAllRowsSelectedProps } = headerProps;
+                    const { title, ...checkboxProps } = getToggleAllRowsSelectedProps
+                        ? getToggleAllRowsSelectedProps()
+                        : ({} as TableToggleAllRowsSelectedProps);
+
+                    return <Checkbox {...checkboxProps} />;
+                },
+                Cell: (cellProps: CellProps<Order>) => {
+                    const { row } = cellProps;
+                    const { title, ...checkboxProps } = row?.getToggleRowSelectedProps
+                        ? row.getToggleRowSelectedProps()
+                        : ({} as TableToggleRowsSelectedProps);
+                    const { selected } = MemoizedRowContext.useContext();
+
+                    return <Checkbox {...checkboxProps} checked={selected} />;
+                }
+            },
+            {
+                accessor: 'code',
+                MuiCustomCellProps: {
+                    noWrap: true
+                },
+                Header: '#',
+                Cell: (cellProps) => {
+                    const { value, row } = cellProps;
+
+                    const handleClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+                        ev.preventDefault();
+
+                        handleCodeLinkClick(row.original);
+                    };
+
+                    return (
+                        <Link href="#" color="primary" underline="always" onClick={handleClick}>
+                            {value}
+                        </Link>
+                    );
+                }
+            },
+            {
+                accessor: 'created',
+                MuiCustomCellProps: {
+                    noWrap: true
+                },
+                Header: 'Date',
+                Cell: (cellProps) => {
+                    const { value } = cellProps;
+
+                    return formatDate(new Date(value), 'MMM do, yyyy');
+                }
+            },
+            {
+                accessor: 'status',
+                Header: 'Status',
+                Cell: (cellProps) => {
+                    const { value } = cellProps;
+                    const color = orderStatusColorsMap[value];
+
+                    return (
+                        <Chip
+                            variant="dimmed"
+                            color={color}
+                            size="small"
+                            label={_upperFirst(value)}
+                        />
+                    );
+                }
+            },
+            {
+                accessor: 'amount',
+                MuiCellProps: {
+                    align: 'right',
+                    width: '100%'
+                },
+                Header: 'Amount',
+                Cell: (cellProps) => {
+                    const { value } = cellProps;
+
+                    return (
+                        <NumberFormat
+                            value={value}
+                            thousandSeparator=","
+                            decimalSeparator="."
+                            prefix="£"
+                            displayType="text"
+                        />
+                    );
+                }
+            }
+        ],
+        [handleCodeLinkClick]
+    );
+
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
         {
-            columns,
+            columns: columns2,
             data: ordersRow
         },
         useExpanded,
@@ -603,9 +762,21 @@ export const Orders: Story = () => {
                             return (
                                 <TableRow {...rowProps} key={key}>
                                     {headerGroup.headers.map((column) => {
-                                        const { key: headerKey } = column.getHeaderProps();
+                                        const {
+                                            key: cellKey,
+                                            ...cellProps
+                                        } = column.getHeaderProps();
+                                        const { MuiCellProps } = column;
 
-                                        return column.render('Header', { key: headerKey });
+                                        return (
+                                            <TableCell
+                                                key={cellKey}
+                                                {...cellProps}
+                                                {...MuiCellProps}
+                                            >
+                                                {column.render('Header')}
+                                            </TableCell>
+                                        );
                                     })}
                                 </TableRow>
                             );
@@ -616,57 +787,9 @@ export const Orders: Story = () => {
                         {rows.map((row, index) => {
                             prepareRow(row);
 
-                            const { key, ...rowProps } = row.getRowProps();
+                            const { key } = row.getRowProps();
 
-                            const expandedColumn = visibleColumns.find(
-                                (column) => !!column?.ExpandedRowContent
-                            );
-                            const ExpandedRowContent =
-                                expandedColumn && expandedColumn?.ExpandedRowContent;
-
-                            return (
-                                <MemoizedRow
-                                    key={key}
-                                    row={row}
-                                    visibleColumns={visibleColumns}
-                                    selected={row?.isSelected}
-                                    expanded={row?.isExpanded}
-                                    oddRow={index % 2 === 0}
-                                />
-                                // <React.Fragment key={key}>
-                                //     <TableRow
-                                //         {...rowProps}
-                                //         hover
-                                //         selected={row?.isSelected}
-                                //         className={clsx({ 'MuiTableRow-oddRow': index % 2 === 0 })}
-                                //     >
-                                //         {row.cells.map((cell) => {
-                                //             const { key: cellKey } = cell.getCellProps();
-
-                                //             return cell.render('Cell', { key: cellKey });
-                                //         })}
-                                //     </TableRow>
-                                //     {ExpandedRowContent && (
-                                //         <TableRow
-                                //             className={clsx('MuiTableRow-body', {
-                                //                 'MuiTableRow-collapsed': !row?.isExpanded
-                                //             })}
-                                //         >
-                                //             <TableCell colSpan={visibleColumns.length}>
-                                //                 <Collapse
-                                //                     in={row?.isExpanded}
-                                //                     timeout={{ enter: 250, exit: 150 }}
-                                //                     unmountOnExit
-                                //                 >
-                                //                     <div className="MuiTableExpandedContent">
-                                //                         <ExpandedRowContent {...row} />
-                                //                     </div>
-                                //                 </Collapse>
-                                //             </TableCell>
-                                //         </TableRow>
-                                //     )}
-                                // </React.Fragment>
-                            );
+                            return <MemoizedRow key={key} row={row} oddRow={index % 2 === 0} />;
                         })}
                     </TableBody>
                 </MuiCustomTable>

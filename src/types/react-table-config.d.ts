@@ -51,6 +51,9 @@ import {
     UseSortByState
 } from 'react-table';
 
+import { MuiCustomTableCellProps } from '@mui-custom';
+import { TableCellProps as MuiTableCellProps } from '@material-ui/core';
+
 declare module 'react-table' {
     // useExpanded
     export interface TableExpandedToggleProps extends TableKeyedProps {
@@ -110,6 +113,8 @@ declare module 'react-table' {
             UseResizeColumnsColumnOptions<D>,
             UseSortByColumnOptions<D> {
         ExpandedRowContent?: React.ComponentType<Row<D>>;
+        MuiCustomCellProps?: MuiCustomTableCellProps;
+        MuiCellProps?: MuiTableCellProps;
     }
 
     export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>
@@ -120,7 +125,9 @@ declare module 'react-table' {
 
     export interface Cell<D extends Record<string, unknown> = Record<string, unknown>, V = unknown>
         extends UseGroupByCellProps<D>,
-            UseRowStateCellProps<D> {}
+            UseRowStateCellProps<D> {
+        ExpandedRowContent?: React.ComponentType<Row<D>>;
+    }
 
     export interface Row<D extends Record<string, unknown> = Record<string, unknown>>
         extends Partial<UseExpandedRowProps<D>>,
