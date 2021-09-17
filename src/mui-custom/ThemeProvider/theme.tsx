@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grow, PopoverProps } from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
-import { Clear } from '@material-ui/icons';
+import { ArrowDropDown, Clear } from '@material-ui/icons';
 import { MuiCustomPaperSimplebar, MuiCustomPaperSimplebarProps } from '@mui-custom';
 
 import { ChevronDownSvg } from '../../assets/svg-icons/feather';
@@ -217,6 +217,12 @@ export const theme = createTheme({
                 thickness: 3.4,
                 disableShrink: false,
                 variant: 'indeterminate'
+            }
+        },
+        MuiTableSortLabel: {
+            defaultProps: {
+                hideSortIcon: true,
+                IconComponent: ArrowDropDown
             }
         }
     }

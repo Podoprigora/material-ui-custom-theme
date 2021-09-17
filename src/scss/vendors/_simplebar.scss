@@ -21,6 +21,7 @@
             #{$this}-scrollbar#{$this}-visible {
                 top: $simplebar-offset;
                 height: $simplebar-track-size - 2 * $simplebar-offset;
+
                 &:before {
                     right: $simplebar-offset;
                     left: $simplebar-offset;

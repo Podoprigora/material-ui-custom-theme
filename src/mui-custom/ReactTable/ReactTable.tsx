@@ -1,15 +1,15 @@
 import React from 'react';
-import { Column, useExpanded, useRowSelect, useTable } from 'react-table';
-import { TableHead, TableBody, TableRow } from '@material-ui/core';
+import { Column, useExpanded, useRowSelect, useSortBy, useTable } from 'react-table';
+import { TableHead, TableBody } from '@material-ui/core';
 
 import {
     MuiCustomTableContainerProps,
     MuiCustomTableProps,
     MuiCustomTableContainer,
-    MuiCustomTable,
-    MuiCustomTableCell
+    MuiCustomTable
 } from '../Table';
 import { MuiCustomReactTableRow } from './ReactTableRow';
+import { MuiCustomReactTableHeadRow } from './ReactTableHeadRow';
 
 export interface MuiCustomReactTableProps<D extends Record<string, unknown>>
     extends MuiCustomTableProps {
@@ -17,6 +17,7 @@ export interface MuiCustomReactTableProps<D extends Record<string, unknown>>
     data: Array<D>;
     enableRowSelect?: boolean;
     enableRowExpand?: boolean;
+    enableSort?: boolean;
     PaperProps?: MuiCustomTableContainerProps['PaperProps'];
 }
 
@@ -29,6 +30,7 @@ function MuiCustomReactTableWithRef<D extends Record<string, unknown> = Record<s
         data,
         enableRowExpand = false,
         enableRowSelect = false,
+        enableSort = false,
         PaperProps,
         ...other
     } = props;
@@ -38,6 +40,7 @@ function MuiCustomReactTableWithRef<D extends Record<string, unknown> = Record<s
             columns,
             data
         },
+        ...(enableSort ? [useSortBy] : []),
         ...(enableRowExpand ? [useExpanded] : []),
         ...(enableRowSelect ? [useRowSelect] : [])
     );
@@ -47,26 +50,9 @@ function MuiCustomReactTableWithRef<D extends Record<string, unknown> = Record<s
             <MuiCustomTable {...other} {...getTableProps()}>
                 <TableHead>
                     {headerGroups.map((headerGroup) => {
-                        const { key, ...rowProps } = headerGroup.getHeaderGroupProps();
+                        const { key } = headerGroup.getHeaderGroupProps();
 
-                        return (
-                            <TableRow {...rowProps} key={key}>
-                                {headerGroup.headers.map((column) => {
-                                    const { key: cellKey, ...cellProps } = column.getHeaderProps();
-                                    const { MuiCellProps } = column;
-
-                                    return (
-                                        <MuiCustomTableCell
-                                            key={cellKey}
-                                            {...cellProps}
-                                            {...MuiCellProps}
-                                        >
-                                            {column.render('Header')}
-                                        </MuiCustomTableCell>
-                                    );
-                                })}
-                            </TableRow>
-                        );
+                        return <MuiCustomReactTableHeadRow key={key} headerGroup={headerGroup} />;
                     })}
                 </TableHead>
 

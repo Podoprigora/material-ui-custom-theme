@@ -8,6 +8,7 @@ export interface MuiCustomTableCellProps extends ExtendedProps {
     noWrap?: boolean;
     truncated?: boolean;
     padding?: TableCellProps['padding'] | 'action';
+    thSortable?: boolean;
 }
 
 export const MuiCustomTableCell = React.forwardRef<unknown, MuiCustomTableCellProps>(
@@ -19,6 +20,7 @@ export const MuiCustomTableCell = React.forwardRef<unknown, MuiCustomTableCellPr
             style: styleProp,
             className: classNameProp,
             padding,
+            thSortable,
             ...other
         } = props;
 
@@ -29,7 +31,8 @@ export const MuiCustomTableCell = React.forwardRef<unknown, MuiCustomTableCellPr
 
         const className = clsx(classNameProp, {
             'MuiTableCell-paddingAction': padding === 'action',
-            'MuiTableCell-paddingCheckbox': padding === 'checkbox'
+            'MuiTableCell-paddingCheckbox': padding === 'checkbox',
+            'MuiTableCell-sortable': thSortable
         });
 
         const children: React.ReactNode = truncated ? (

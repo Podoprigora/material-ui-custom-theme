@@ -22,12 +22,25 @@
 
 .MuiTableHead {
     &-root {
-        .MuiTableCell-root {
-            background-color: $table-header-bg-color;
-            color: $table-header-color;
-            font-size: $table-header-font-size;
-            font-weight: $table-header-font-weight;
-            border-bottom: $table-header-border-bottom;
+        .MuiTableCell {
+            &-root {
+                background-color: $table-header-bg-color;
+                color: $table-header-color;
+                font-size: $table-header-font-size;
+                font-weight: $table-header-font-weight;
+                border-bottom: $table-header-border-bottom;
+            }
+
+            &-sortable {
+                cursor: pointer;
+                transition: all 0.15s;
+
+                &:hover {
+                    color: $table-header-hover-text-color;
+                    background-color: $table-header-hover-bg-color;
+                    opacity: 1;
+                }
+            }
         }
     }
 }
@@ -149,6 +162,37 @@
         }
 
         padding: 0;
+    }
+}
+
+.MuiTableSortLabel {
+    $this: &;
+
+    &-root {
+        color: inherit;
+
+        &:hover {
+            color: inherit;
+        }
+
+        &.Mui-active {
+            color: $table-header-active-text-color;
+
+            & #{$this}-icon {
+                color: inherit;
+            }
+        }
+    }
+
+    &-icon {
+        color: inherit;
+        font-size: $table-header-icon-font-size;
+        margin: 0 $table-header-icon-margin-x;
+        transition: none;
+
+        &:hover {
+            color: inherit;
+        }
     }
 }
 

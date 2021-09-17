@@ -50,7 +50,6 @@ import { MuiCustomTable, MuiCustomTableCell, MuiCustomTableContainer } from '@mu
 import { Edit2Svg, MoreVerticalSvg, Trash2Svg } from '../../assets/svg-icons/feather';
 import { useMountedRef } from '@mui-custom/utils';
 import { RandomUser, fetchRandomUsers } from '../services/RandomUsersService';
-import clsx from 'clsx';
 import {
     getMuiCustomReactTableCheckboxCell,
     getMuiCustomReactTableExpanderCell,
@@ -412,6 +411,7 @@ export const Orders: Story = () => {
             <MuiCustomReactTable
                 columns={columns}
                 data={ordersRow}
+                enableSort
                 enableRowExpand
                 enableRowSelect
                 stickyHeader
