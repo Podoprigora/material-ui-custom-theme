@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as yup from 'yup';
 
-export interface RandomUser {
+export type RandomUser = {
     id?: {
         name?: string;
         value?: string | null;
@@ -23,7 +23,7 @@ export interface RandomUser {
         city?: string;
         country?: string;
     };
-}
+};
 
 export const randomUserSchema: yup.SchemaOf<RandomUser> = yup.object({
     id: yup.object({

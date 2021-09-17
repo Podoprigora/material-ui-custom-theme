@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { TableCell, TableCellProps } from '@material-ui/core';
 
-type ExtendedProps = Omit<TableCellProps, 'padding'>;
+type ExtendedProps = Omit<TableCellProps, 'padding' | 'width'>;
 
 export interface MuiCustomTableCellProps extends ExtendedProps {
     noWrap?: boolean;

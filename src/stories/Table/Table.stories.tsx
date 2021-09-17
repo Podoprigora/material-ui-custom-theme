@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import _upperFirst from 'lodash/upperFirst';
 import formatDate from 'date-fns/format';
-import { Column } from 'react-table';
+import { CellProps, Column, SortByFn } from 'react-table';
 
 import {
     Avatar,
@@ -430,7 +430,20 @@ export const Clients: Story = () => {
     const [items, setItems] = useState<RandomUser[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [empty, setEmpty] = useState(false);
     const isMountedRef = useMountedRef();
+
+    const handleLoadingSwitchChange = useEventCallback(
+        (ev: React.SyntheticEvent, checked: boolean) => {
+            setLoading(checked);
+        }
+    );
+
+    const handleEmptySwitchChange = useEventCallback(
+        (ev: React.SyntheticEvent, checked: boolean) => {
+            setEmpty(checked);
+        }
+    );
 
     const fetchUsers = useCallback(async () => {
         try {
@@ -453,6 +466,113 @@ export const Clients: Story = () => {
         fetchUsers();
     }, [fetchUsers]);
 
+    const columns = useMemo<Column<RandomUser>[]>(() => {
+        return [
+            {
+                accessor: 'picture',
+                disableSortBy: true,
+                MuiCellProps: {
+                    sx: { width: '5.2rem' }
+                },
+                Cell: (cellProps) => {
+                    const { value, row } = cellProps;
+                    const { name } = row.original;
+
+                    return (
+                        <Avatar
+                            variant="circular"
+                            style={{ width: '5.2rem', height: '5.2rem' }}
+                            src={value?.large}
+                            imgProps={{ loading: 'lazy', width: '5.2rem' }}
+                            className="MuiAvatar-colorPrimary"
+                        >
+                            {String(name?.first).charAt(0)}
+                        </Avatar>
+                    );
+                }
+            },
+            {
+                accessor: 'name',
+                MuiCellProps: {
+                    sx: { width: '20rem' }
+                },
+                Header: 'Name',
+                Cell: (cellProps) => {
+                    const { value } = cellProps;
+
+                    const handleLinkClick = (ev: React.MouseEvent) => {
+                        ev.preventDefault();
+                    };
+
+                    return (
+                        <Link href="#" underline="always" onClick={handleLinkClick}>
+                            {value?.first} {value?.last}
+                        </Link>
+                    );
+                }
+            },
+            {
+                accessor: 'location',
+                disableSortBy: true,
+                Header: 'Address',
+                Cell: (cellProps) => {
+                    const { value } = cellProps;
+
+                    return (
+                        value?.country && (
+                            <List disablePadding>
+                                <ListItem disablePadding disableGutters>
+                                    <ListItemIcon sx={{ alignSelf: 'flex-start' }}>
+                                        <BusinessRounded />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        {value?.country && `${value?.country}, `}
+                                        {value?.city && `${value?.city}`}
+                                    </ListItemText>
+                                </ListItem>
+                                <ListItem disablePadding disableGutters>
+                                    <ListItemText inset>
+                                        {value?.street?.number && `${value?.street?.number}, `}
+                                        {value?.street?.name && `${value?.street?.name}`}
+                                    </ListItemText>
+                                </ListItem>
+                            </List>
+                        )
+                    );
+                }
+            },
+            {
+                id: 'contacts',
+                Header: 'Contacts',
+                Cell: (cellProps: CellProps<RandomUser>) => {
+                    const { row } = cellProps;
+                    const { phone, email } = row.original;
+
+                    return (
+                        <List disablePadding>
+                            {phone && (
+                                <ListItem dense disableGutters>
+                                    <ListItemIcon>
+                                        <PhoneIphoneOutlined />
+                                    </ListItemIcon>
+                                    <ListItemText>{phone}</ListItemText>
+                                </ListItem>
+                            )}
+                            {email && (
+                                <ListItem dense disableGutters>
+                                    <ListItemIcon>
+                                        <MailOutlineOutlined />
+                                    </ListItemIcon>
+                                    <ListItemText>{email}</ListItemText>
+                                </ListItem>
+                            )}
+                        </List>
+                    );
+                }
+            }
+        ];
+    }, []);
+
     const shouldDisplayItems = items.length > 0;
 
     if (!shouldDisplayItems) {
@@ -460,87 +580,34 @@ export const Clients: Story = () => {
     }
 
     return (
-        <MuiCustomTableContainer PaperProps={{ maxHeight: '50rem' }}>
-            <MuiCustomTable stickyHeader bordered>
-                <TableHead>
-                    <TableRow>
-                        <TableCell />
-                        <TableCell>Name</TableCell>
-                        <TableCell>Address</TableCell>
-                        <TableCell>Contacts</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {items.map((item, index) => {
-                        const { id, picture, name, email, phone, location } = item;
-                        const rowKey = id?.value || index;
-
-                        return (
-                            <TableRow key={rowKey} hover>
-                                <MuiCustomTableCell>
-                                    <Avatar
-                                        variant="circular"
-                                        style={{ width: '5.2rem', height: '5.2rem' }}
-                                        src={picture?.large}
-                                        imgProps={{ loading: 'lazy', width: '5.2rem' }}
-                                        className="MuiAvatar-colorPrimary"
-                                    >
-                                        {String(name?.first).charAt(0)}
-                                    </Avatar>
-                                </MuiCustomTableCell>
-                                <MuiCustomTableCell>
-                                    <Link href="#" underline="always">
-                                        {name?.first} {name?.last}
-                                    </Link>
-                                </MuiCustomTableCell>
-                                <MuiCustomTableCell>
-                                    {location?.country && (
-                                        <List disablePadding>
-                                            <ListItem disablePadding disableGutters>
-                                                <ListItemIcon sx={{ alignSelf: 'flex-start' }}>
-                                                    <BusinessRounded />
-                                                </ListItemIcon>
-                                                <ListItemText>
-                                                    {location?.country && `${location?.country}, `}
-                                                    {location?.city && `${location?.city}`}
-                                                </ListItemText>
-                                            </ListItem>
-                                            <ListItem disablePadding disableGutters>
-                                                <ListItemText inset>
-                                                    {location?.street?.number &&
-                                                        `${location?.street?.number}, `}
-                                                    {location?.street?.name &&
-                                                        `${location?.street?.name}`}
-                                                </ListItemText>
-                                            </ListItem>
-                                        </List>
-                                    )}
-                                </MuiCustomTableCell>
-                                <MuiCustomTableCell valign="top">
-                                    <List disablePadding>
-                                        {phone && (
-                                            <ListItem dense disableGutters>
-                                                <ListItemIcon>
-                                                    <PhoneIphoneOutlined />
-                                                </ListItemIcon>
-                                                <ListItemText>{phone}</ListItemText>
-                                            </ListItem>
-                                        )}
-                                        {email && (
-                                            <ListItem dense disableGutters>
-                                                <ListItemIcon>
-                                                    <MailOutlineOutlined />
-                                                </ListItemIcon>
-                                                <ListItemText>{email}</ListItemText>
-                                            </ListItem>
-                                        )}
-                                    </List>
-                                </MuiCustomTableCell>
-                            </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </MuiCustomTable>
-        </MuiCustomTableContainer>
+        <>
+            <Stack
+                direction="row"
+                flexWrap="wrap"
+                justifyContent="flex-end"
+                sx={{ paddingTop: 8, paddingBottom: 8 }}
+                gap={8}
+            >
+                <FormControlLabel
+                    control={<Switch size="small" />}
+                    label="Loading"
+                    checked={loading}
+                    onChange={handleLoadingSwitchChange}
+                />
+                <FormControlLabel
+                    control={<Switch size="small" />}
+                    label="Empty"
+                    checked={empty}
+                    onChange={handleEmptySwitchChange}
+                />
+            </Stack>
+            <MuiCustomReactTable
+                data={items}
+                columns={columns}
+                stickyHeader
+                bordered
+                PaperProps={{ maxHeight: '50rem' }}
+            />
+        </>
     );
 };
